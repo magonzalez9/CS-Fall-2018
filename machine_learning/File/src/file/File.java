@@ -15,7 +15,11 @@ public class File {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        FileFrame fFrame = new FileFrame(); 
+        fFrame.setVisible(true);
+        fFrame.setSize(500, 500);
+        
+       
     }
     
 }
