@@ -5,8 +5,14 @@
  */
 package file;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -14,9 +20,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class FileFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FileFrame
-     */
+    String currentFilePath = "";
+
     public FileFrame() {
         initComponents();
     }
@@ -30,24 +35,23 @@ public class FileFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textArea = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 150, 370, 190);
-
-        jButton1.setText("Add");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(390, 160, 75, 29);
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(saveButton);
+        saveButton.setBounds(240, 60, 80, 30);
 
         jButton2.setText("Select File...");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -56,27 +60,82 @@ public class FileFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(10, 100, 110, 29);
+        jButton2.setBounds(10, 60, 120, 30);
+
+        textArea.setColumns(20);
+        textArea.setRows(5);
+        jScrollPane2.setViewportView(textArea);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(10, 100, 310, 140);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("File Program");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(110, -10, 170, 70);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "JPG & GIF Images", "jpg", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(null);
-        
-        
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getName());
-            
-       
-            
+        // FileChooser object definition and StringBuilder creation
+        JFileChooser fileChooser = new JFileChooser();
+        StringBuilder fileContents = new StringBuilder();
+
+        // Prompt user to select file
+        int returnVal = fileChooser.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            textArea.setText("You chose to open this file: "
+                    + fileChooser.getSelectedFile().getName());
         }
+
+        java.io.File file = fileChooser.getSelectedFile();
+        currentFilePath = file.getAbsolutePath();
+
+        try {
+            BufferedReader in;
+            in = new BufferedReader(new FileReader(file));
+            String line = in.readLine();
+            while (line != null) {
+                fileContents.append(line);
+                line = in.readLine();
+
+            }
+
+            textArea.setText(fileContents.toString());
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException ex) {
+
+        }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+
+        String str = textArea.getText();
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(currentFilePath);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        byte[] strToBytes = str.getBytes();
+        try {
+            outputStream.write(strToBytes);
+        } catch (IOException ex) {
+            Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            outputStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,9 +173,10 @@ public class FileFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }

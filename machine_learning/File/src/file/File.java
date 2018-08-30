@@ -17,9 +17,13 @@ public class File {
     public static void main(String[] args) {
         FileFrame fFrame = new FileFrame(); 
         fFrame.setVisible(true);
-        fFrame.setSize(500, 500);
+        fFrame.setSize(400, 300);
         
        
+    }
+
+    File(String usrlocalbingeeks) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
