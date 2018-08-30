@@ -1,1 +1,1 @@
-<?phpecho "Hello world I like chicken";?>
+<?phpecho "Hello world I like chickens";?>

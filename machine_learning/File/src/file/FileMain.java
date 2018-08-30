@@ -9,7 +9,7 @@ package file;
  *
  * @author Marco
  */
-public class File {
+public class FileMain {
 
     /**
      * @param args the command line arguments
@@ -17,13 +17,6 @@ public class File {
     public static void main(String[] args) {
         FileFrame fFrame = new FileFrame(); 
         fFrame.setVisible(true);
-        fFrame.setSize(400, 300);
-        
-       
-    }
-
-    File(String usrlocalbingeeks) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+        fFrame.setSize(400, 300); 
+    }  
 }

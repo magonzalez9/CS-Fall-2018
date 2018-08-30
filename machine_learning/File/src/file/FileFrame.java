@@ -6,6 +6,7 @@
 package file;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -90,7 +91,7 @@ public class FileFrame extends javax.swing.JFrame {
                     + fileChooser.getSelectedFile().getName());
         }
 
-        java.io.File file = fileChooser.getSelectedFile();
+        File file = fileChooser.getSelectedFile();
         currentFilePath = file.getAbsolutePath();
 
         try {
@@ -114,8 +115,9 @@ public class FileFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-
         String str = textArea.getText();
+        File fileToUpdate = new File(currentFilePath); 
+        
         FileOutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(currentFilePath);
