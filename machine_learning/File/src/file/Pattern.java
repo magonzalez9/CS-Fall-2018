@@ -10,5 +10,18 @@ package file;
  * @author Marco Gonzalez
  */
 public class Pattern {
-    
+
+    StringList text = new StringList();
+
+    public void appendString(String str) {
+        text.add(str);
+    }
+
+    public void clear() {
+        text.clear();
+    }
+
+    public String getTextContent() {
+        return text.toString();
+    }
 }

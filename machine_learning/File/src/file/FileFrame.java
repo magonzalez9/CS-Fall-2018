@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -21,6 +23,7 @@ import javax.swing.JFileChooser;
  */
 public class FileFrame extends javax.swing.JFrame {
 
+    PatternList patternList = new PatternList();
     String currentFilePath = "";
 
     public FileFrame() {
@@ -37,14 +40,17 @@ public class FileFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         saveButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        fileButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        directoryButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        saveButton.setBackground(new java.awt.Color(51, 255, 51));
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,33 +58,53 @@ public class FileFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(saveButton);
-        saveButton.setBounds(240, 60, 80, 30);
+        saveButton.setBounds(570, 70, 110, 30);
 
-        jButton2.setText("Select File...");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        fileButton.setText("Select File...");
+        fileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                fileButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(10, 60, 120, 30);
+        getContentPane().add(fileButton);
+        fileButton.setBounds(20, 70, 120, 30);
 
         textArea.setColumns(20);
         textArea.setRows(5);
         jScrollPane2.setViewportView(textArea);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(10, 100, 310, 140);
+        jScrollPane2.setBounds(10, 110, 690, 300);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("File Program");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(110, -10, 170, 70);
+        jLabel1.setBounds(20, -10, 260, 70);
+
+        directoryButton.setText("Select Directory...");
+        directoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                directoryButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(directoryButton);
+        directoryButton.setBounds(160, 70, 160, 30);
+
+        jButton1.setBackground(new java.awt.Color(255, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Clear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(460, 70, 100, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void fileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileButtonActionPerformed
         // FileChooser object definition and StringBuilder creation
         JFileChooser fileChooser = new JFileChooser();
         StringBuilder fileContents = new StringBuilder();
@@ -87,57 +113,115 @@ public class FileFrame extends javax.swing.JFrame {
         int returnVal = fileChooser.showOpenDialog(null);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            textArea.setText("You chose to open this file: "
-                    + fileChooser.getSelectedFile().getName());
-        }
+            File file = fileChooser.getSelectedFile();
+            currentFilePath = file.getAbsolutePath();
 
-        File file = fileChooser.getSelectedFile();
-        currentFilePath = file.getAbsolutePath();
+            try {
+                BufferedReader in;
+                in = new BufferedReader(new FileReader(file));
+                String line = in.readLine();
+                while (line != null) {
+                    fileContents.append(line);
+                    line = in.readLine();
 
-        try {
-            BufferedReader in;
-            in = new BufferedReader(new FileReader(file));
-            String line = in.readLine();
-            while (line != null) {
-                fileContents.append(line);
-                line = in.readLine();
+                }
+
+                textArea.setText(fileContents.toString());
+            } catch (FileNotFoundException ex) {
+
+            } catch (IOException ex) {
 
             }
-
-            textArea.setText(fileContents.toString());
-        } catch (FileNotFoundException ex) {
-
-        } catch (IOException ex) {
-
         }
 
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_fileButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         String str = textArea.getText();
-        File fileToUpdate = new File(currentFilePath); 
-        
-        FileOutputStream outputStream = null;
-        try {
-            outputStream = new FileOutputStream(currentFilePath);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        byte[] strToBytes = str.getBytes();
-        try {
-            outputStream.write(strToBytes);
-        } catch (IOException ex) {
-            Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if (currentFilePath == null || currentFilePath == "") {
+            textArea.setText("PLEASE SELECT A FILE!");
+        } else {
+            File fileToUpdate = new File(currentFilePath);
 
-        try {
-            outputStream.close();
-        } catch (IOException ex) {
-            Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
+            FileOutputStream outputStream = null;
+            try {
+                outputStream = new FileOutputStream(currentFilePath);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            byte[] strToBytes = str.getBytes();
+            try {
+                outputStream.write(strToBytes);
+            } catch (IOException ex) {
+                Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                outputStream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FileFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void directoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_directoryButtonActionPerformed
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Title");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        File f = null;
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            f = chooser.getSelectedFile();
+        } else {
+            textArea.setText("NO FILE SELECTED!");
+        }
+
+        if (f != null) {
+            ArrayList<String> filesInDirectory = new ArrayList<>(Arrays.asList(f.list()));
+            String filePath = "";
+            for (int i = 0; i < filesInDirectory.size(); i++) {
+                Pattern pattern = new Pattern();
+                filePath = f.getAbsolutePath() + "\\" + filesInDirectory.get(i);
+
+                // for each filePath, get contents and add them to a pattern which will then be added to the patternlist
+                File tempFile = new File(filePath);
+                try {
+                    BufferedReader in;
+                    in = new BufferedReader(new FileReader(tempFile));
+                    String line = in.readLine();
+                    while (line != null) {
+                        pattern.appendString(line);
+                        line = in.readLine();
+                    }
+                    patternList.add(pattern);
+
+                } catch (FileNotFoundException ex) {
+                    textArea.setText("File NOT found!");
+                } catch (IOException ex) {
+
+                }
+            }// End of for each file in directory
+            StringBuilder finalOutput = new StringBuilder();
+            for (int i = 0; i < patternList.size(); i++) {
+                finalOutput.append(filePath = f.getAbsolutePath() + "\\" + filesInDirectory.get(i) + "\n\t" + patternList.get(i).getTextContent() + "\n");
+            }
+
+            textArea.setText(finalOutput.toString());
+            patternList.clear();
+        }
+
+    }//GEN-LAST:event_directoryButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        patternList.clear();
+        currentFilePath = "";
+        textArea.setText("");
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,16 +237,24 @@ public class FileFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FileFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FileFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FileFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FileFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FileFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FileFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FileFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FileFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -175,7 +267,9 @@ public class FileFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton directoryButton;
+    private javax.swing.JButton fileButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton saveButton;

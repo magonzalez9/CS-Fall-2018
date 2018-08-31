@@ -17,6 +17,6 @@ public class FileMain {
     public static void main(String[] args) {
         FileFrame fFrame = new FileFrame(); 
         fFrame.setVisible(true);
-        fFrame.setSize(400, 300); 
+        fFrame.setSize(725, 500); 
     }  
 }
