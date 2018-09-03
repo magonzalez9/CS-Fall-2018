@@ -3,27 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package file;
+package perceptronmain;
 
 /**
  *
- * @author Marco Gonzalez
+ * @author Marco
  */
 public class Pattern {
 
-    StringList text = new StringList();
-    /* (Create a new stringlist on default constructor)
-       From there create */
-    
+    StringList list;
+    String pathname;  // pathname this file, for use in the header
+
+    Pattern() {
+        list = new StringList();
+    }
+
     public void appendString(String str) {
-        text.add(str);
+        list.add(str);
     }
 
     public void clear() {
-        text.clear();
+        list.clear();
     }
 
     public String getTextContent() {
-        return text.toString();
+        return list.toString();
     }
 }

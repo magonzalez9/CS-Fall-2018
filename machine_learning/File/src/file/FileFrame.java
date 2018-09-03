@@ -39,6 +39,7 @@ public class FileFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         fileButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -46,6 +47,8 @@ public class FileFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         directoryButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+
+        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -91,7 +94,6 @@ public class FileFrame extends javax.swing.JFrame {
         directoryButton.setBounds(160, 70, 160, 30);
 
         jButton1.setBackground(new java.awt.Color(255, 51, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Clear");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +187,7 @@ public class FileFrame extends javax.swing.JFrame {
             String filePath = "";
             for (int i = 0; i < filesInDirectory.size(); i++) {
                 Pattern pattern = new Pattern();
-                filePath = f.getAbsolutePath() + "\\" + filesInDirectory.get(i);
+                filePath = f.getAbsolutePath() + "//" + filesInDirectory.get(i); // '\\' for PC
 
                 // for each filePath, get contents and add them to a pattern which will then be added to the patternlist
                 File tempFile = new File(filePath);
@@ -270,6 +272,7 @@ public class FileFrame extends javax.swing.JFrame {
     private javax.swing.JButton directoryButton;
     private javax.swing.JButton fileButton;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton saveButton;
