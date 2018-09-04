@@ -10,5 +10,15 @@ package perceptronmain;
  * @author Marco
  */
 public class PatternList extends java.util.ArrayList<Pattern> {
-    
+
+    @Override
+    public String toString() {
+        String returnMe = "PatternList{";
+
+        for (Pattern nextPattern : this) {
+            returnMe += "\n\t" + nextPattern.toString();
+        }
+
+        return returnMe;
+    }
 }

@@ -19,33 +19,22 @@ import javax.swing.JFileChooser;
  */
 public class FileManager {
 
-    public void openFile(String dir) {
-        // FileChooser object definition and StringBuilder creation
-        JFileChooser fileChooser = new JFileChooser();
-        StringBuilder fileContents = new StringBuilder();
+    public File selectFile() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Perceptron");
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
-        // Prompt user to select file
-        int returnVal = fileChooser.showOpenDialog(null);
-
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            dir = file.getAbsolutePath();
-
-            try {
-                BufferedReader in;
-                in = new BufferedReader(new FileReader(file));
-                String line = in.readLine();
-                while (line != null) {
-                    fileContents.append(line);
-                    line = in.readLine();
-
-                }
-            } catch (FileNotFoundException ex) {
-
-            } catch (IOException ex) {
-
-            }
+        File file = null;
+        if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
+            file = chooser.getSelectedFile();
         }
+
+        return file;
+    }
+
+    public BufferedReader getFileContent(File file) throws FileNotFoundException {
+        return new BufferedReader(new FileReader(file));
     }
 
     public void updateFile(String filePath, String updateString) {

@@ -5,6 +5,9 @@
  */
 package perceptronmain;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author Marco
@@ -14,8 +17,17 @@ public class PerceptronMain {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        System.out.println("Hello World");
+    public static void main(String[] args) throws IOException {
+        
+        PFrame frame = new PFrame(); 
+        
+//        FileManager m = new FileManager(); 
+//        File f = m.selectFile(); 
+//        Pattern ha = new Pattern(f); 
+//        
+//        System.out.println(ha.pathname);
+//        System.out.println(ha.toString());
+    
     }
     
 }
