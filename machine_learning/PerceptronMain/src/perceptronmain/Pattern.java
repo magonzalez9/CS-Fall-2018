@@ -18,6 +18,8 @@ public class Pattern {
 
     StringList list;
     String pathname;  // pathname this file, for use in the header
+    String detector;
+            
 
     Pattern() {
         list = new StringList();

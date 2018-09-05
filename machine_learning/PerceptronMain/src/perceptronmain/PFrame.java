@@ -9,8 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -21,6 +20,8 @@ public class PFrame extends javax.swing.JFrame {
     /**
      * Creates new form PFrame
      */
+     PatternList pList = new PatternList();
+     int i = 0;
     public PFrame() {
         initComponents();
         setVisible(true);
@@ -41,6 +42,10 @@ public class PFrame extends javax.swing.JFrame {
         selectButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
+        theta = new javax.swing.JTextField();
+        ata = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -59,16 +64,45 @@ public class PFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(selectButton);
-        selectButton.setBounds(10, 80, 130, 40);
+        selectButton.setBounds(10, 80, 120, 40);
 
         jLabel1.setFont(new java.awt.Font("Unispace", 1, 48)); // NOI18N
         jLabel1.setText("Perceptron");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 0, 370, 80);
+        jLabel1.setBounds(10, 0, 330, 80);
 
-        saveButton.setText("Save");
+        saveButton.setText("Next");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(saveButton);
-        saveButton.setBounds(160, 80, 120, 40);
+        saveButton.setBounds(130, 90, 100, 30);
+
+        theta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thetaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(theta);
+        theta.setBounds(390, 86, 50, 30);
+
+        ata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ataActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ata);
+        ata.setBounds(320, 86, 50, 30);
+
+        jLabel2.setText("θ");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(440, 80, 10, 40);
+
+        jLabel3.setText("η");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(370, 90, 45, 16);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -86,7 +120,6 @@ public class PFrame extends javax.swing.JFrame {
                 textArea.setText("FILE NOT FOUND!");
             }
         } else if (f.isDirectory()) {
-            PatternList pList = new PatternList();
             ArrayList<File> filesInDirectory = new ArrayList<>(Arrays.asList(f.listFiles()));
 
             for (int i = 0; i < filesInDirectory.size(); i++) {
@@ -101,6 +134,25 @@ public class PFrame extends javax.swing.JFrame {
             textArea.setText(pList.toString());
         } // End of if else (is file or dir)
     }//GEN-LAST:event_selectButtonActionPerformed
+
+    private void ataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ataActionPerformed
+
+    private void thetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_thetaActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        if (pList.size() != 0) {
+            textArea.setText("");
+            textArea.setText(pList.get(i).toString());
+            i++;
+        } else {
+            textArea.setText("NO");
+        }
+        
+    }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,10 +190,14 @@ public class PFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ata;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton selectButton;
     private javax.swing.JTextArea textArea;
+    private javax.swing.JTextField theta;
     // End of variables declaration//GEN-END:variables
 }
