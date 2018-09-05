@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 /**
  *
  * @author Marco Gonzalez
@@ -20,8 +19,9 @@ public class PFrame extends javax.swing.JFrame {
     /**
      * Creates new form PFrame
      */
-     PatternList pList = new PatternList();
-     int i = 0;
+    PatternList pList = new PatternList();
+    int i = 0; // For testing
+
     public PFrame() {
         initComponents();
         setVisible(true);
@@ -64,7 +64,7 @@ public class PFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(selectButton);
-        selectButton.setBounds(10, 80, 120, 40);
+        selectButton.setBounds(10, 90, 120, 30);
 
         jLabel1.setFont(new java.awt.Font("Unispace", 1, 48)); // NOI18N
         jLabel1.setText("Perceptron");
@@ -78,7 +78,7 @@ public class PFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(saveButton);
-        saveButton.setBounds(130, 90, 100, 30);
+        saveButton.setBounds(140, 90, 100, 30);
 
         theta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +86,7 @@ public class PFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(theta);
-        theta.setBounds(390, 86, 50, 30);
+        theta.setBounds(390, 90, 50, 30);
 
         ata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,15 +94,15 @@ public class PFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ata);
-        ata.setBounds(320, 86, 50, 30);
+        ata.setBounds(310, 90, 50, 30);
 
         jLabel2.setText("θ");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(440, 80, 10, 40);
+        jLabel2.setBounds(450, 80, 10, 40);
 
         jLabel3.setText("η");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(370, 90, 45, 16);
+        jLabel3.setBounds(370, 90, 20, 14);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -110,6 +110,7 @@ public class PFrame extends javax.swing.JFrame {
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         FileManager fmObj = new FileManager();
         File f = fmObj.selectFile();
+        pList.clear();
 
         if (f.isFile()) {
             Pattern ha;
@@ -131,7 +132,7 @@ public class PFrame extends javax.swing.JFrame {
                 } // End of try catch
             } // End of foreach file in directory
 
-            textArea.setText(pList.toString());
+            textArea.setText(pList.get(0).toString());
         } // End of if else (is file or dir)
     }//GEN-LAST:event_selectButtonActionPerformed
 
@@ -144,14 +145,13 @@ public class PFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_thetaActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        if (pList.size() != 0) {
-            textArea.setText("");
+        if (!pList.isEmpty()) {
             textArea.setText(pList.get(i).toString());
             i++;
         } else {
             textArea.setText("NO");
         }
-        
+
     }//GEN-LAST:event_saveButtonActionPerformed
 
     /**
