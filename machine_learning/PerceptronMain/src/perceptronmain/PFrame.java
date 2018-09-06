@@ -138,7 +138,8 @@ public class PFrame extends javax.swing.JFrame {
             textArea.setText(iList.get(0).toString());
             
             Ptron p = new Ptron(iList);
-            p.training(); 
+            p.training();
+            
         } // End of if else (is file or dir)
     }//GEN-LAST:event_selectButtonActionPerformed
 

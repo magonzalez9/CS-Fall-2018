@@ -40,7 +40,7 @@ public class Pattern {
                 }
 
                 // Get detector string value
-                String detectorStr = list.get(list.size() - 1);
+                String detectorStr = list.get(20);
                 if (detectorStr.contains("yes")) {
                     t = 1;
                 } else if (detectorStr.contains("no")) {
