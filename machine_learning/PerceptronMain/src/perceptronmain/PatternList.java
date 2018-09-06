@@ -5,11 +5,13 @@
  */
 package perceptronmain;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Marco
  */
-public class PatternList extends java.util.ArrayList<Pattern> {
+public class PatternList extends ArrayList<Pattern> {
 
     @Override
     public String toString() {
