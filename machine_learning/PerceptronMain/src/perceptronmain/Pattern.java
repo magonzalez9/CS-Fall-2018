@@ -18,7 +18,7 @@ public class Pattern {
 
     StringList list;
     String pathname;  // pathname this file, for use in the header
-    int detector;
+    int t;
 
     Pattern() {
         list = new StringList();
@@ -42,18 +42,22 @@ public class Pattern {
                 // Get detector string value
                 String detectorStr = list.get(list.size() - 1);
                 if (detectorStr.contains("yes")) {
-                    detector = 1;
+                    t = 1;
                 } else if (detectorStr.contains("no")) {
-                    detector = 0;
+                    t = 0;
                 }
             } catch (FileNotFoundException ex) {
                 System.out.println("FILE NOT FOUND");
             }
         }// End of if is file
     } // -- End of Pattern constructor
-    
-    public int getDetector(){
-        return detector; 
+
+    public int getT() {
+        return t;
+    }
+
+    public StringList getList() {
+        return list;
     }
 
     @Override

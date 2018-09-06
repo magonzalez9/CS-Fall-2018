@@ -18,13 +18,7 @@ public class PerceptronMain {
     public static void main(String[] args) {
         
         PFrame frame = new PFrame(); 
-        
-//        FileManager m = new FileManager(); 
-//        File f = m.selectFile(); 
-//        Pattern ha = new Pattern(f); 
-//        
-//        System.out.println(ha.pathname);
-//        System.out.println(ha.toString());
+     
     
     }
     

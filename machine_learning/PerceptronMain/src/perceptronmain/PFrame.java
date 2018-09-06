@@ -20,7 +20,8 @@ public class PFrame extends javax.swing.JFrame {
      * Creates new form PFrame
      */
     PatternList pList = new PatternList();
-    int i = 0; // For testing
+    InputList iList = new InputList();
+    int i = 1; // For testing
 
     public PFrame() {
         initComponents();
@@ -111,6 +112,7 @@ public class PFrame extends javax.swing.JFrame {
         FileManager fmObj = new FileManager();
         File f = fmObj.selectFile();
         pList.clear();
+        iList.clear();
 
         if (f.isFile()) {
             Pattern ha;
@@ -126,13 +128,17 @@ public class PFrame extends javax.swing.JFrame {
             for (int i = 0; i < filesInDirectory.size(); i++) {
                 try {
                     Pattern p = new Pattern(filesInDirectory.get(i));
+                    Input in = new Input(p);
+                    iList.add(in);
                     pList.add(p);
                 } catch (IOException ex) {
                     textArea.setText("FILE NOT FOUND!");
                 } // End of try catch
             } // End of foreach file in directory
-
-            textArea.setText(pList.get(0).toString());
+            textArea.setText(iList.get(0).toString());
+            
+            Ptron p = new Ptron(iList);
+            p.training(); 
         } // End of if else (is file or dir)
     }//GEN-LAST:event_selectButtonActionPerformed
 
@@ -145,11 +151,11 @@ public class PFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_thetaActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        if (!pList.isEmpty()) {
-            textArea.setText(pList.get(i).toString());
+        if (!iList.isEmpty()) {
+            textArea.setText(iList.get(i).toString());
             i++;
         } else {
-            textArea.setText("NO");
+            textArea.setText("The list is empty");
         }
 
     }//GEN-LAST:event_saveButtonActionPerformed
