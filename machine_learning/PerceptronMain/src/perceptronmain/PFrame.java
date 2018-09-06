@@ -132,8 +132,11 @@ public class PFrame extends javax.swing.JFrame {
                     iList.add(in);
                     pList.add(p);
                 } catch (IOException ex) {
+                    
                     textArea.setText("FILE NOT FOUND!");
+                    
                 } // End of try catch
+                
             } // End of foreach file in directory
             textArea.setText(iList.get(0).toString());
             

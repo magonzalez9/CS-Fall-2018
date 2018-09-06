@@ -24,7 +24,7 @@ public class Ptron {
                 int[][] trainingPattern = index.getDetectors();
 
                 int DiWi = 0;
-                // Get sum of matrix
+                // Get dot product of Di * Wi
                 for (int i = 0; i < trainingPattern.length; i++) {
                     for (int j = 0; j < trainingPattern[i].length; j++) {
                         DiWi += trainingPattern[i][j] * wtsMatrix[i][j];
