@@ -7,16 +7,27 @@ package perceptronmain;
 public class Ptron {
 
     InputList list;
-    int θ = 10000;
-    int η = 1;
+    StringBuilder output;
+    int θ;
+    int η;
     int[][] wtsMatrix = new int[20][20];
     boolean errors = true;
 
     public Ptron(InputList list) {
         this.list = list;
+        output = new StringBuilder();
+
+        // Default eta and theta values
+        θ = 10000;
+        η = 1;
     }
 
     public void training() {
+        // Helper variables to keep track of results
+        int correct_count = 0;
+        int incorrect_count = 0;
+        int counter = 0;
+        int numOfIterations = 0;
 
         while (errors) {
             errors = false;
@@ -39,7 +50,7 @@ public class Ptron {
                 }
 
                 if (index.getT() != cat) {
-                    System.out.println("Incorrect");
+                    incorrect_count++;
                     errors = true;
                     // Learn: wtsMatrix = (T-O) di η
                     for (int i = 0; i < wtsMatrix.length; i++) {
@@ -49,14 +60,42 @@ public class Ptron {
                     }
 
                 } else {
-                    System.out.println("Correct");
+                    correct_count++;
+                }
+                if (counter == list.size() - 1) {
+                    numOfIterations++;
+
+                    // Append iteration result to list of results
+                    output.append("Correct count: " + correct_count + "\n"
+                            + "Incorrect count: " + incorrect_count + "\n\n");
+
+                    // Reset correct/incorrect count for next round of iteration
+                    counter = 0;
+                    correct_count = 0;
+                    incorrect_count = 0;
+                } else {
+                    counter++;
                 }
             }
 
-        } // while
+        } // end of while loop
 
-        System.out.println("I AM DONE!!!");
+        // Append total number of iterations to String Builder
+        output.append("Total number of iterations: " + numOfIterations);
 
+    } // End of training function
+
+    public void setTheta(int theta) {
+        θ = theta;
+    }
+
+    public void setEta(int eta) {
+        η = eta;
+    }
+
+    @Override
+    public String toString() {
+        return output.toString();
     }
 
 }

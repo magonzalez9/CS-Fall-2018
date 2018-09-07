@@ -26,7 +26,8 @@ public class PFrame extends javax.swing.JFrame {
     public PFrame() {
         initComponents();
         setVisible(true);
-        setSize(510, 600);
+        setSize(340, 555);
+        updateButton.setVisible(false);
     }
 
     /**
@@ -42,11 +43,12 @@ public class PFrame extends javax.swing.JFrame {
         textArea = new javax.swing.JTextArea();
         selectButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        saveButton = new javax.swing.JButton();
-        theta = new javax.swing.JTextField();
-        ata = new javax.swing.JTextField();
+        updateButton = new javax.swing.JButton();
+        thetaField = new javax.swing.JTextField();
+        etaField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        dirLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -56,7 +58,7 @@ public class PFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(textArea);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 130, 470, 420);
+        jScrollPane1.setBounds(10, 170, 280, 310);
 
         selectButton.setText("Select File...");
         selectButton.addActionListener(new java.awt.event.ActionListener() {
@@ -65,45 +67,53 @@ public class PFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(selectButton);
-        selectButton.setBounds(10, 90, 120, 30);
+        selectButton.setBounds(10, 80, 140, 30);
 
         jLabel1.setFont(new java.awt.Font("Unispace", 1, 48)); // NOI18N
         jLabel1.setText("Perceptron");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(10, 0, 330, 80);
 
-        saveButton.setText("Next");
-        saveButton.addActionListener(new java.awt.event.ActionListener() {
+        updateButton.setText("Experiment");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveButtonActionPerformed(evt);
+                updateButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(saveButton);
-        saveButton.setBounds(140, 90, 100, 30);
+        getContentPane().add(updateButton);
+        updateButton.setBounds(160, 80, 100, 30);
 
-        theta.addActionListener(new java.awt.event.ActionListener() {
+        thetaField.setText("10000");
+        thetaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                thetaActionPerformed(evt);
+                thetaFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(theta);
-        theta.setBounds(390, 90, 50, 30);
+        getContentPane().add(thetaField);
+        thetaField.setBounds(150, 120, 100, 30);
 
-        ata.addActionListener(new java.awt.event.ActionListener() {
+        etaField.setText("1");
+        etaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ataActionPerformed(evt);
+                etaFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(ata);
-        ata.setBounds(310, 90, 50, 30);
+        getContentPane().add(etaField);
+        etaField.setBounds(10, 120, 100, 30);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("θ");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(450, 80, 10, 40);
+        jLabel2.setBounds(250, 100, 10, 60);
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("η");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(370, 90, 20, 14);
+        jLabel3.setBounds(110, 110, 20, 40);
+
+        dirLabel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        getContentPane().add(dirLabel);
+        dirLabel.setBounds(10, 480, 280, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -113,6 +123,7 @@ public class PFrame extends javax.swing.JFrame {
         File f = fmObj.selectFile();
         pList.clear();
         iList.clear();
+        updateButton.setVisible(true);
 
         if (f.isFile()) {
             Pattern ha;
@@ -124,7 +135,8 @@ public class PFrame extends javax.swing.JFrame {
             }
         } else if (f.isDirectory()) {
             ArrayList<File> filesInDirectory = new ArrayList<>(Arrays.asList(f.listFiles()));
-
+            dirLabel.setText("Current Directory: " + f.getName());
+            
             for (int i = 0; i < filesInDirectory.size(); i++) {
                 try {
                     Pattern p = new Pattern(filesInDirectory.get(i));
@@ -132,37 +144,55 @@ public class PFrame extends javax.swing.JFrame {
                     iList.add(in);
                     pList.add(p);
                 } catch (IOException ex) {
-                    
+
                     textArea.setText("FILE NOT FOUND!");
-                    
+
                 } // End of try catch
-                
+
             } // End of foreach file in directory
-            textArea.setText(iList.get(0).toString());
-            
+
             Ptron p = new Ptron(iList);
+            if (!thetaField.getText().equals("")) {
+                p.setTheta(Integer.parseInt(thetaField.getText()));
+            }
+
+            if (!etaField.getText().equals("")) {
+                p.setEta(Integer.parseInt(etaField.getText()));
+            }
+
             p.training();
-            
+            textArea.setText(p.toString());
+
         } // End of if else (is file or dir)
     }//GEN-LAST:event_selectButtonActionPerformed
 
-    private void ataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ataActionPerformed
+    private void etaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etaFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ataActionPerformed
+    }//GEN-LAST:event_etaFieldActionPerformed
 
-    private void thetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thetaActionPerformed
+    private void thetaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thetaFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_thetaActionPerformed
+    }//GEN-LAST:event_thetaFieldActionPerformed
 
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         if (!iList.isEmpty()) {
-            textArea.setText(iList.get(i).toString());
-            i++;
+            Ptron p = new Ptron(iList);
+            if (!thetaField.getText().equals("")) {
+                p.setTheta(Integer.parseInt(thetaField.getText()));
+            }
+
+            if (!etaField.getText().equals("")) {
+                p.setEta(Integer.parseInt(etaField.getText()));
+            }
+
+            p.training();
+            textArea.setText(p.toString());
         } else {
-            textArea.setText("The list is empty");
+            textArea.setText("No file selected");
         }
 
-    }//GEN-LAST:event_saveButtonActionPerformed
+
+    }//GEN-LAST:event_updateButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,14 +230,15 @@ public class PFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ata;
+    private javax.swing.JLabel dirLabel;
+    private javax.swing.JTextField etaField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton saveButton;
     private javax.swing.JButton selectButton;
     private javax.swing.JTextArea textArea;
-    private javax.swing.JTextField theta;
+    private javax.swing.JTextField thetaField;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
