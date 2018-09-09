@@ -14,7 +14,6 @@ public class Input {
     // Convert pattern to matrice of numbers. 
     int t;
     int[][] detectors = new int[20][20];
-    final int N = 20;
 
     public Input(Pattern pattern) {
         StringList list = pattern.getList();

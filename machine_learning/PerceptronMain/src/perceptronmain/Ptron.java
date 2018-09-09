@@ -41,6 +41,7 @@ public class Ptron {
                         DiWi += trainingPattern[i][j] * wtsMatrix[i][j];
                     }
                 }
+                // cat categoriztion
                 int cat;
 
                 if ((DiWi > θ)) {

@@ -135,7 +135,7 @@ public class PFrame extends javax.swing.JFrame {
             }
         } else if (f.isDirectory()) {
             ArrayList<File> filesInDirectory = new ArrayList<>(Arrays.asList(f.listFiles()));
-            dirLabel.setText("Current Directory: " + f.getName());
+            dirLabel.setText("Current Directory: " + f.getAbsolutePath());
             
             for (int i = 0; i < filesInDirectory.size(); i++) {
                 try {
