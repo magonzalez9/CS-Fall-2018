@@ -18,13 +18,10 @@ public class HexapawnMain {
         /*Rote learning 
         Rote Learning - save all of the board positions encountered during play, together with their computed scores 
         
-        (1) An effective rote-learning technique must include  a procedure to give the program a sense of direction, and it must contain a refined system for cataloging and storing information
-        (2) 
-        
-        
-        
-        
+        (1) An effective rote-learning technique must include a procedure to give the program a sense of direction, 
+        and it must contain a refined system for cataloging and storing information 
         */ 
+        
     }
     
 }
