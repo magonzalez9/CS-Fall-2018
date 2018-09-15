@@ -31,7 +31,7 @@ public class PawnPanel extends javax.swing.JPanel {
         super.paintComponent(g);
 
         // Draw the car as the user adds them
-        ImageIcon pawn1 = new ImageIcon(new ImageIcon(getClass().getResource("racetrack.png")).getImage());
+        ImageIcon pawn1 = new ImageIcon(new ImageIcon(getClass().getResource("board.png")).getImage());
         g.drawImage(pawn1.getImage(), 0, 0, null);
 
     }
@@ -44,16 +44,7 @@ public class PawnPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setLayout(null);
     }// </editor-fold>//GEN-END:initComponents
 
 

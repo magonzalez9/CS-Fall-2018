@@ -21,6 +21,8 @@ public class HexapawnMain {
          (1) An effective rote-learning technique must include a procedure to give the program a sense of direction, 
          and it must contain a refined system for cataloging and storing information 
          */
+        PawnFrame frame = new PawnFrame();
+        frame.setVisible(true);
 
         Board aBoard = new Board();
         System.out.println("aBoard = " + aBoard);
