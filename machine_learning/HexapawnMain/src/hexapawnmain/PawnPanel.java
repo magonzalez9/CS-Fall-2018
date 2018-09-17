@@ -1,6 +1,5 @@
 package hexapawnmain;
 
-import java.awt.*;
 import javax.swing.ImageIcon;
 import java.awt.Graphics;
 
@@ -11,6 +10,8 @@ import java.awt.Graphics;
 public class PawnPanel extends javax.swing.JPanel {
 
     Graphics g;
+    int x;
+    int y;
 
     public PawnPanel() {
         initComponents();
