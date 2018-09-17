@@ -8,7 +8,7 @@ package hexapawnmain;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import static java.lang.Float.SIZE;
+import static java.lang.Short.SIZE;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Marco
  */
-public class Board implements Cloneable{
+public class Board implements Cloneable {
 
     int pressedRow;
     int pressedCol;
@@ -43,6 +43,7 @@ public class Board implements Cloneable{
     }
 
     // Clone the current object
+    @Override
     public Board clone() {
         Board boardClone = null;
 
@@ -52,11 +53,10 @@ public class Board implements Cloneable{
             Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        boardClone.sqs = new int[N][N];
+        boardClone.sqs = new int[SIZE][SIZE];
+        
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                boardClone.sqs[i][j] = sqs[i][j];
-            }
+            System.arraycopy(sqs[i], 0, boardClone.sqs[i], 0, N);
         }
 
         return boardClone;

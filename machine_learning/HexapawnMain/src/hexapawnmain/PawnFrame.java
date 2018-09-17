@@ -15,7 +15,7 @@ public class PawnFrame extends javax.swing.JFrame {
 
     public PawnFrame() {
         initComponents();
-        this.setBounds(0, 425, 1200, 320);
+        setSize(490, 510);
         pPanel = new PawnPanel();
         add(new PawnPanel());
         setVisible(true);
@@ -31,9 +31,18 @@ public class PawnFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
 
     /**
      * @param args the command line arguments
