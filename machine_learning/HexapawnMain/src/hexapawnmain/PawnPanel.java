@@ -2,6 +2,7 @@ package hexapawnmain;
 
 import javax.swing.ImageIcon;
 import java.awt.Graphics;
+import javax.swing.JLabel;
 
 /**
  *
@@ -12,6 +13,7 @@ public class PawnPanel extends javax.swing.JPanel {
     Graphics g;
     int x;
     int y;
+    JLabel selectedPawn;
 
     public PawnPanel() {
         initComponents();
@@ -67,6 +69,11 @@ public class PawnPanel extends javax.swing.JPanel {
         wPawn3 = new javax.swing.JLabel();
         wPawn4 = new javax.swing.JLabel();
 
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         setLayout(null);
 
         bPawn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/black-pawn.png"))); // NOI18N
@@ -75,11 +82,11 @@ public class PawnPanel extends javax.swing.JPanel {
 
         bPawn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/black-pawn.png"))); // NOI18N
         bPawn2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bPawn2MouseClicked(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 bPawn2MouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bPawn2MouseClicked(evt);
             }
         });
         add(bPawn2);
@@ -111,12 +118,18 @@ public class PawnPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bPawn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn2MouseClicked
-        System.out.println("I was pressed at" + evt.getX() +", "  + evt.getY());
+        selectedPawn = bPawn2;
     }//GEN-LAST:event_bPawn2MouseClicked
 
     private void bPawn2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn2MouseReleased
-         System.out.println("I was pressed at" + evt.getX() +", "  + evt.getY());
+        
     }//GEN-LAST:event_bPawn2MouseReleased
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        if (selectedPawn.) {
+            
+        }
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
