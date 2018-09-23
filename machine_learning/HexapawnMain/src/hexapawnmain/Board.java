@@ -5,10 +5,9 @@
  */
 package hexapawnmain;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
 import static java.lang.Short.SIZE;
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +33,8 @@ public class Board implements Cloneable {
     int whoseTurn;
     private int bottom;
 
+    Hashtable<String, Coords> boardPositions = new Hashtable<>();
+
     Board() {
         sqs = new int[N][N];
         for (int col = 0; col < N; col++) {
@@ -54,7 +55,7 @@ public class Board implements Cloneable {
         }
 
         boardClone.sqs = new int[SIZE][SIZE];
-        
+
         for (int i = 0; i < N; i++) {
             System.arraycopy(sqs[i], 0, boardClone.sqs[i], 0, N);
         }
@@ -76,62 +77,26 @@ public class Board implements Cloneable {
         return returnMe;
     }
 
-    void paint(Graphics g) {
-        setConstants(g);
-        drawBoard(g);
-        drawPieces(g);
-    }
+    public void setBoardPositions() {
+        boardPositions.put("A0", new Coords(23, 4));
+        boardPositions.put("A1", new Coords(175, 4));
+        boardPositions.put("A2", new Coords(327, 4));
+        boardPositions.put("A3", new Coords(479, 4));
 
-    private void drawBoard(Graphics g) {
-        vert(g);
-        horiz(g);
-    }
+        boardPositions.put("B0", new Coords(23, 154));
+        boardPositions.put("B1", new Coords(175, 154));
+        boardPositions.put("B2", new Coords(327, 154));
+        boardPositions.put("B3", new Coords(479, 154));
 
-    private void drawPieces(Graphics g) {
-        for (int row = 0; row < N; row++) {
-            for (int col = 0; col < N; col++) {
-                if (sqs[row][col] != EMPTY) {
-                    drawPiece(g, row, col);
-                }
-            }
-        }
-    }
+        boardPositions.put("C0", new Coords(23, 304));
+        boardPositions.put("C1", new Coords(175, 304));
+        boardPositions.put("C2", new Coords(325, 304));
+        boardPositions.put("C3", new Coords(475, 304));
 
-    private void vert(Graphics g) {
-        for (int i = 0; i < 4; i++) {
-            g.drawLine(left + i * pieceWidth, top, left + i * pieceWidth, bottom);
-        }
-    }
-
-    private void horiz(Graphics g) {
-        for (int i = 0; i < 4; i++) {
-            g.drawLine(left, top + i * pieceWidth, right, top + i * pieceWidth);
-        }
-    }
-
-    private void drawPiece(Graphics g, int row, int col) {
-        if (sqs[row][col] != X) {
-            g.setColor(Color.red);
-        }
-        g.fillOval(left + col * pieceWidth + 1, top + row * pieceWidth + 1, pieceWidth - 2, pieceWidth - 2);
-    }
-
-    void handlePressed(int x, int y) {
-        pressedRow = (y - top) / pieceWidth;
-        pressedCol = (x - left) / pieceWidth;
-        System.out.println("col = " + pressedCol);
-        System.out.println("row = " + pressedRow);
-    }
-
-    private void setConstants(Graphics g) {
-        Rectangle r = g.getClipBounds();
-
-        g.drawRect(r.x + 2, r.y + 2, r.width - 4, r.height - 4);
-        left = 30;
-        right = r.width - 20;
-        top = 15;
-        pieceWidth = (right - left) / N;
-        bottom = top + pieceWidth * N;
+        boardPositions.put("D0", new Coords(23, 454));
+        boardPositions.put("D1", new Coords(175, 454));
+        boardPositions.put("D2", new Coords(325, 454));
+        boardPositions.put("D3", new Coords(475, 454));
     }
 
     void modify() {

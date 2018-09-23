@@ -15,7 +15,7 @@ public class PawnFrame extends javax.swing.JFrame {
 
     public PawnFrame() {
         initComponents();
-        setSize(490, 510);
+        setSize(800, 640);
         pPanel = new PawnPanel();
         add(new PawnPanel());
         setVisible(true);
