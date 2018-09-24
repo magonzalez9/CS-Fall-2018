@@ -6,8 +6,6 @@
 package hexapawnmain;
 
 import static java.lang.Short.SIZE;
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,14 +14,6 @@ import java.util.logging.Logger;
  * @author Marco
  */
 public class Board implements Cloneable {
-
-    int pressedRow;
-    int pressedCol;
-    int left = 30;
-    int right = 300;
-    int top = 50;
-    int pieceWidth = 30;
-
     final int X = 1;
     final int O = -1;
     final int EMPTY = 0;
@@ -31,9 +21,6 @@ public class Board implements Cloneable {
 
     int[][] sqs;
     int whoseTurn;
-    private int bottom;
-
-    Hashtable<String, Coords> boardPositions = new Hashtable<>();
 
     Board() {
         sqs = new int[N][N];
@@ -75,28 +62,6 @@ public class Board implements Cloneable {
         }
 
         return returnMe;
-    }
-
-    public void setBoardPositions() {
-        boardPositions.put("A0", new Coords(23, 4));
-        boardPositions.put("A1", new Coords(175, 4));
-        boardPositions.put("A2", new Coords(327, 4));
-        boardPositions.put("A3", new Coords(479, 4));
-
-        boardPositions.put("B0", new Coords(23, 154));
-        boardPositions.put("B1", new Coords(175, 154));
-        boardPositions.put("B2", new Coords(327, 154));
-        boardPositions.put("B3", new Coords(479, 154));
-
-        boardPositions.put("C0", new Coords(23, 304));
-        boardPositions.put("C1", new Coords(175, 304));
-        boardPositions.put("C2", new Coords(325, 304));
-        boardPositions.put("C3", new Coords(475, 304));
-
-        boardPositions.put("D0", new Coords(23, 454));
-        boardPositions.put("D1", new Coords(175, 454));
-        boardPositions.put("D2", new Coords(325, 454));
-        boardPositions.put("D3", new Coords(475, 454));
     }
 
     void modify() {

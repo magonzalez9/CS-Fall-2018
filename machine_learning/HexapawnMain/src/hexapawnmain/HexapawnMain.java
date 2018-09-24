@@ -31,6 +31,7 @@ public class HexapawnMain {
         bBoard.modify();
         System.out.println("after the modify, bBoard = " + bBoard);  // is it modified?
         System.out.println("...and the original board??" + aBoard);  // is the orignal unmodified??
+       
 
     }
 
