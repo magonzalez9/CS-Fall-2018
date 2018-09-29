@@ -66,7 +66,11 @@ public class PawnPanel extends javax.swing.JPanel {
     void move() {
         if (selectedPawn == null || selectedPawn.equals("")) {
             System.out.println("Please select a pawn and then a board position");
+            selectedPawn = null;
+            selectedSquare = null;
+            selectedPawnLabel = null;
         } else {
+            System.out.println("Selected");
             String pawnKey = boardNav.getPawnPosition(selectedPawn);
 
             boardNav.updatePawnPos(pawnKey, selectedSquare);
@@ -111,17 +115,17 @@ public class PawnPanel extends javax.swing.JPanel {
 
         bPawn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/black-pawn.png"))); // NOI18N
         bPawn1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bPawn1MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                bPawn1MousePressed(evt);
             }
         });
         add(bPawn1);
-        bPawn1.setBounds(650, 0, 120, 150);
+        bPawn1.setBounds(590, -40, 120, 150);
 
         bPawn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/black-pawn.png"))); // NOI18N
         bPawn2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bPawn2MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                bPawn2MousePressed(evt);
             }
         });
         add(bPawn2);
@@ -129,8 +133,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         bPawn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/black-pawn.png"))); // NOI18N
         bPawn3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bPawn3MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                bPawn3MousePressed(evt);
             }
         });
         add(bPawn3);
@@ -138,8 +142,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         bPawn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/black-pawn.png"))); // NOI18N
         bPawn4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bPawn4MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                bPawn4MousePressed(evt);
             }
         });
         add(bPawn4);
@@ -147,8 +151,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         wPawn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-pawn.png"))); // NOI18N
         wPawn1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                wPawn1MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                wPawn1MousePressed(evt);
             }
         });
         add(wPawn1);
@@ -156,8 +160,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         wPawn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-pawn.png"))); // NOI18N
         wPawn2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                wPawn2MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                wPawn2MousePressed(evt);
             }
         });
         add(wPawn2);
@@ -165,8 +169,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         wPawn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-pawn.png"))); // NOI18N
         wPawn3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                wPawn3MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                wPawn3MousePressed(evt);
             }
         });
         add(wPawn3);
@@ -174,8 +178,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         wPawn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-pawn.png"))); // NOI18N
         wPawn4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                wPawn4MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                wPawn4MousePressed(evt);
             }
         });
         add(wPawn4);
@@ -183,8 +187,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         A0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-square.png"))); // NOI18N
         A0.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                A0MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                A0MousePressed(evt);
             }
         });
         add(A0);
@@ -192,8 +196,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         A1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/grey-square.png"))); // NOI18N
         A1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                A1MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                A1MousePressed(evt);
             }
         });
         add(A1);
@@ -201,8 +205,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         A2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-square.png"))); // NOI18N
         A2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                A2MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                A2MousePressed(evt);
             }
         });
         add(A2);
@@ -210,8 +214,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         A3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/grey-square.png"))); // NOI18N
         A3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                A3MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                A3MousePressed(evt);
             }
         });
         add(A3);
@@ -219,8 +223,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         B0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/grey-square.png"))); // NOI18N
         B0.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                B0MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                B0MousePressed(evt);
             }
         });
         add(B0);
@@ -228,8 +232,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         B1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-square.png"))); // NOI18N
         B1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                B1MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                B1MousePressed(evt);
             }
         });
         add(B1);
@@ -237,8 +241,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         B2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/grey-square.png"))); // NOI18N
         B2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                B2MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                B2MousePressed(evt);
             }
         });
         add(B2);
@@ -246,8 +250,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         B3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-square.png"))); // NOI18N
         B3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                B3MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                B3MousePressed(evt);
             }
         });
         add(B3);
@@ -255,8 +259,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         C0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-square.png"))); // NOI18N
         C0.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                C0MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                C0MousePressed(evt);
             }
         });
         add(C0);
@@ -264,8 +268,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         C1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/grey-square.png"))); // NOI18N
         C1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                C1MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                C1MousePressed(evt);
             }
         });
         add(C1);
@@ -273,8 +277,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         C2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-square.png"))); // NOI18N
         C2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                C2MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                C2MousePressed(evt);
             }
         });
         add(C2);
@@ -282,8 +286,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         C3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/grey-square.png"))); // NOI18N
         C3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                C3MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                C3MousePressed(evt);
             }
         });
         add(C3);
@@ -291,8 +295,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         D0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/grey-square.png"))); // NOI18N
         D0.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                D0MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                D0MousePressed(evt);
             }
         });
         add(D0);
@@ -300,8 +304,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         D1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-square.png"))); // NOI18N
         D1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                D1MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                D1MousePressed(evt);
             }
         });
         add(D1);
@@ -309,8 +313,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
         D2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/grey-square.png"))); // NOI18N
         D2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                D2MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                D2MousePressed(evt);
             }
         });
         add(D2);
@@ -318,133 +322,133 @@ public class PawnPanel extends javax.swing.JPanel {
 
         D3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/white-square.png"))); // NOI18N
         D3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                D3MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                D3MousePressed(evt);
             }
         });
         add(D3);
         D3.setBounds(460, 450, 155, 160);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void A0MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A0MouseClicked
-        selectedSquare = "A0";
-        move();
-    }//GEN-LAST:event_A0MouseClicked
-
-    private void A1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A1MouseClicked
-        selectedSquare = "A1";
-        move();
-    }//GEN-LAST:event_A1MouseClicked
-
-    private void A2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A2MouseClicked
-        selectedSquare = "A2";
-        move();
-    }//GEN-LAST:event_A2MouseClicked
-
-    private void A3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A3MouseClicked
-        selectedSquare = "A3";
-        move();
-    }//GEN-LAST:event_A3MouseClicked
-
-    private void B0MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B0MouseClicked
-        selectedSquare = "B0";
-        move();
-    }//GEN-LAST:event_B0MouseClicked
-
-    private void B1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B1MouseClicked
-        selectedSquare = "B1";
-        move();
-    }//GEN-LAST:event_B1MouseClicked
-
-    private void B2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B2MouseClicked
-        selectedSquare = "B2";
-        move();
-    }//GEN-LAST:event_B2MouseClicked
-
-    private void B3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B3MouseClicked
-        selectedSquare = "B3";
-        move();
-    }//GEN-LAST:event_B3MouseClicked
-
-    private void C0MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_C0MouseClicked
-        selectedSquare = "C0";
-        move();
-    }//GEN-LAST:event_C0MouseClicked
-
-    private void C1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_C1MouseClicked
-        selectedSquare = "C1";
-        move();
-    }//GEN-LAST:event_C1MouseClicked
-
-    private void C2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_C2MouseClicked
-        selectedSquare = "C2";
-        move();
-    }//GEN-LAST:event_C2MouseClicked
-
-    private void C3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_C3MouseClicked
-        selectedSquare = "C3";
-        move();
-    }//GEN-LAST:event_C3MouseClicked
-
-    private void D0MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_D0MouseClicked
-        selectedSquare = "D0";
-        move();
-    }//GEN-LAST:event_D0MouseClicked
-
-    private void D1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_D1MouseClicked
-        selectedSquare = "D1";
-        move();
-    }//GEN-LAST:event_D1MouseClicked
-
-    private void D2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_D2MouseClicked
-        selectedSquare = "D2";
-        move();
-    }//GEN-LAST:event_D2MouseClicked
-
-    private void D3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_D3MouseClicked
-        selectedSquare = "D3";
-        move();
-    }//GEN-LAST:event_D3MouseClicked
-
-    private void bPawn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn1MouseClicked
+    private void bPawn1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn1MousePressed
         selectedPawn = "bPawn1";
         selectedPawnLabel = bPawn1;
-    }//GEN-LAST:event_bPawn1MouseClicked
+    }//GEN-LAST:event_bPawn1MousePressed
 
-    private void bPawn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn2MouseClicked
+    private void bPawn2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn2MousePressed
         selectedPawn = "bPawn2";
         selectedPawnLabel = bPawn2;
-    }//GEN-LAST:event_bPawn2MouseClicked
+    }//GEN-LAST:event_bPawn2MousePressed
 
-    private void bPawn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn3MouseClicked
+    private void bPawn3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn3MousePressed
         selectedPawn = "bPawn3";
         selectedPawnLabel = bPawn3;
-    }//GEN-LAST:event_bPawn3MouseClicked
+    }//GEN-LAST:event_bPawn3MousePressed
 
-    private void bPawn4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn4MouseClicked
+    private void bPawn4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn4MousePressed
         selectedPawn = "bPawn4";
         selectedPawnLabel = bPawn4;
-    }//GEN-LAST:event_bPawn4MouseClicked
+    }//GEN-LAST:event_bPawn4MousePressed
 
-    private void wPawn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn1MouseClicked
+    private void wPawn1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn1MousePressed
         selectedPawn = "wPawn1";
         selectedPawnLabel = wPawn1;
-    }//GEN-LAST:event_wPawn1MouseClicked
+    }//GEN-LAST:event_wPawn1MousePressed
 
-    private void wPawn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn2MouseClicked
+    private void wPawn2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn2MousePressed
         selectedPawn = "wPawn2";
         selectedPawnLabel = wPawn2;
-    }//GEN-LAST:event_wPawn2MouseClicked
+    }//GEN-LAST:event_wPawn2MousePressed
 
-    private void wPawn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn3MouseClicked
+    private void wPawn3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn3MousePressed
         selectedPawn = "wPawn3";
         selectedPawnLabel = wPawn3;
-    }//GEN-LAST:event_wPawn3MouseClicked
+    }//GEN-LAST:event_wPawn3MousePressed
 
-    private void wPawn4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn4MouseClicked
+    private void wPawn4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn4MousePressed
         selectedPawn = "wPawn4";
         selectedPawnLabel = wPawn4;
-    }//GEN-LAST:event_wPawn4MouseClicked
+    }//GEN-LAST:event_wPawn4MousePressed
+
+    private void A0MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A0MousePressed
+        selectedSquare = "A0";
+        move();
+    }//GEN-LAST:event_A0MousePressed
+
+    private void A1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A1MousePressed
+        selectedSquare = "A1";
+        move();
+    }//GEN-LAST:event_A1MousePressed
+
+    private void A2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A2MousePressed
+        selectedSquare = "A2";
+        move();
+    }//GEN-LAST:event_A2MousePressed
+
+    private void A3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A3MousePressed
+        selectedSquare = "A2";
+        move();
+    }//GEN-LAST:event_A3MousePressed
+
+    private void B0MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B0MousePressed
+        selectedSquare = "B0";
+        move();
+    }//GEN-LAST:event_B0MousePressed
+
+    private void B1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B1MousePressed
+        selectedSquare = "B1";
+        move();
+    }//GEN-LAST:event_B1MousePressed
+
+    private void B2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B2MousePressed
+        selectedSquare = "B2";
+        move();
+    }//GEN-LAST:event_B2MousePressed
+
+    private void B3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_B3MousePressed
+        selectedSquare = "B3";
+        move();
+    }//GEN-LAST:event_B3MousePressed
+
+    private void C0MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_C0MousePressed
+        selectedSquare = "C0";
+        move();
+    }//GEN-LAST:event_C0MousePressed
+
+    private void C1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_C1MousePressed
+        selectedSquare = "C1";
+        move();
+    }//GEN-LAST:event_C1MousePressed
+
+    private void C2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_C2MousePressed
+        selectedSquare = "C2";
+        move();
+    }//GEN-LAST:event_C2MousePressed
+
+    private void C3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_C3MousePressed
+        selectedSquare = "C3";
+        move();
+    }//GEN-LAST:event_C3MousePressed
+
+    private void D0MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_D0MousePressed
+        selectedSquare = "D0";
+        move();
+    }//GEN-LAST:event_D0MousePressed
+
+    private void D1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_D1MousePressed
+        selectedSquare = "D1";
+        move();
+    }//GEN-LAST:event_D1MousePressed
+
+    private void D2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_D2MousePressed
+        selectedSquare = "D2";
+        move();
+    }//GEN-LAST:event_D2MousePressed
+
+    private void D3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_D3MousePressed
+        selectedSquare = "D3";
+        move();
+    }//GEN-LAST:event_D3MousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
