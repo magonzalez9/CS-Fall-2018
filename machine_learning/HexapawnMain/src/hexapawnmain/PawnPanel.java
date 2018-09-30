@@ -12,6 +12,8 @@ public class PawnPanel extends javax.swing.JPanel {
 
     Graphics g;
     String selectedPawn;
+    String selectedPawnW;
+    String selectedPawnB;
     String selectedSquare;
     JLabel selectedPawnLabel;
     Hashtable<String, JLabel> boardPositions = new Hashtable<>();
@@ -66,16 +68,18 @@ public class PawnPanel extends javax.swing.JPanel {
     void move() {
         if (selectedPawn == null || selectedPawn.equals("")) {
             System.out.println("Please select a pawn and then a board position");
-            selectedPawn = null;
             selectedSquare = null;
             selectedPawnLabel = null;
         } else {
-            System.out.println("Selected");
             String pawnKey = boardNav.getPawnPosition(selectedPawn);
 
-            boardNav.updatePawnPos(pawnKey, selectedSquare);
+            System.out.println("FROM" + pawnKey);
+            System.out.println("To" + selectedSquare);
+
+            boardNav.updatePawnPos(selectedPawn, selectedSquare);
             selectedPawnLabel.setLocation(boardNav.getBoardPosition(selectedSquare).x, boardNav.getBoardPosition(selectedSquare).y);
 
+            
             selectedPawn = null;
             selectedSquare = null;
             selectedPawnLabel = null;

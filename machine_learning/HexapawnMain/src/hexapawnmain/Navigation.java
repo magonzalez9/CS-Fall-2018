@@ -56,7 +56,9 @@ public class Navigation {
     }
 
     public void updatePawnPos(String pawn, String boardKey) {
-        pawnPositions.put(pawn, boardKey);
+        //pawnPositions.put(pawn, boardKey);
+        pawnPositions.replace(pawn, boardKey);
+        
     }
 
     // Function getPawnPosition

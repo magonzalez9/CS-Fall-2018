@@ -68,4 +68,13 @@ public class Board implements Cloneable {
         sqs[1][1] = X;
         sqs[0][1] = EMPTY;
     }
+    
+    public void validateMove(int[][] sqsMove){
+        Coords from;
+        Coords to; 
+        
+        
+        
+        
+    }
 }
