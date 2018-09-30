@@ -67,19 +67,25 @@ public class PawnPanel extends javax.swing.JPanel {
 
     void move() {
         if (selectedPawn == null || selectedPawn.equals("")) {
-            System.out.println("Please select a pawn and then a board position");
+            System.out.println("Please select a pawn and then a board position!");
+            selectedPawn = null;
             selectedSquare = null;
             selectedPawnLabel = null;
         } else {
             String pawnKey = boardNav.getPawnPosition(selectedPawn);
+            // Set from and to array coordinates
+            int fromRow = (int) pawnKey.charAt(0) - 65;
+            int fromCol = Integer.parseInt(Character.toString(pawnKey.charAt(1)));
 
-            System.out.println("FROM" + pawnKey);
-            System.out.println("To" + selectedSquare);
+            int toRow = (int) selectedSquare.charAt(0) - 65;
+            int toCol = Integer.parseInt(Character.toString(selectedSquare.charAt(1)));
+
+            System.out.println("FROM [" + fromRow + ", " + fromCol + "]");
+            System.out.println("TO [" + toRow + ", " + toCol + "]");
 
             boardNav.updatePawnPos(selectedPawn, selectedSquare);
             selectedPawnLabel.setLocation(boardNav.getBoardPosition(selectedSquare).x, boardNav.getBoardPosition(selectedSquare).y);
 
-            
             selectedPawn = null;
             selectedSquare = null;
             selectedPawnLabel = null;
