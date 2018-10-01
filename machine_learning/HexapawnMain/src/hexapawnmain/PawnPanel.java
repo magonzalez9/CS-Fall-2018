@@ -16,8 +16,10 @@ public class PawnPanel extends javax.swing.JPanel {
     String selectedPawnB;
     String selectedSquare;
     JLabel selectedPawnLabel;
-    Hashtable<String, JLabel> boardPositions = new Hashtable<>();
 
+    Board theBoard = new Board();
+
+    // Board navigation object declaration
     Navigation boardNav = new Navigation();
 
     public PawnPanel() {
@@ -71,6 +73,7 @@ public class PawnPanel extends javax.swing.JPanel {
             selectedPawn = null;
             selectedSquare = null;
             selectedPawnLabel = null;
+
         } else {
             String pawnKey = boardNav.getPawnPosition(selectedPawn);
             // Set from and to array coordinates
@@ -80,16 +83,36 @@ public class PawnPanel extends javax.swing.JPanel {
             int toRow = (int) selectedSquare.charAt(0) - 65;
             int toCol = Integer.parseInt(Character.toString(selectedSquare.charAt(1)));
 
-            System.out.println("FROM [" + fromRow + ", " + fromCol + "]");
-            System.out.println("TO [" + toRow + ", " + toCol + "]");
+            if (theBoard.validateMove(fromRow, fromCol, toRow, toCol) == true) {
+                boardNav.updatePawnPos(selectedPawn, selectedSquare);
+                selectedPawnLabel.setLocation(boardNav.getBoardPosition(selectedSquare).x, boardNav.getBoardPosition(selectedSquare).y);
 
-            boardNav.updatePawnPos(selectedPawn, selectedSquare);
-            selectedPawnLabel.setLocation(boardNav.getBoardPosition(selectedSquare).x, boardNav.getBoardPosition(selectedSquare).y);
-
-            selectedPawn = null;
-            selectedSquare = null;
-            selectedPawnLabel = null;
+                selectedPawn = null;
+                selectedSquare = null;
+                selectedPawnLabel = null;
+            } else {
+                System.out.println("Not your turn or invalid move");
+            }
         }
+    }
+
+    void take() {
+        // The move is a take so handle it
+//        String BpawnKey = boardNav.getPawnPosition(selectedPawnB);
+//        String WpawnKey = boardNav.getPawnPosition(selectedPawnW);
+//
+//        int bRow = (int) BpawnKey.charAt(0) - 65;
+//        int bCol = Integer.parseInt(Character.toString(BpawnKey.charAt(1)));
+//        int wRow = (int) WpawnKey.charAt(0) - 65;
+//        int wCol = Integer.parseInt(Character.toString(WpawnKey.charAt(1)));
+//
+//        if (theBoard.validateTake(bRow, bCol, wRow, wCol) == true) {
+//
+//        } else {
+//            selectedPawnB = null;
+//            selectedPawnW = null;
+//        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -130,7 +153,7 @@ public class PawnPanel extends javax.swing.JPanel {
             }
         });
         add(bPawn1);
-        bPawn1.setBounds(590, -40, 120, 150);
+        bPawn1.setBounds(320, 10, 120, 149);
 
         bPawn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hexapawnmain/black-pawn.png"))); // NOI18N
         bPawn2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -342,42 +365,75 @@ public class PawnPanel extends javax.swing.JPanel {
 
     private void bPawn1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn1MousePressed
         selectedPawn = "bPawn1";
+        selectedPawnB = selectedPawn;
         selectedPawnLabel = bPawn1;
+
+        if (selectedPawnW != null && selectedPawnB != null) {
+            take();
+        }
     }//GEN-LAST:event_bPawn1MousePressed
 
     private void bPawn2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn2MousePressed
         selectedPawn = "bPawn2";
+        selectedPawnB = selectedPawn;
         selectedPawnLabel = bPawn2;
+        if (selectedPawnW != null && selectedPawnB != null) {
+            take();
+        }
     }//GEN-LAST:event_bPawn2MousePressed
 
     private void bPawn3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn3MousePressed
         selectedPawn = "bPawn3";
+        selectedPawnB = selectedPawn;
         selectedPawnLabel = bPawn3;
+        if (selectedPawnW != null && selectedPawnB != null) {
+            take();
+        }
     }//GEN-LAST:event_bPawn3MousePressed
 
     private void bPawn4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bPawn4MousePressed
         selectedPawn = "bPawn4";
+        selectedPawnB = selectedPawn;
         selectedPawnLabel = bPawn4;
+        if (selectedPawnW != null && selectedPawnB != null) {
+            take();
+        }
     }//GEN-LAST:event_bPawn4MousePressed
 
     private void wPawn1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn1MousePressed
         selectedPawn = "wPawn1";
+        selectedPawnW = selectedPawn;
         selectedPawnLabel = wPawn1;
+        if (selectedPawnW != null && selectedPawnB != null) {
+            take();
+        }
     }//GEN-LAST:event_wPawn1MousePressed
 
     private void wPawn2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn2MousePressed
         selectedPawn = "wPawn2";
+        selectedPawnW = selectedPawn;
         selectedPawnLabel = wPawn2;
+        if (selectedPawnW != null && selectedPawnB != null) {
+            take();
+        }
     }//GEN-LAST:event_wPawn2MousePressed
 
     private void wPawn3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn3MousePressed
         selectedPawn = "wPawn3";
+        selectedPawnW = selectedPawn;
         selectedPawnLabel = wPawn3;
+        if (selectedPawnW != null && selectedPawnB != null) {
+            take();
+        }
     }//GEN-LAST:event_wPawn3MousePressed
 
     private void wPawn4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wPawn4MousePressed
         selectedPawn = "wPawn4";
+        selectedPawnW = selectedPawn;
         selectedPawnLabel = wPawn4;
+        if (selectedPawnW != null && selectedPawnB != null) {
+            take();
+        }
     }//GEN-LAST:event_wPawn4MousePressed
 
     private void A0MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A0MousePressed

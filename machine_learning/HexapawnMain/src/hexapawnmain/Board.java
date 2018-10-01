@@ -14,13 +14,14 @@ import java.util.logging.Logger;
  * @author Marco
  */
 public class Board implements Cloneable {
+
     final int X = 1;
     final int O = -1;
     final int EMPTY = 0;
     final int N = 3;
 
     int[][] sqs;
-    int whoseTurn;
+    int whoseTurn = O;
 
     Board() {
         sqs = new int[N][N];
@@ -50,6 +51,14 @@ public class Board implements Cloneable {
         return boardClone;
     }
 
+    public int getWhoseTurn() {
+        return whoseTurn;
+    }
+
+    public void setWhoseTurn(int whoseTurn) {
+        this.whoseTurn = whoseTurn;
+    }
+
     @Override
     public String toString() {
         String returnMe = "Board\n";
@@ -64,17 +73,45 @@ public class Board implements Cloneable {
         return returnMe;
     }
 
-    void modify() {
-        sqs[1][1] = X;
-        sqs[0][1] = EMPTY;
+    void modify(int fromRow, int fromCol, int toRow, int toCol, int who) {
+        sqs[toRow][toCol] = who;
+        sqs[fromRow][fromCol] = EMPTY;
     }
-    
-    public void validateMove(int[][] sqsMove){
-        Coords from;
-        Coords to; 
-        
-        
-        
-        
+
+    public boolean validateMove(int fromRow, int fromCol, int toRow, int toCol) {
+        boolean flag = false;
+
+        System.out.println("FROM [" + fromRow + ", " + fromCol + "]");
+        System.out.println("TO [" + toRow + ", " + toCol + "]");
+
+        System.out.println("X: " + (fromRow + 1) + " == " + toRow);
+        System.out.println("O: " + (fromRow - 1) + " == " + toRow);
+        if (whoseTurn == X && sqs[fromRow][fromCol] == X) {
+            System.out.println("YES");
+
+            if ((fromRow + 1) == toRow && fromCol == toCol) {
+                flag = true;
+                modify(fromRow, fromCol, toRow, toCol, X);
+                setWhoseTurn(O);
+            }
+        } else if (whoseTurn == O && sqs[fromRow][fromCol] == O) {
+            System.out.println("YES");
+
+            if ((fromRow - 1) == toRow && fromCol == toCol) {
+                flag = true;
+                modify(fromRow, fromCol, toRow, toCol, O);
+                setWhoseTurn(X);
+            }
+        }
+
+        return flag;
+    }
+
+    public boolean validateTake(int bRow, int bCol, int wRow, int wCol) {
+        boolean flag = false;
+        if (getWhoseTurn() == X){
+            
+        }
+        return flag;
     }
 }
