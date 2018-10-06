@@ -19,7 +19,7 @@ public class Fitness {
         System.out.println("Fitness:main");
         System.out.println("...guess I should write some code here...");
         GAFrame h = new GAFrame(); 
-        h.setSize(500, 500);
+        h.setSize(1040, 640);
         h.setVisible(true);
 
     }

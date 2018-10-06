@@ -31,6 +31,14 @@ public class GAFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jSlider1 = new javax.swing.JSlider();
+        jSlider2 = new javax.swing.JSlider();
+        jTextField4 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -42,14 +50,46 @@ public class GAFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(10, 20, 97, 29);
+        jButton1.setBounds(840, 230, 170, 40);
 
         textArea.setColumns(20);
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 60, 390, 310);
+        jScrollPane1.setBounds(10, 280, 1000, 310);
+
+        jLabel1.setText("Mutation Rate");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(20, 160, 100, 20);
+
+        jLabel2.setText("Population Size");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(20, 90, 90, 30);
+
+        jLabel3.setText("Crossover");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(20, 220, 70, 14);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel4.setText("Genetic Algorithm Program");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(10, 10, 550, 50);
+        getContentPane().add(jSlider1);
+        jSlider1.setBounds(10, 120, 200, 26);
+        getContentPane().add(jSlider2);
+        jSlider2.setBounds(10, 180, 200, 26);
+        getContentPane().add(jTextField4);
+        jTextField4.setBounds(20, 240, 100, 30);
+
+        jButton2.setText("RESET");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(660, 230, 170, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -60,6 +100,10 @@ public class GAFrame extends javax.swing.JFrame {
         p.doageneration();
         textArea.setText(p.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,7 +142,15 @@ public class GAFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider jSlider2;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }
