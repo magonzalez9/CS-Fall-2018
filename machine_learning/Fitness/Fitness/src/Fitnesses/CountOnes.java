@@ -1,6 +1,6 @@
 
 package Fitnesses;
-import fitness.Evaluable;
+import fitness.Comparable;
 
 /**
  *
@@ -8,7 +8,7 @@ import fitness.Evaluable;
  */
 public class CountOnes {
 
-    public static int getValue(Evaluable nextInd) {
+    public static int getValue(Comparable nextInd) {
         int count = 0;
 
         for (byte nextByte : nextInd.getDNA()) {

@@ -11,7 +11,7 @@ package fitness;
  */
 public class Util {
 
-    static byte rand(int max) {
-        return (byte) (Math.random() * max);
+    static int rand(int max) {
+        return (int) (Math.random() * max);
     }
 }

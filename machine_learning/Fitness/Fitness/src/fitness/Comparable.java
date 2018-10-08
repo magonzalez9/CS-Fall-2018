@@ -9,11 +9,12 @@ package fitness;
  *
  * @author Marco
  */
-public interface Evaluable {
+public interface Comparable {
     public static final int L=100;  // the length of the chromosome
     
     public byte[] getDNA();
     public int getFitness();
     public void setFitness(int fitness);
-    public Evaluable myClone();
+    public Comparable myClone();
+    public int compareTo(Individual individual);
 }

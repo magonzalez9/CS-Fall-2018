@@ -5,6 +5,8 @@
  */
 package fitness;
 
+import java.util.Collections;
+
 /**
  *
  * @author rachh
@@ -12,32 +14,32 @@ package fitness;
 public class Population extends java.util.ArrayList<Individual> {
 
     int numIndividuals;
-    Individual[] pop;
 
-    Population(int n) {
-        numIndividuals = n;
-        pop = new Individual[n];
-        for (int i = 0; i < n; i++) {
-            //this.add(new Individual());
-            pop[i] = new Individual();
+    Population(int numIndividuals) {
+        this.numIndividuals = numIndividuals;
+        for (int i = 0; i < numIndividuals; i++) {
+            add(new Individual());
         }
+
     }
 
     @Override
     public String toString() {
+      
         String returnMe = "";
-        for (int i = 0; i < pop.length; i++) {
-            returnMe += "\n" + pop[i].toString();
+        for (int i = 0; i < size(); i++) {
+            returnMe += "\n" + get(i).toString();
         }
+
         return returnMe;
     }
 
-    public Individual[] getPopulation() {
-        return pop;
+    public Population getPopulation() {
+        return this;
     }
 
-    public void setPopulation(Individual[] population) {
-        pop = population;
+    public void setPopulation(int numIndividuals) {
+        this.numIndividuals = numIndividuals;
     }
 
     void evaluateFitness() {
@@ -57,6 +59,7 @@ public class Population extends java.util.ArrayList<Individual> {
     }
 
     void doageneration() {
+
         evaluateFitness();
         selectMatingPool();
         applyGeneticOperators();

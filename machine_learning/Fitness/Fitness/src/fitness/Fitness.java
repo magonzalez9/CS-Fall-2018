@@ -5,7 +5,6 @@
  */
 package fitness;
 
-
 /**
  *
  * @author Marco
@@ -16,12 +15,22 @@ public class Fitness {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Fitness:main");
-        System.out.println("...guess I should write some code here...");
-        GAFrame h = new GAFrame(); 
-        h.setSize(1040, 640);
+        // Display the frame
+        GAFrame h = new GAFrame();
+        h.setSize(1200, 640);
         h.setVisible(true);
+        
+        // create individual of all zero's and one's to test for crossover and mutation
 
+//            for (int xx = 0; xx < 10; xx++) {
+//            int b = (int) (Math.random() * 200);
+//            byte i = (byte) b;
+//            System.out.println("int = " + b);
+//            System.out.println((i) + "byte ");
+//
+//            System.out.println((i & 0xFF) + "correct byte");
+//            System.out.println("");
+//        }
     }
 
 }

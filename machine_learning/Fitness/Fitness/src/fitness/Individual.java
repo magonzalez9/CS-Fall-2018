@@ -5,13 +5,11 @@
  */
 package fitness;
 
-import java.awt.Toolkit;
-
 /**
  *
  * @author Marco
  */
-public class Individual implements Evaluable {
+public class Individual implements Comparable {
 
     int fitness;
     byte[] dna;
@@ -23,7 +21,7 @@ public class Individual implements Evaluable {
 
     void init() {
         for (int i = 0; i < L; i++) {
-            dna[i] = Util.rand(2);
+            dna[i] = (byte) (Util.rand(2) & 0xFF);
         }
         fitness = Environment.eval(this);       // so it has a fitness to start off
     }
@@ -75,8 +73,19 @@ public class Individual implements Evaluable {
     }
 
     @Override
-    public Evaluable myClone() {
+    public Comparable myClone() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int compareTo(Individual individual) {
+        if (this.fitness == individual.fitness) {
+            return 0;
+        }
+        if (this.fitness < individual.fitness) {
+            return 1;
+        }
+        return -1;
     }
 
     private String format(byte[] dna) { // make the byte[] into a String
