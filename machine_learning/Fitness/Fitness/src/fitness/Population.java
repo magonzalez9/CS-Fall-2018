@@ -13,37 +13,43 @@ import java.util.Collections;
  */
 public class Population extends java.util.ArrayList<Individual> {
 
+    IndividualList list;
     int numIndividuals;
 
     Population(int numIndividuals) {
+        list = new IndividualList();
         this.numIndividuals = numIndividuals;
         for (int i = 0; i < numIndividuals; i++) {
-            add(new Individual());
+            list.add(new Individual());
         }
 
     }
 
     @Override
     public String toString() {
-      
-        String returnMe = "";
-        for (int i = 0; i < size(); i++) {
-            returnMe += "\n" + get(i).toString();
-        }
-
-        return returnMe;
+        return list.toString();
     }
 
-    public Population getPopulation() {
-        return this;
+    public IndividualList getPopulationList() {
+        return list;
     }
 
     public void setPopulation(int numIndividuals) {
         this.numIndividuals = numIndividuals;
     }
 
-    void evaluateFitness() {
-        System.out.println("evalFitness");
+    public void sortList() {
+        Collections.sort(list);
+    }
+
+    int evaluateFitness() {
+        int avg = 0;
+        for (Individual individual : list) {
+            avg += individual.getFitness();
+        }
+
+        return (avg / numIndividuals);
+
     }
 
     void selectMatingPool() {

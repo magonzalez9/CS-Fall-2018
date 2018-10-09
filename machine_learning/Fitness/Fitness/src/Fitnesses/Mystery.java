@@ -1,13 +1,13 @@
 package Fitnesses;
-import fitness.Comparable;
+import fitness.Evaluable;
 
 public class Mystery {
 
-    public static int getValue(Comparable nextInd) {
+    public static int getValue(Evaluable nextInd) {
         return mystery(nextInd);
     }
 
-    public static int mystery(Comparable nextInd) {
+    public static int mystery(Evaluable nextInd) {
         boolean bits[] = createBits(nextInd.getDNA());
         double x = getFractionX(bits);
         double y = getFractionY(bits);
@@ -47,9 +47,9 @@ public class Mystery {
     }
 
     private static boolean[] createBits(byte[] dna) {
-        boolean[] returnMe = new boolean[Comparable.L];
+        boolean[] returnMe = new boolean[Evaluable.L];
 
-        for (int i = 0; i < Comparable.L; i++) {
+        for (int i = 0; i < Evaluable.L; i++) {
             if (dna[i] == 0) {
                 returnMe[i] = false;
             } else {

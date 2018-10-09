@@ -28,7 +28,7 @@ public class Environment {
         Environment.state = state;
     }
 
-    public static int eval(Comparable it) {
+    public static int eval(Evaluable it) {
         switch (state) {
             case countOnes:
                 return CountOnes.getValue(it);

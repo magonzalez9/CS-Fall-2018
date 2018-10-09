@@ -1,6 +1,6 @@
 package Fitnesses;
 
-import fitness.Comparable;
+import fitness.Evaluable;
 
 public class Fitness4 {
 
@@ -33,7 +33,7 @@ public class Fitness4 {
         return has[0] && has[2] && has[4];
     }
 
-    private static boolean hasGene(Comparable chromo, int whichGene) {
+    private static boolean hasGene(Evaluable chromo, int whichGene) {
         byte[] bits = chromo.getDNA();
         int length = bits.length;
         int distance = length / NUM_GENES;
@@ -48,13 +48,13 @@ public class Fitness4 {
         return true;
     }
 
-    private static void findGenes(Comparable chromo) {
+    private static void findGenes(Evaluable chromo) {
         for (int i = 0; i < NUM_GENES; i++) {
             has[i] = hasGene(chromo, i);
         }
     }
 
-    public static int getValue(Comparable chromo) {
+    public static int getValue(Evaluable chromo) {
         findGenes(chromo);
 
         if (numberGenesItHas() == 1) {

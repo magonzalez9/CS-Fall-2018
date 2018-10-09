@@ -5,8 +5,6 @@
  */
 package fitness;
 
-import java.util.Collections;
-
 /**
  *
  * @author Marco
@@ -16,10 +14,13 @@ public class GAFrame extends javax.swing.JFrame {
     /**
      * Creates new form GAFrame
      */
-    Population p;
+    Population pList;
 
     public GAFrame() {
         initComponents();
+
+        // Population slider defaults
+        populationSlider.setValue(10);
         populationSlider.setMinimum(10);
         populationSlider.setMaximum(10000);
 
@@ -37,10 +38,11 @@ public class GAFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         populationSlider = new javax.swing.JSlider();
-        jTextField4 = new javax.swing.JTextField();
+        muField = new javax.swing.JTextField();
         reset = new javax.swing.JButton();
         populationLabel = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        crossField = new javax.swing.JTextField();
+        popLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -71,16 +73,22 @@ public class GAFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Crossover");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 220, 70, 16);
+        jLabel3.setBounds(20, 220, 70, 14);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel4.setText("Genetic Algorithm Program");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 10, 550, 50);
+
+        populationSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                populationSliderStateChanged(evt);
+            }
+        });
         getContentPane().add(populationSlider);
-        populationSlider.setBounds(10, 120, 190, 29);
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(20, 180, 100, 30);
+        populationSlider.setBounds(10, 120, 200, 26);
+        getContentPane().add(muField);
+        muField.setBounds(20, 180, 100, 30);
 
         reset.setText("RESET");
         reset.addActionListener(new java.awt.event.ActionListener() {
@@ -92,23 +100,31 @@ public class GAFrame extends javax.swing.JFrame {
         reset.setBounds(830, 230, 170, 40);
         getContentPane().add(populationLabel);
         populationLabel.setBounds(200, 130, 0, 0);
-        getContentPane().add(jTextField5);
-        jTextField5.setBounds(20, 240, 100, 30);
+        getContentPane().add(crossField);
+        crossField.setBounds(20, 240, 100, 30);
+        getContentPane().add(popLabel);
+        popLabel.setBounds(210, 120, 90, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runActionPerformed
         // TODO add your handling code here:
-        p = new Population(10);
-        Collections.sort(p);
-        p.doageneration();
-        textArea.setText(p.toString());
+
+        pList = new Population(10);
+        pList.sortList();
+        pList.doageneration();
+
+        textArea.setText(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
     }//GEN-LAST:event_runActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_resetActionPerformed
+
+    private void populationSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_populationSliderStateChanged
+        popLabel.setText("" + populationSlider.getValue());
+    }//GEN-LAST:event_populationSliderStateChanged
 
     /**
      * @param args the command line arguments
@@ -146,13 +162,14 @@ public class GAFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField crossField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField muField;
+    private javax.swing.JLabel popLabel;
     private javax.swing.JLabel populationLabel;
     private javax.swing.JSlider populationSlider;
     private javax.swing.JButton reset;

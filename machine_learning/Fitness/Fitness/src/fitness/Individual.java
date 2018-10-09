@@ -9,7 +9,7 @@ package fitness;
  *
  * @author Marco
  */
-public class Individual implements Comparable {
+public class Individual implements Evaluable, Comparable<Individual> {
 
     int fitness;
     byte[] dna;
@@ -73,7 +73,7 @@ public class Individual implements Comparable {
     }
 
     @Override
-    public Comparable myClone() {
+    public Evaluable myClone() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
