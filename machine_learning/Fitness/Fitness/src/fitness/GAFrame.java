@@ -20,9 +20,9 @@ public class GAFrame extends javax.swing.JFrame {
         initComponents();
 
         // Population slider defaults
-        populationSlider.setValue(10);
-        populationSlider.setMinimum(10);
-        populationSlider.setMaximum(10000);
+        pField.setText("10");
+        muField.setText(".001");
+        crossField.setText("1");
 
     }
 
@@ -37,12 +37,11 @@ public class GAFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        populationSlider = new javax.swing.JSlider();
-        muField = new javax.swing.JTextField();
+        pField = new javax.swing.JTextField();
         reset = new javax.swing.JButton();
         populationLabel = new javax.swing.JLabel();
         crossField = new javax.swing.JTextField();
-        popLabel = new javax.swing.JLabel();
+        muField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -80,15 +79,13 @@ public class GAFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 10, 550, 50);
 
-        populationSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                populationSliderStateChanged(evt);
+        pField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(populationSlider);
-        populationSlider.setBounds(10, 120, 200, 26);
-        getContentPane().add(muField);
-        muField.setBounds(20, 180, 100, 30);
+        getContentPane().add(pField);
+        pField.setBounds(20, 120, 100, 30);
 
         reset.setText("RESET");
         reset.addActionListener(new java.awt.event.ActionListener() {
@@ -102,17 +99,19 @@ public class GAFrame extends javax.swing.JFrame {
         populationLabel.setBounds(200, 130, 0, 0);
         getContentPane().add(crossField);
         crossField.setBounds(20, 240, 100, 30);
-        getContentPane().add(popLabel);
-        popLabel.setBounds(210, 120, 90, 30);
+        getContentPane().add(muField);
+        muField.setBounds(20, 180, 100, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runActionPerformed
         // TODO add your handling code here:
+        int population = Integer.parseInt(pField.getText());
+        int crossover = Integer.parseInt(crossField.getText());
+        double muRate = Double.parseDouble(muField.getText());
 
-        pList = new Population(10);
-        pList.sortList();
+        pList = new Population(population);
         pList.doageneration();
 
         textArea.setText(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
@@ -122,9 +121,9 @@ public class GAFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_resetActionPerformed
 
-    private void populationSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_populationSliderStateChanged
-        popLabel.setText("" + populationSlider.getValue());
-    }//GEN-LAST:event_populationSliderStateChanged
+    private void pFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,9 +168,8 @@ public class GAFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField muField;
-    private javax.swing.JLabel popLabel;
+    private javax.swing.JTextField pField;
     private javax.swing.JLabel populationLabel;
-    private javax.swing.JSlider populationSlider;
     private javax.swing.JButton reset;
     private javax.swing.JButton run;
     private javax.swing.JTextArea textArea;

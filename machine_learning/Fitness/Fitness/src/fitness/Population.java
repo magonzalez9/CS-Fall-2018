@@ -65,7 +65,7 @@ public class Population extends java.util.ArrayList<Individual> {
     }
 
     void doageneration() {
-
+        sortList();
         evaluateFitness();
         selectMatingPool();
         applyGeneticOperators();
