@@ -13,6 +13,7 @@ public class Individual implements Evaluable, Comparable<Individual> {
 
     int fitness;
     byte[] dna;
+    int runningSum; 
 
     public Individual() {
         dna = new byte[L];

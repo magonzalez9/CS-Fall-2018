@@ -5,6 +5,8 @@
  */
 package fitness;
 
+import java.util.Random;
+
 /**
  *
  * @author Marco
@@ -16,12 +18,11 @@ public class Fitness {
      */
     public static void main(String[] args) {
         // Display the frame
-        GAFrame h = new GAFrame();
-        h.setSize(1200, 640);
-        h.setVisible(true);
-        
-        // create individual of all zero's and one's to test for crossover and mutation
+//        GAFrame h = new GAFrame();
+//        h.setSize(1200, 640);
+//        h.setVisible(true);
 
+        // create individual of all zero's and one's to test for crossover and mutation
 //            for (int xx = 0; xx < 10; xx++) {
 //            int b = (int) (Math.random() * 200);
 //            byte i = (byte) b;
@@ -30,6 +31,15 @@ public class Fitness {
 //
 //            System.out.println((i & 0xFF) + "correct byte");
 //            System.out.println("");
+//        }
+        int p = 10;
+        
+
+        // possible useful
+//        Random r = new Random();
+//        for (int i = 0; i < 10; i++) {
+//            int nextInt = Math.abs(r.nextInt() % 10);
+//            System.out.println("next = " + nextInt);
 //        }
     }
 

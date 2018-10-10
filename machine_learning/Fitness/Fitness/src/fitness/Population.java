@@ -53,7 +53,31 @@ public class Population extends java.util.ArrayList<Individual> {
     }
 
     void selectMatingPool() {
-        System.out.println("selectMatingPool");
+//        given a list of individuals; each with variables for fitness and runningSum 
+//	sum=0;
+//	for each individual {
+//		sum += fitness
+//		currentIndividual.runningSum = sum
+//	}
+//
+//	iterate p times (p is the number of individuals in the mating pool) {
+//		r = random number between 0 and sum-1 (inclusive)
+//		start with first individual in the mating pool list
+//		while currentIndividual.runningSum < r
+//			go to next individual
+//		add clone of current individual to mating pool
+//	}
+        int sum = 0;
+        for (Individual i : list) {
+            sum+= i.getFitness(); 
+            i.runningSum = sum; 
+        }
+        
+        for (int i = 0; i < (numIndividuals*.2); i++) {
+            System.out.println("HI");
+        }
+        
+        
     }
 
     void applyGeneticOperators() {
