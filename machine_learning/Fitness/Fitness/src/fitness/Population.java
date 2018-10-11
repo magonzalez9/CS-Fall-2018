@@ -15,6 +15,7 @@ import java.util.Random;
 public class Population extends java.util.ArrayList<Individual> {
 
     IndividualList list;
+    MatingPool mlist;
     int numIndividuals;
     Random r = new Random();
 
@@ -69,6 +70,7 @@ public class Population extends java.util.ArrayList<Individual> {
 //			go to next individual
 //		add clone of current individual to mating pool
 //	}
+        mlist = new MatingPool();
         int sum = 0;
         for (Individual i : list) {
             sum += i.getFitness();
@@ -76,11 +78,20 @@ public class Population extends java.util.ArrayList<Individual> {
         }
 
         for (int i = 0; i < (numIndividuals * .2); i++) {
-            int random = Math.abs(r.nextInt() % sum-1);
-            list.get(0);
+            int random = Math.abs(r.nextInt() % sum - 1);
+            int c = 0;
+            while (list.get(c).runningSum < random) {
+                c++;
+            }
+
+            mlist.add(list.get(c));
 
         }
+        System.out.println(mlist.toString());
+    }
 
+    public String getMatingPool() {
+        return mlist.toString();
     }
 
     void applyGeneticOperators() {

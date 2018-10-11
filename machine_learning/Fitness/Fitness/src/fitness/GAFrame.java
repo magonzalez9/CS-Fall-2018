@@ -114,7 +114,7 @@ public class GAFrame extends javax.swing.JFrame {
         pList = new Population(population);
         pList.doageneration();
 
-        textArea.setText(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
+        textArea.setText(pList.toString() + "\nFitness avg:" + pList.evaluateFitness() + "\n\n Selected: " + pList.getMatingPool());
     }//GEN-LAST:event_runActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
