@@ -18,9 +18,9 @@ public class Fitness {
      */
     public static void main(String[] args) {
         // Display the frame
-//        GAFrame h = new GAFrame();
-//        h.setSize(1200, 640);
-//        h.setVisible(true);
+        GAFrame h = new GAFrame();
+        h.setSize(1200, 640);
+        h.setVisible(true);
 
         // create individual of all zero's and one's to test for crossover and mutation
 //            for (int xx = 0; xx < 10; xx++) {
@@ -41,6 +41,13 @@ public class Fitness {
 //            int nextInt = Math.abs(r.nextInt() % 10);
 //            System.out.println("next = " + nextInt);
 //        }
+
+// possible useful
+        Random r = new Random();
+        for (int i = 0; i < 10; i++) {
+            int nextInt = Math.abs(r.nextInt() % 50);
+            System.out.println("next = " + nextInt);
+        }
     }
 
 }

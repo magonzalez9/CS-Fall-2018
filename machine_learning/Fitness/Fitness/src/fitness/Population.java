@@ -6,6 +6,7 @@
 package fitness;
 
 import java.util.Collections;
+import java.util.Random;
 
 /**
  *
@@ -15,6 +16,7 @@ public class Population extends java.util.ArrayList<Individual> {
 
     IndividualList list;
     int numIndividuals;
+    Random r = new Random();
 
     Population(int numIndividuals) {
         list = new IndividualList();
@@ -69,15 +71,16 @@ public class Population extends java.util.ArrayList<Individual> {
 //	}
         int sum = 0;
         for (Individual i : list) {
-            sum+= i.getFitness(); 
-            i.runningSum = sum; 
+            sum += i.getFitness();
+            i.runningSum = sum;
         }
-        
-        for (int i = 0; i < (numIndividuals*.2); i++) {
-            System.out.println("HI");
+
+        for (int i = 0; i < (numIndividuals * .2); i++) {
+            int random = Math.abs(r.nextInt() % sum-1);
+            list.get(0);
+
         }
-        
-        
+
     }
 
     void applyGeneticOperators() {

@@ -64,13 +64,13 @@ public class Environment {
         return "xxx";  // never!    
     }
 
-    public static void main(String[] args) {    // just checking!
-
-        Environment.setState(Mu.countOnes);
-        System.out.println(Environment.printFitnessFunctionName());
-        Environment.setState(Mu.mystery);
-        System.out.println(Environment.printFitnessFunctionName());
-        Environment.setState(Mu.rr);
-        System.out.println(Environment.printFitnessFunctionName());
-    }
+//    public static void main(String[] args) {    // just checking!
+//
+//        Environment.setState(Mu.countOnes);
+//        System.out.println(Environment.printFitnessFunctionName());
+//        Environment.setState(Mu.mystery);
+//        System.out.println(Environment.printFitnessFunctionName());
+//        Environment.setState(Mu.rr);
+//        System.out.println(Environment.printFitnessFunctionName());
+//    }
 }
