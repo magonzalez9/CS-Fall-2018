@@ -15,13 +15,21 @@ public class MatingPool extends ArrayList<Individual> {
 
     @Override
     public String toString() {
-        String returnMe = "IndividualList";
+        String returnMe = "Mating Pool";
 
         for (Individual nextInd : this) {
             returnMe += "\n\t" + nextInd.toString();
         }
 
         return returnMe;
+    }
+
+    public int flipBit(int i) {
+        if (i == 0) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

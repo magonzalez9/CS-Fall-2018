@@ -18,7 +18,7 @@ public class Environment {
         countOnes, mystery, rr
     };
 
-    public static Mu state = Mu.countOnes;  // default
+    public static Mu state = Mu.countOnes;  // DEFAULT
 
     public static Mu getState() {
         return state;
@@ -41,7 +41,7 @@ public class Environment {
                 System.exit(7);
             }
         }
-        return -1;  // never!
+        return -1;
     }
 
     public static String printFitnessFunctionName() {
@@ -61,16 +61,6 @@ public class Environment {
                 System.exit(7);
             }
         }
-        return "xxx";  // never!    
+        return "xxx";
     }
-
-//    public static void main(String[] args) {    // just checking!
-//
-//        Environment.setState(Mu.countOnes);
-//        System.out.println(Environment.printFitnessFunctionName());
-//        Environment.setState(Mu.mystery);
-//        System.out.println(Environment.printFitnessFunctionName());
-//        Environment.setState(Mu.rr);
-//        System.out.println(Environment.printFitnessFunctionName());
-//    }
 }

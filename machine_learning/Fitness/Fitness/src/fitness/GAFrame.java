@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fitness;
 
 /**
@@ -15,6 +10,7 @@ public class GAFrame extends javax.swing.JFrame {
      * Creates new form GAFrame
      */
     Population pList;
+    boolean doAGen = true;
 
     public GAFrame() {
         initComponents();
@@ -42,18 +38,19 @@ public class GAFrame extends javax.swing.JFrame {
         populationLabel = new javax.swing.JLabel();
         crossField = new javax.swing.JTextField();
         muField = new javax.swing.JTextField();
+        save = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        run.setText("RUN");
+        run.setText("Do a Gen");
         run.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 runActionPerformed(evt);
             }
         });
         getContentPane().add(run);
-        run.setBounds(1010, 230, 170, 40);
+        run.setBounds(890, 230, 290, 40);
 
         textArea.setColumns(20);
         textArea.setRows(5);
@@ -72,7 +69,7 @@ public class GAFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Crossover");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 220, 70, 14);
+        jLabel3.setBounds(20, 220, 70, 16);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel4.setText("Genetic Algorithm Program");
@@ -94,36 +91,66 @@ public class GAFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(reset);
-        reset.setBounds(830, 230, 170, 40);
+        reset.setBounds(890, 180, 140, 40);
         getContentPane().add(populationLabel);
         populationLabel.setBounds(200, 130, 0, 0);
+
+        crossField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crossFieldActionPerformed(evt);
+            }
+        });
         getContentPane().add(crossField);
         crossField.setBounds(20, 240, 100, 30);
+
+        muField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                muFieldActionPerformed(evt);
+            }
+        });
         getContentPane().add(muField);
         muField.setBounds(20, 180, 100, 30);
+
+        save.setText("Save");
+        getContentPane().add(save);
+        save.setBounds(1040, 180, 140, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runActionPerformed
-        // TODO add your handling code here:
+
         int population = Integer.parseInt(pField.getText());
         int crossover = Integer.parseInt(crossField.getText());
-        double muRate = Double.parseDouble(muField.getText());
+        int muRate = (int) (1 / Double.parseDouble(muField.getText()));
+        if (doAGen == true) {
+            pList = new Population(population);
+        }
 
-        pList = new Population(population);
-        pList.doageneration();
+        pList.doageneration(muRate, crossover);
 
-        textArea.setText(pList.toString() + "\nFitness avg:" + pList.evaluateFitness() + "\n\n Selected: " + pList.getMatingPool());
+        textArea.setText(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
+        doAGen = false;
     }//GEN-LAST:event_runActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        // TODO add your handling code here:
+        pList.reset();
+
+        doAGen = true;
+        textArea.setText("");
     }//GEN-LAST:event_resetActionPerformed
 
     private void pFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pFieldActionPerformed
+
+    private void muFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_muFieldActionPerformed
+
+    private void crossFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crossFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crossFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +199,7 @@ public class GAFrame extends javax.swing.JFrame {
     private javax.swing.JLabel populationLabel;
     private javax.swing.JButton reset;
     private javax.swing.JButton run;
+    private javax.swing.JButton save;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }
