@@ -32,6 +32,7 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Individual.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         individualClone.dna = new byte[L];
         for (int i = 0; i < L; i++) {
             individualClone.dna[i] = dna[i];
@@ -44,7 +45,9 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
         for (int i = 0; i < L; i++) {
             dna[i] = (byte) (Util.rand(2) & 0xFF);
         }
-        fitness = Environment.eval(this);   // so it has a fitness to start off
+        fitness = (Environment.eval(this) & 0xFF);   // so it has a fitness to start off
+//        fitness = Environment.eval(this);
+
     }
 
     @Override
@@ -80,7 +83,8 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
 
     public void updateBit(int index, byte value) {
         dna[index] = value;
-        fitness = Environment.eval(this);
+        fitness = (Environment.eval(this) & 0xFF);
+//        fitness = Environment.eval(this);
     }
 
     private String format(byte[] dna) { // make the byte[] into a String

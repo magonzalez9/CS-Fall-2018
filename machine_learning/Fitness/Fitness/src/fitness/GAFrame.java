@@ -19,6 +19,7 @@ public class GAFrame extends javax.swing.JFrame {
         pField.setText("10");
         muField.setText(".001");
         crossField.setText("1");
+        doMore.setEnabled(false);
 
     }
 
@@ -39,6 +40,9 @@ public class GAFrame extends javax.swing.JFrame {
         crossField = new javax.swing.JTextField();
         muField = new javax.swing.JTextField();
         save = new javax.swing.JButton();
+        doMore = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -115,6 +119,27 @@ public class GAFrame extends javax.swing.JFrame {
         getContentPane().add(save);
         save.setBounds(1040, 180, 140, 40);
 
+        doMore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doMoreActionPerformed(evt);
+            }
+        });
+        getContentPane().add(doMore);
+        doMore.setBounds(750, 230, 110, 40);
+
+        jLabel5.setText("Do more Gens");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(760, 210, 90, 20);
+
+        jButton1.setText("Generate report");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(890, 120, 290, 50);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -123,19 +148,33 @@ public class GAFrame extends javax.swing.JFrame {
         int population = Integer.parseInt(pField.getText());
         int crossover = Integer.parseInt(crossField.getText());
         int muRate = (int) (1 / Double.parseDouble(muField.getText()));
+        doMore.setEnabled(true);
+
         if (doAGen == true) {
+            Environment.setState(Environment.Mu.mystery);
             pList = new Population(population);
+
         }
 
-        pList.doageneration(muRate, crossover);
+        if (!doMore.getText().equals("")) {
+            int x = Integer.parseInt(doMore.getText());
+            for (int i = 0; i < x; i++) {
+                pList.doageneration(muRate, crossover);
+            }
+        } else {
+            pList.doageneration(muRate, crossover);
 
+            doAGen = false;
+        }
+
+        // Send output to text area
         textArea.setText(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
-        doAGen = false;
     }//GEN-LAST:event_runActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         pList.reset();
-
+        doMore.setText(null);
+        doMore.setEnabled(false);
         doAGen = true;
         textArea.setText("");
     }//GEN-LAST:event_resetActionPerformed
@@ -151,6 +190,14 @@ public class GAFrame extends javax.swing.JFrame {
     private void crossFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crossFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_crossFieldActionPerformed
+
+    private void doMoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doMoreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_doMoreActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,10 +236,13 @@ public class GAFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField crossField;
+    private javax.swing.JTextField doMore;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField muField;
     private javax.swing.JTextField pField;

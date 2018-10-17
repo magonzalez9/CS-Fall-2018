@@ -42,27 +42,31 @@ public class Ptron {
                     }
                 }
                 // cat categoriztion
-                int cat;
+                int categoriztion;
 
                 if ((DiWi > θ)) {
-                    cat = 1;
+                    categoriztion = 1;
                 } else {
-                    cat = 0;
+                    categoriztion = 0;
                 }
 
-                if (index.getT() != cat) {
+                // Check if correct
+                if (index.getT() != categoriztion) {
+                    // INCORRECT
                     incorrect_count++;
                     errors = true;
                     // Learn: wtsMatrix = (T-O) di η
                     for (int i = 0; i < wtsMatrix.length; i++) {
                         for (int j = 0; j < wtsMatrix[i].length; j++) {
-                            wtsMatrix[i][j] += (index.getT() - cat) * trainingPattern[i][j] * η;
+                            wtsMatrix[i][j] += (index.getT() - categoriztion) * trainingPattern[i][j] * η;
                         }
                     }
 
                 } else {
+                    // CORRECT
                     correct_count++;
                 }
+
                 if (counter == list.size() - 1) {
                     numOfIterations++;
 

@@ -40,7 +40,7 @@ public class FileManager {
     public void updateFile(String filePath, String updateString) {
 
         if (filePath == null || filePath == "") {
-            System.out.println("PLEASE SELECT A FILE!");
+            //System.out.println("PLEASE SELECT A FILE!");
         } else {
             File fileToUpdate = new File(filePath);
 

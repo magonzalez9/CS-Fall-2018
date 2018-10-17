@@ -37,7 +37,7 @@ public class Environment {
             case rr:
                 return Fitness4.getValue(it);
             default: {
-                System.out.println("Oops!");
+                //System.out.println("Oops!");
                 System.exit(7);
             }
         }
@@ -57,7 +57,7 @@ public class Environment {
             case rr:
                 return "rr";
             default: {
-                System.out.println("Oops!");
+                //System.out.println("Oops!");
                 System.exit(7);
             }
         }

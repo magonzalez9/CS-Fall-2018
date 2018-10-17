@@ -13,7 +13,7 @@ public class Mystery {
         double y = getFractionY(bits);
         double a = (x - 0.5) * (x - 0.5);
         double b = (y - 0.5) * (y - 0.5);
-        //System.out.println("x=" + x + " y=" + y + " a=" + a + " b=" +  b);
+        ////System.out.println("x=" + x + " y=" + y + " a=" + a + " b=" +  b);
         double min = 0.000000001;
 
         if (a < min) {

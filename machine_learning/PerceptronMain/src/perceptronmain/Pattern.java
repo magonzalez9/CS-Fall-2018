@@ -47,7 +47,7 @@ public class Pattern {
                     t = 0;
                 }
             } catch (FileNotFoundException ex) {
-                System.out.println("FILE NOT FOUND");
+                //System.out.println("FILE NOT FOUND");
             }
         }// End of if is file
     } // -- End of Pattern constructor

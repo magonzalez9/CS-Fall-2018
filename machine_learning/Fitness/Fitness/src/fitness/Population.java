@@ -71,7 +71,7 @@ public class Population extends java.util.ArrayList<Individual> {
         if (numIndividuals > 2500) {
             selectionRate = .1;
         }
-        
+
         for (int i = 0; i < (numIndividuals * .2); i++) {
             int random = Math.abs(r.nextInt() % sum - 1);
             int c = 0;
@@ -91,31 +91,19 @@ public class Population extends java.util.ArrayList<Individual> {
 
     void applyGeneticOperators(int muRate, int crossPoint) {
         // Apply Mutation
-        System.out.println("Before: " + mlist.toString());
+        //System.out.println("Before: " + mlist.toString());
         for (int i = 0; i < mlist.size(); i++) {
             for (int j = 0; j < mlist.get(i).getDNA().length; j++) {
                 int nextInt = Math.abs(r.nextInt() % (int) muRate);
                 if (nextInt == 1) {
-//                    System.out.print("YES at index" + j + ",");
+//                    //System.out.print("YES at index" + j + ",");
                     mlist.get(i).updateBit(j, (byte) mlist.flipBit((int) mlist.get(i).getDNA()[j]));
                 }
             }
         }
-        System.out.println("\nAFTER: \n " + mlist.toString() + "\n");
+        //System.out.println("\nAFTER: \n " + mlist.toString() + "\n");
 
-        //-- End of Mutation
-        // Apply crossover
-        // Do the actual crossover
-        /*
-         ------ = ---***
-         ****** = ***---
-         Cross over example
-         --|--|--   = --**--
-         **|**|**   = **--**
-        
-         -|-|--|-   = -*--*
-         *|*|**|*   = *-**-
-         */
+        // Now we apply CROSSOVER
         ArrayList<Integer> cPoints = new ArrayList<>();
         // Generate x amount of random numbers 
         for (int i = 0; i < crossPoint; i++) {
@@ -131,9 +119,8 @@ public class Population extends java.util.ArrayList<Individual> {
         Collections.sort(cPoints);
         Collections.reverseOrder();
 
-        System.out.println("cPoints: " + cPoints.toString());
-
-        // Assuming list is even
+        //System.out.println("cPoints: " + cPoints.toString());
+        // Assuming list is even, APPLY cross over !
         boolean cFlag = true;
         childrenList = new IndividualList();
         for (int i = 0; i < mlist.size() - 1; i += 2) {
@@ -161,7 +148,7 @@ public class Population extends java.util.ArrayList<Individual> {
 
         }
 
-        System.out.println("Theses are the children: " + childrenList.toString());
+//        //System.out.println("Theses are the children: " + childrenList.toString());
     }
 
     void replacement() {
@@ -173,8 +160,7 @@ public class Population extends java.util.ArrayList<Individual> {
         }
         Collections.sort(list);
 
-        System.out.println("NEW" + list.toString() + "\n FITNESS:" + evaluateFitness());
-
+        //System.out.println("NEW" + list.toString() + "\n FITNESS:" + evaluateFitness());
     }
 
     void reset() {

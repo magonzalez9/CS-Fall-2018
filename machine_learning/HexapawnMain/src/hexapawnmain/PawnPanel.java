@@ -69,7 +69,7 @@ public class PawnPanel extends javax.swing.JPanel {
 
     void move() {
         if (selectedPawn == null || selectedPawn.equals("")) {
-            System.out.println("Please select a pawn and then a board position!");
+            //System.out.println("Please select a pawn and then a board position!");
             selectedPawn = null;
             selectedSquare = null;
             selectedPawnLabel = null;
@@ -91,7 +91,7 @@ public class PawnPanel extends javax.swing.JPanel {
                 selectedSquare = null;
                 selectedPawnLabel = null;
             } else {
-                System.out.println("Not your turn or invalid move");
+                //System.out.println("Not your turn or invalid move");
             }
         }
     }

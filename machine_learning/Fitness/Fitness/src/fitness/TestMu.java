@@ -14,10 +14,10 @@ public class TestMu {
     public static void main(String[] args) {
         Environment.setState(Environment.Mu.countOnes);
 
-        System.out.println(Environment.printFitnessFunctionName());
+        //System.out.println(Environment.printFitnessFunctionName());
         Environment.setState(Environment.Mu.mystery);
-        System.out.println(Environment.printFitnessFunctionName());
+        //System.out.println(Environment.printFitnessFunctionName());
         Environment.setState(Environment.Mu.rr);
-        System.out.println(Environment.printFitnessFunctionName());
+        //System.out.println(Environment.printFitnessFunctionName());
     }
 }

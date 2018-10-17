@@ -81,13 +81,13 @@ public class Board implements Cloneable {
     public boolean validateMove(int fromRow, int fromCol, int toRow, int toCol) {
         boolean flag = false;
 
-        System.out.println("FROM [" + fromRow + ", " + fromCol + "]");
-        System.out.println("TO [" + toRow + ", " + toCol + "]");
+        //System.out.println("FROM [" + fromRow + ", " + fromCol + "]");
+        //System.out.println("TO [" + toRow + ", " + toCol + "]");
 
-        System.out.println("X: " + (fromRow + 1) + " == " + toRow);
-        System.out.println("O: " + (fromRow - 1) + " == " + toRow);
+        //System.out.println("X: " + (fromRow + 1) + " == " + toRow);
+        //System.out.println("O: " + (fromRow - 1) + " == " + toRow);
         if (whoseTurn == X && sqs[fromRow][fromCol] == X) {
-            System.out.println("YES");
+            //System.out.println("YES");
 
             if ((fromRow + 1) == toRow && fromCol == toCol) {
                 flag = true;
@@ -95,7 +95,7 @@ public class Board implements Cloneable {
                 setWhoseTurn(O);
             }
         } else if (whoseTurn == O && sqs[fromRow][fromCol] == O) {
-            System.out.println("YES");
+            //System.out.println("YES");
 
             if ((fromRow - 1) == toRow && fromCol == toCol) {
                 flag = true;

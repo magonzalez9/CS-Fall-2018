@@ -26,12 +26,12 @@ public class HexapawnMain {
         frame.setVisible(true);
 
 //        Board aBoard = new Board();
-//        System.out.println("aBoard = " + aBoard);
+//        //System.out.println("aBoard = " + aBoard);
 //        Board bBoard = aBoard.clone();                                      // make a copy
-//        System.out.println("after the copy bBoard = " + bBoard);    // see that it worked
+//        //System.out.println("after the copy bBoard = " + bBoard);    // see that it worked
 //        bBoard.modify();
-//        System.out.println("after the modify, bBoard = " + bBoard);  // is it modified?
-//        System.out.println("...and the original board??" + aBoard);  // is the orignal unmodified??
+//        //System.out.println("after the modify, bBoard = " + bBoard);  // is it modified?
+//        //System.out.println("...and the original board??" + aBoard);  // is the orignal unmodified??
 //       
     }
 
