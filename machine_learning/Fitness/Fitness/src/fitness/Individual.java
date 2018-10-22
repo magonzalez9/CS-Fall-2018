@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class Individual implements Cloneable, Evaluable, Comparable<Individual> {
 
-    int fitness;
+    long fitness;
     byte[] dna;
     int runningSum;
 
@@ -45,8 +45,8 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
         for (int i = 0; i < L; i++) {
             dna[i] = (byte) (Util.rand(2) & 0xFF);
         }
-        fitness = (Environment.eval(this) & 0xFF);   // so it has a fitness to start off
-//        fitness = Environment.eval(this);
+        // so it has a fitness to start off
+        fitness = Environment.eval(this);
 
     }
 
@@ -56,7 +56,7 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
     }
 
     @Override
-    public int getFitness() {
+    public long getFitness() {
         return fitness;
     }
 
@@ -83,8 +83,7 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
 
     public void updateBit(int index, byte value) {
         dna[index] = value;
-        fitness = (Environment.eval(this) & 0xFF);
-//        fitness = Environment.eval(this);
+        fitness = Environment.eval(this);
     }
 
     private String format(byte[] dna) { // make the byte[] into a String

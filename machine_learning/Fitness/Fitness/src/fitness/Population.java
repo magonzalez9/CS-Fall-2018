@@ -77,6 +77,9 @@ public class Population extends java.util.ArrayList<Individual> {
             int c = 0;
             while (list.get(c).runningSum < random) {
                 c++;
+                if (c >= 100) {
+                    c = 0;
+                }
             }
 
             Individual n = list.get(c).clone();

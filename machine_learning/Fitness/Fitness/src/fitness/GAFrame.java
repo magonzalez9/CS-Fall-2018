@@ -151,7 +151,7 @@ public class GAFrame extends javax.swing.JFrame {
         doMore.setEnabled(true);
 
         if (doAGen == true) {
-            Environment.setState(Environment.Mu.mystery);
+            Environment.setState(Environment.Mu.countOnes);
             pList = new Population(population);
 
         }
