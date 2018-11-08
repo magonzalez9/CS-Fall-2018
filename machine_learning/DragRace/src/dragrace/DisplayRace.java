@@ -1,7 +1,5 @@
 package dragrace;
 
-import javax.swing.ImageIcon;
-
 public class DisplayRace extends javax.swing.JFrame {
 
     RacePanel rPanel;

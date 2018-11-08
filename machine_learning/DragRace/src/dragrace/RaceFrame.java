@@ -27,14 +27,10 @@ public class RaceFrame extends javax.swing.JFrame {
         nitroSlider.setMinimum(1);
         nitroSlider.setMaximum(10);
         nitroSlider.setValue(1);
-        fuelSlider.setMinimum(1);
-        fuelSlider.setMaximum(10);
-        fuelSlider.setValue(1);
         distanceSlider.setMinimum(1);
         distanceSlider.setMaximum(100);
         distanceSlider.setValue(1);
         comboBox.removeAllItems();
-        v4Option.setSelected(true);
         distanceSlider.setEnabled(false);
 
     }
@@ -54,20 +50,13 @@ public class RaceFrame extends javax.swing.JFrame {
         list_label = new javax.swing.JLabel();
         accSlider = new javax.swing.JSlider();
         nitroSlider = new javax.swing.JSlider();
-        fuelSlider = new javax.swing.JSlider();
-        v4Option = new javax.swing.JRadioButton();
-        v6Option = new javax.swing.JRadioButton();
-        v8Option = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         speedLabel = new javax.swing.JLabel();
         accLabel = new javax.swing.JLabel();
         nitroLabel = new javax.swing.JLabel();
-        fuelLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         distanceSlider = new javax.swing.JSlider();
         saveButton = new javax.swing.JButton();
@@ -88,7 +77,7 @@ public class RaceFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(goButton);
-        goButton.setBounds(440, 260, 70, 30);
+        goButton.setBounds(440, 210, 70, 30);
 
         comboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +112,7 @@ public class RaceFrame extends javax.swing.JFrame {
 
         list_label.setText("Edit Race Car");
         getContentPane().add(list_label);
-        list_label.setBounds(400, 50, 80, 20);
+        list_label.setBounds(400, 50, 110, 20);
 
         accSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -141,46 +130,6 @@ public class RaceFrame extends javax.swing.JFrame {
         getContentPane().add(nitroSlider);
         nitroSlider.setBounds(30, 200, 190, 29);
 
-        fuelSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                fuelSliderStateChanged(evt);
-            }
-        });
-        getContentPane().add(fuelSlider);
-        fuelSlider.setBounds(30, 260, 190, 29);
-
-        v4Option.setText("V4");
-        v4Option.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                v4OptionActionPerformed(evt);
-            }
-        });
-        getContentPane().add(v4Option);
-        v4Option.setBounds(30, 330, 50, 23);
-
-        v6Option.setText("V6");
-        v6Option.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                v6OptionActionPerformed(evt);
-            }
-        });
-        getContentPane().add(v6Option);
-        v6Option.setBounds(80, 330, 50, 23);
-
-        v8Option.setText("V8");
-        v8Option.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                v8OptionActionPerformed(evt);
-            }
-        });
-        getContentPane().add(v8Option);
-        v8Option.setBounds(130, 330, 50, 23);
-
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
-        jLabel1.setText("Engine Size:");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 300, 110, 30);
-
         jLabel2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 18)); // NOI18N
         jLabel2.setText("Race Car Simulation");
         getContentPane().add(jLabel2);
@@ -197,14 +146,9 @@ public class RaceFrame extends javax.swing.JFrame {
         jLabel4.setBounds(30, 100, 110, 40);
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
-        jLabel5.setText("Nos:");
+        jLabel5.setText("Boost:");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(30, 170, 110, 30);
-
-        jLabel6.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
-        jLabel6.setText("Fuel: ");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(30, 230, 110, 30);
 
         speedLabel.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         speedLabel.setText("10");
@@ -221,11 +165,6 @@ public class RaceFrame extends javax.swing.JFrame {
         getContentPane().add(nitroLabel);
         nitroLabel.setBounds(230, 190, 50, 50);
 
-        fuelLabel.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        fuelLabel.setText("10");
-        getContentPane().add(fuelLabel);
-        fuelLabel.setBounds(230, 250, 50, 50);
-
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 0, 0));
         jButton1.setText("Reset");
@@ -235,7 +174,7 @@ public class RaceFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(340, 260, 70, 30);
+        jButton1.setBounds(340, 210, 70, 30);
 
         distanceSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -243,7 +182,7 @@ public class RaceFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(distanceSlider);
-        distanceSlider.setBounds(320, 220, 150, 29);
+        distanceSlider.setBounds(30, 260, 150, 29);
 
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -256,12 +195,12 @@ public class RaceFrame extends javax.swing.JFrame {
 
         milesLabel.setText("miles");
         getContentPane().add(milesLabel);
-        milesLabel.setBounds(480, 210, 70, 40);
+        milesLabel.setBounds(190, 250, 70, 40);
 
         jLabel8.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jLabel8.setText("Track Length:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(320, 190, 110, 30);
+        jLabel8.setBounds(30, 230, 110, 30);
 
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jLabel7);
@@ -270,7 +209,7 @@ public class RaceFrame extends javax.swing.JFrame {
         statsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         statsLabel.setText("4");
         getContentPane().add(statsLabel);
-        statsLabel.setBounds(410, 310, 60, 30);
+        statsLabel.setBounds(200, 300, 60, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -285,20 +224,11 @@ public class RaceFrame extends javax.swing.JFrame {
         int speed = speedSlider.getValue();
         int acceleration = accSlider.getValue();
         int nitro = nitroSlider.getValue();
-        int fuel = fuelSlider.getValue();
 
-        int engine_size = 0;
-        if (v4Option.isSelected()) {
-            engine_size = 4;
-        } else if (v6Option.isSelected()) {
-            engine_size = 6;
-        } else {
-            engine_size = 8;
-        }
 
         // Create the car object and store it in CarFreeList
         ImageIcon car_image = new ImageIcon(new ImageIcon(getClass().getResource("images/" + freeList.remove(0))).getImage());
-        RaceCar race_car = new RaceCar(car_name, speed, acceleration, nitro, fuel, engine_size, car_image);
+        RaceCar race_car = new RaceCar(car_name, speed, acceleration, nitro, car_image);
         race_car.setDistance(distanceSlider.getValue());
 
         // Now we want to draw the car on the panel
@@ -317,10 +247,10 @@ public class RaceFrame extends javax.swing.JFrame {
 
     private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
         speedLabel.setText("" + speedSlider.getValue());
-        max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue() + fuelSlider.getValue();
-        statsLabel.setText("" + max_stats + "/ 24");
+        max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue();
+        statsLabel.setText("" + max_stats + "/ 18");
 
-        if (max_stats > 24) {
+        if (max_stats > 18) {
             saveButton.setEnabled(false);
             addButton.setEnabled(false);
         } else {
@@ -331,9 +261,9 @@ public class RaceFrame extends javax.swing.JFrame {
 
     private void accSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_accSliderStateChanged
         accLabel.setText("" + accSlider.getValue());
-        max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue() + fuelSlider.getValue();
-        statsLabel.setText("" + max_stats + "/ 24");
-        if (max_stats > 24) {
+        max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue();
+        statsLabel.setText("" + max_stats + "/ 18");
+        if (max_stats > 18) {
             saveButton.setEnabled(false);
             addButton.setEnabled(false);
         } else {
@@ -344,9 +274,9 @@ public class RaceFrame extends javax.swing.JFrame {
 
     private void nitroSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nitroSliderStateChanged
         nitroLabel.setText("" + nitroSlider.getValue());
-        max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue() + fuelSlider.getValue();
-        statsLabel.setText("" + max_stats + "/ 24");
-        if (max_stats > 24) {
+        max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue();
+        statsLabel.setText("" + max_stats + "/ 18");
+        if (max_stats > 18) {
             saveButton.setEnabled(false);
             addButton.setEnabled(false);
         } else {
@@ -354,19 +284,6 @@ public class RaceFrame extends javax.swing.JFrame {
             addButton.setEnabled(true);
         }
     }//GEN-LAST:event_nitroSliderStateChanged
-
-    private void fuelSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_fuelSliderStateChanged
-        fuelLabel.setText("" + fuelSlider.getValue());
-        max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue() + fuelSlider.getValue();
-        statsLabel.setText("" + max_stats + "/ 24");
-        if (max_stats > 24) {
-            saveButton.setEnabled(false);
-            addButton.setEnabled(false);
-        } else {
-            saveButton.setEnabled(true);
-            addButton.setEnabled(true);
-        }
-    }//GEN-LAST:event_fuelSliderStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         displayRace.reset();
@@ -409,31 +326,11 @@ public class RaceFrame extends javax.swing.JFrame {
             int speed = speedSlider.getValue();
             int acceleration = accSlider.getValue();
             int nitro = nitroSlider.getValue();
-            int fuel = fuelSlider.getValue();
 
-            int engine_size = 0;
-            if (v4Option.isSelected()) {
-                engine_size = 4;
-            } else if (v6Option.isSelected()) {
-                engine_size = 6;
-            } else {
-                engine_size = 8;
-            }
-            carList.get(i).editRaceCar(speed, acceleration, nitro, fuel, engine_size);
+            
+            carList.get(i).editRaceCar(speed, acceleration, nitro);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
-
-    private void v4OptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v4OptionActionPerformed
-
-    }//GEN-LAST:event_v4OptionActionPerformed
-
-    private void v8OptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v8OptionActionPerformed
-
-    }//GEN-LAST:event_v8OptionActionPerformed
-
-    private void v6OptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v6OptionActionPerformed
-
-    }//GEN-LAST:event_v6OptionActionPerformed
 
     private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
         // TODO add your handling code here:
@@ -443,7 +340,6 @@ public class RaceFrame extends javax.swing.JFrame {
             speedSlider.setValue(carList.get(i).speed_value);
             accSlider.setValue(carList.get(i).acceleration_value);
             nitroSlider.setValue(carList.get(i).nitro_value);
-            fuelSlider.setValue(carList.get(i).fuel_value);
         }
     }//GEN-LAST:event_comboBoxActionPerformed
 
@@ -492,16 +388,12 @@ public class RaceFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JComboBox comboBox;
     private javax.swing.JSlider distanceSlider;
-    private javax.swing.JLabel fuelLabel;
-    private javax.swing.JSlider fuelSlider;
     private javax.swing.JButton goButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel list_label;
@@ -512,9 +404,6 @@ public class RaceFrame extends javax.swing.JFrame {
     private javax.swing.JLabel speedLabel;
     private javax.swing.JSlider speedSlider;
     private javax.swing.JLabel statsLabel;
-    private javax.swing.JRadioButton v4Option;
-    private javax.swing.JRadioButton v6Option;
-    private javax.swing.JRadioButton v8Option;
     // End of variables declaration//GEN-END:variables
 
 }

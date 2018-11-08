@@ -1,6 +1,5 @@
 package dragrace;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -75,7 +74,7 @@ public class RacePanel extends javax.swing.JPanel {
                 print_5 = true;
             }
             g.drawImage(car_list.get(0).getCarImage().getImage(), (int) car_list.get(0).getDistanceTraveled(), 20, 60, 30, null);
-            if (car_list.get(0).getDistanceTraveled() >= 1055 || car_list.get(0).getFuel() <= 0) {
+            if (car_list.get(0).getDistanceTraveled() >= 1055) {
                 flag_1 = true;
                 if (flag_1 && print_1) {
                     if (car_list.get(0).getDistanceTraveled() >= 1055) {
@@ -89,7 +88,7 @@ public class RacePanel extends javax.swing.JPanel {
         if (car_list.size() >= 2) {
             boolean finish_flag = false;
             g.drawImage(car_list.get(1).getCarImage().getImage(), (int) car_list.get(1).getDistanceTraveled(), 80, 60, 30, null);
-            if (car_list.get(1).getDistanceTraveled() >= 1055 || car_list.get(1).getFuel() <= 0) {
+            if (car_list.get(1).getDistanceTraveled() >= 1055) {
                 flag_2 = true;
                 if (flag_2 && print_2) {
                     if (car_list.get(1).getDistanceTraveled() >= 1055) {
@@ -102,7 +101,7 @@ public class RacePanel extends javax.swing.JPanel {
         if (car_list.size() >= 3) {
 
             g.drawImage(car_list.get(2).getCarImage().getImage(), (int) car_list.get(2).getDistanceTraveled(), 140, 60, 30, null);
-            if (car_list.get(2).getDistanceTraveled() >= 1055 || car_list.get(2).getFuel() <= 0) {
+            if (car_list.get(2).getDistanceTraveled() >= 1055) {
                 flag_3 = true;
                 if (flag_3 && print_3) {
                     if (car_list.get(2).getDistanceTraveled() >= 1055) {
@@ -115,7 +114,7 @@ public class RacePanel extends javax.swing.JPanel {
         if (car_list.size() >= 4) {
 
             g.drawImage(car_list.get(3).getCarImage().getImage(), (int) car_list.get(3).getDistanceTraveled(), 200, 60, 30, null);
-            if (car_list.get(3).getDistanceTraveled() >= 1055 || car_list.get(3).getFuel() <= 0) {
+            if (car_list.get(3).getDistanceTraveled() >= 1055) {
                 flag_4 = true;
                 if (flag_4 && print_4) {
                     if (car_list.get(3).getDistanceTraveled() >= 1055) {
@@ -127,7 +126,7 @@ public class RacePanel extends javax.swing.JPanel {
         }
         if (car_list.size() >= 5) {
             g.drawImage(car_list.get(4).getCarImage().getImage(), (int) car_list.get(4).getDistanceTraveled(), 260, 60, 30, null);
-            if (car_list.get(4).getDistanceTraveled() >= 1055 || car_list.get(4).getFuel() <= 0) {
+            if (car_list.get(4).getDistanceTraveled() >= 1055) {
                 flag_5 = true;
                 if (flag_5 && print_5) {
                     if (car_list.get(4).getDistanceTraveled() >= 1055) {
