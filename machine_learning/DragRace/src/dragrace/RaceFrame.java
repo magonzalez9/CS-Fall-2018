@@ -225,7 +225,6 @@ public class RaceFrame extends javax.swing.JFrame {
         int acceleration = accSlider.getValue();
         int nitro = nitroSlider.getValue();
 
-
         // Create the car object and store it in CarFreeList
         ImageIcon car_image = new ImageIcon(new ImageIcon(getClass().getResource("images/" + freeList.remove(0))).getImage());
         RaceCar race_car = new RaceCar(car_name, speed, acceleration, nitro, car_image);
@@ -248,9 +247,9 @@ public class RaceFrame extends javax.swing.JFrame {
     private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
         speedLabel.setText("" + speedSlider.getValue());
         max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue();
-        statsLabel.setText("" + max_stats + "/ 18");
+        statsLabel.setText("" + max_stats + "/ 16");
 
-        if (max_stats > 18) {
+        if (max_stats > 16) {
             saveButton.setEnabled(false);
             addButton.setEnabled(false);
         } else {
@@ -262,8 +261,8 @@ public class RaceFrame extends javax.swing.JFrame {
     private void accSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_accSliderStateChanged
         accLabel.setText("" + accSlider.getValue());
         max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue();
-        statsLabel.setText("" + max_stats + "/ 18");
-        if (max_stats > 18) {
+        statsLabel.setText("" + max_stats + "/ 16");
+        if (max_stats > 16) {
             saveButton.setEnabled(false);
             addButton.setEnabled(false);
         } else {
@@ -275,8 +274,8 @@ public class RaceFrame extends javax.swing.JFrame {
     private void nitroSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nitroSliderStateChanged
         nitroLabel.setText("" + nitroSlider.getValue());
         max_stats = speedSlider.getValue() + accSlider.getValue() + nitroSlider.getValue();
-        statsLabel.setText("" + max_stats + "/ 18");
-        if (max_stats > 18) {
+        statsLabel.setText("" + max_stats + "/ 16");
+        if (max_stats > 16) {
             saveButton.setEnabled(false);
             addButton.setEnabled(false);
         } else {
@@ -292,9 +291,9 @@ public class RaceFrame extends javax.swing.JFrame {
     private void distanceSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_distanceSliderStateChanged
 
         milesLabel.setText(Math.round((((distanceSlider.getValue() - 1) * (8000 - 91.4) / (100 - 1) + 91.4) * 0.000621371192) * 100.0) / 100.0 + " Mile(s)");
-        
+
         if (distanceSlider.getValue() >= 15) {
-            
+
         }
         if (carList.size() >= 1) {
             carList.get(0).setDistance(distanceSlider.getValue());
@@ -319,7 +318,6 @@ public class RaceFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_distanceSliderStateChanged
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        // TODO add your handling code here:
         if (comboBox.getItemCount() == 0) {
             JOptionPane.showMessageDialog(null, "There are no cars added yet!");
         } else {
@@ -327,13 +325,11 @@ public class RaceFrame extends javax.swing.JFrame {
             int acceleration = accSlider.getValue();
             int nitro = nitroSlider.getValue();
 
-            
             carList.get(i).editRaceCar(speed, acceleration, nitro);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
-        // TODO add your handling code here:
         i = comboBox.getSelectedIndex();
         if (!carList.isEmpty()) {
 
