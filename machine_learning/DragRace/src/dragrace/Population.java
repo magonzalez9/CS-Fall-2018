@@ -162,11 +162,13 @@ public class Population extends java.util.ArrayList<Individual> {
         }
         Collections.sort(list);
 
-        //System.out.println("NEW" + list.toString() + "\n FITNESS:" + evaluateFitness());
+        //System.out.println("NEW" + list.toString() + "\n FITNESS:" + evaluateFitness());  
     } 
     
     void printStats(){
-       list.get(0).speed();
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).printIndividualStats());
+        }
     }
 
     void reset() {

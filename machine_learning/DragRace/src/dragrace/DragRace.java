@@ -30,6 +30,8 @@ public class DragRace {
 
         pList.doageneration(muRate, crossover);
         System.out.println(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
+        
+        pList.printStats();
 
     }
 }

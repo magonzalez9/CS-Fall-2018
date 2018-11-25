@@ -86,19 +86,36 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
         fitness = Environment.eval(this);
     }
 
-    public void speed() {
+    public byte speed() {
         byte speed = 0;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i <= 3; i++) {
             speed += dna[i];
         }
+        return speed;
+        
     }
 
-    public void acc() {
+    public byte acc() {
+        byte acc = 0;
+        for (int i = 4; i <= 7; i++) {
+            acc += dna[i];
+        }
+        return acc;
+    }
+
+    public byte nos() {
+        byte nos = 0;
+        for (int i = 8; i <= 11; i++) {
+            nos += dna[i];
+        }
+        return nos;
 
     }
 
-    public void nos() {
-
+    public String printIndividualStats() {
+        return "Speed: " + speed() + "\n" +
+               "Acceleration: " + acc() + "\n" +
+               "Nos: " + nos();
     }
 
     private String format(byte[] dna) { // make the byte[] into a String
