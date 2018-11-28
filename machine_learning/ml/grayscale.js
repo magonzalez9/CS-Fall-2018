@@ -1,45 +1,26 @@
-function toGrayscale(image)
-{
-  var myCanvas=document.createElement("canvas");
-  var myCanvasContext=myCanvas.getContext("2d");
+function getImagePixels()  {
+    var c = document.createElement("canvas");
+	var ctx = c.getContext("2d");
+    var img = document.getElementById("image");
+    ctx.drawImage(img, 0, 0);
+    var imgData = ctx.getImageData(0, 0, c.width, c.height);
 
-  var imgWidth=image.width;
-  var imgHeight=image.height;
-  // You'll get some string error if you fail to specify the dimensions
-  myCanvas.width = imgWidth;
-  myCanvas.height = imgHeight;
-   // alert(imgWidth);
-  myCanvasContext.drawImage(image,0,0);
+    var str = ''; 
+	for (var i = 0; i < imgData.data.length; i+=4) {
+		// (r, g , b, alpha)
+		// str += imgData.data[i] + "," + imgData.data[i+1] + "," + imgData.data[i+2] + " | ";
+		str += rgbConvert(imgData.data[i], imgData.data[i+1], imgData.data[i+2]) + "|"; 
+  	}
 
-  // This function cannot be called if the image is not rom the same domain.
-  // You'll get security error if you do.
-  var imageData=myCanvasContext.getImageData(0,0, imgWidth, imgHeight);
-
-  // This loop gets every pixels on the image and
-    for (j=0; j<imageData.height; i++)
-    {
-      for (i=0; i<imageData.width; j++)
-      {
-         var index=(i*4)*imageData.width+(j*4);
-         var red=imageData.data[index];
-         var green=imageData.data[index+1];
-         var blue=imageData.data[index+2];
-         var alpha=imageData.data[index+3];
-         var average=(red+green+blue)/3;
-   	    imageData.data[index]=average;
-         imageData.data[index+1]=average;
-         imageData.data[index+2]=average;
-         imageData.data[index+3]=alpha;
-       }
-     }
-
-	return myCanvas.toDataURL();
-  }
-
-function change(image){
-	image.src = toGrayscale(image);
+    document.getElementById("pixels").innerHTML = str;
 }
 
-function restore(){
-	image.src = "original_photos/1.jpg";
+function rgbConvert(r, g, b){
+	// Use some 
+	var rValue = ((r - 0) * (1 - 0) / (255 - 0) + 0);
+	var gValue = ((g - 0) * (1 - 0) / (255 - 0) + 0);
+	var bValue = ((b - 0) * (1 - 0) / (255 - 0) + 0);
+
+	return rValue + ", " + gValue + ", " + bValue;
+
 }
