@@ -8,14 +8,11 @@
 <body>
 <h1>Photo Detection Application</h1>
 
-
 <img id="image" src="original_photos/1.jpg">
 <br />
-<button onclick="getImagePixels()">Analyze</button>
+<button onclick="debug()">Analyze</button>
 <p id="pixels"> </p>
 
 <script type="text/javascript" src="grayscale.js"></script>
-
-
 </body>
 </html>
