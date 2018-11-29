@@ -8,7 +8,7 @@
 <body>
 <h1>Photo Detection Application</h1>
 
-<img id="image" src="original_photos/1.jpg">
+<img id="image" src="original_photos/2.jpg">
 <br />
 <button onclick="debug()">Analyze</button>
 <p id="pixels"> </p>

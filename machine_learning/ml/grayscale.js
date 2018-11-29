@@ -37,7 +37,7 @@ function getGrayScaleValue(r, g, b){
 	if (sumAvg >=.7) {
 		return "*";
 	} else if (sumAvg < .7){
-		return "-"; 
+		return "_"; 
 	}
 } // --end of function getGrayScaleValue
 
@@ -45,13 +45,13 @@ function debug(){
 	pixelArray = getImagePixels(); 
 
 	var cleanStr = ""; 
-	var multiplier = 1; 
+	var multiplier = 350; 
 	for (var i = 0; i < pixelArray.length; i++) {
 		cleanStr += pixelArray[i] + "";
 
-		if (i == (multiplier * 349)) {
-			cleanStr += "<br />"; 
-			multiplier++; 
+		if (i == multiplier) {
+			cleanStr += "|<br />"; 
+			multiplier+=350; 
 		}
 	}
 
