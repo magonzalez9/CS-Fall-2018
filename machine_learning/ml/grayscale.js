@@ -1,9 +1,10 @@
+var img = document.getElementById("image");
+
 function getImagePixels()  {
 	// Create canvas and get image
     var c = document.createElement("canvas");
 	var ctx = c.getContext("2d");
-    var img = document.getElementById("image");
-
+   
     // Set canvas dimensions proportional to image dimensions
     c.width = img.width; 
     c.height = img.height; 
@@ -16,6 +17,11 @@ function getImagePixels()  {
     // Loop through every pixel in order to determine its color
     var pixelArray = new Array(); 
     var j = 0; 
+
+    // Multi dimensional array
+    
+
+
 	for (var i = 0; i < imgData.data.length; i+=4) {
 		pixelArray[j] = getGrayScaleValue(imgData.data[i], imgData.data[i+1], imgData.data[i+2]);
 		j++; 
@@ -34,9 +40,12 @@ function getGrayScaleValue(r, g, b){
 
 	var sumAvg = ((rValue + gValue + bValue) / 3).toFixed(2);
 
-	if (sumAvg >=.7) {
+	// The lower the number the greater the darkness definition 
+	var bwSensitivity = .5; 
+
+	if (sumAvg >= bwSensitivity) {
 		return "*";
-	} else if (sumAvg < .7){
+	} else if (sumAvg < bwSensitivity){ 
 		return "_"; 
 	}
 } // --end of function getGrayScaleValue
@@ -45,13 +54,13 @@ function debug(){
 	pixelArray = getImagePixels(); 
 
 	var cleanStr = ""; 
-	var multiplier = 350; 
+	var multiplier = img.width; 
 	for (var i = 0; i < pixelArray.length; i++) {
 		cleanStr += pixelArray[i] + "";
 
 		if (i == multiplier) {
 			cleanStr += "|<br />"; 
-			multiplier+=350; 
+			multiplier+=img.width; 
 		}
 	}
 
