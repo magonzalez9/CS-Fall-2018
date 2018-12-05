@@ -88,7 +88,7 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
 
     public byte speed() {
         byte speed = 0;
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i <= 7; i++) {
             speed += dna[i];
         }
         return speed;
@@ -97,7 +97,7 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
 
     public byte acc() {
         byte acc = 0;
-        for (int i = 4; i <= 7; i++) {
+        for (int i = 8; i <= 15; i++) {
             acc += dna[i];
         }
         return acc;
@@ -105,7 +105,7 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
 
     public byte nos() {
         byte nos = 0;
-        for (int i = 8; i <= 11; i++) {
+        for (int i = 16; i <= 23; i++) {
             nos += dna[i];
         }
         return nos;

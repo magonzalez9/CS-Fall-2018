@@ -11,27 +11,33 @@ package dragrace;
  */
 public class RacerAI {
 
-    public void RacerAi() {
+    private int speed;
+    private int acceleration;
+    private int nos;
+    private double performanceTime;
+
+    public void RacerAI() {
 
     }
 
-    void learn() {
+    void testPerfomance() {
 
     }
 
-    void setSpeed() {
-
+    void incrementSpeed() {
+        this.speed++;
     }
 
-    void setNos() {
-
+    void incrementAcceleration() {
+        this.acceleration++;
     }
 
-    void setAcceleration() {
-
+    void incrementNose() {
+        this.nos++;
     }
 
-    void generateStats() {
-
+    int getStatSum() {
+        return this.speed + this.acceleration + this.nos;
     }
+
 }

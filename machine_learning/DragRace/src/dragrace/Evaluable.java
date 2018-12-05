@@ -10,7 +10,7 @@ package dragrace;
  * @author Marco
  */
 public interface Evaluable {
-    public static final int L=12;  // the length of the chromosome
+    public static final int L=24;  // the length of the chromosome
     
     public byte[] getDNA();
     public long getFitness();
