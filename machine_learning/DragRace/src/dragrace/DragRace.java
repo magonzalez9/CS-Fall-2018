@@ -27,11 +27,24 @@ public class DragRace {
 
         pList.doageneration(muRate, crossover);
         System.out.println(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
+        
+        for(int i = 0; i < pList.getPopulationList().size(); i++){
+            System.out.println("Speed: " + pList.getPopulationList().get(i).getSpeedStat());
+            System.out.println("Acceleration: " + pList.getPopulationList().get(i).getAccStat());
+            System.out.println("NOS: " + pList.getPopulationList().get(i).getNosStat()); 
+            System.out.println(" ");
+        }
 
         pList.doageneration(muRate, crossover);
         System.out.println(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
-        
-        pList.printStats();
+        System.out.println("NEW");
+        for(int i = 0; i < pList.getPopulationList().size(); i++){
+            System.out.println("Speed: " + pList.getPopulationList().get(i).getSpeedStat());
+            System.out.println("Acceleration: " + pList.getPopulationList().get(i).getAccStat());
+            System.out.println("NOS: " + pList.getPopulationList().get(i).getNosStat()); 
+            System.out.println(" ");
+        }
+
 
     }
 }

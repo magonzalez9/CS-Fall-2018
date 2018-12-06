@@ -20,7 +20,7 @@ public class RacerAI {
 
     }
 
-    void testPerfomance() {
+    void evalPerfomance() {
 
     }
 
@@ -32,11 +32,11 @@ public class RacerAI {
         this.acceleration++;
     }
 
-    void incrementNose() {
+    void incrementNos() {
         this.nos++;
     }
 
-    int getStatSum() {
+    int getStatTotal() {
         return this.speed + this.acceleration + this.nos;
     }
 

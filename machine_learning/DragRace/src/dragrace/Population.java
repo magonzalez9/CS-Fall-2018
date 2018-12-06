@@ -43,6 +43,8 @@ public class Population extends java.util.ArrayList<Individual> {
     public void setPopulation(int numIndividuals) {
         this.numIndividuals = numIndividuals;
     }
+    
+   
 
     public void sortList() {
         Collections.sort(list);
