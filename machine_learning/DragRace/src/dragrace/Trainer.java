@@ -28,6 +28,13 @@ public class Trainer {
     }
 
     public void train() {
+        IndividualList indvidualList = pList.getPopulationList();
+        
+        for (int i = 0; i < indvidualList.size(); i++) {
+            if (rList.isEmpty()) {
+                
+            }
+        }
         pList.doageneration(muRate, crossover);
         System.out.println(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
 
