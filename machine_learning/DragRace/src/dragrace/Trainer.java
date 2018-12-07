@@ -5,6 +5,8 @@
  */
 package dragrace;
 
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.ImageIcon;
 
 /**
@@ -19,8 +21,9 @@ public class Trainer {
     int population;
     int crossover;
     int muRate;
+    int trackLength;
 
-    public Trainer(int population, int crossover, double muRate) {
+    public Trainer(int population, int crossover, double muRate, int trackLength) {
         pList = new Population(population);
         rList = new RaceAIList();
 
@@ -30,6 +33,7 @@ public class Trainer {
 
         this.population = population;
         this.crossover = crossover;
+        this.trackLength = trackLength;
         this.muRate = (int) (1 / muRate);
     }
 
@@ -38,6 +42,7 @@ public class Trainer {
         pList.doageneration(muRate, crossover);
         IndividualList indvidualList = pList.getPopulationList();
 
+        int raceCount = 0;
         while (!rList.trainingComplete()) {
             pList.doageneration(muRate, crossover);
 
@@ -58,12 +63,41 @@ public class Trainer {
             for (RacerAI AIraceCar : rList) {
                 ImageIcon car_image = new ImageIcon(new ImageIcon(getClass().getResource("images/car1.png")).getImage());
                 RaceCar raceCar = new RaceCar("AI", AIraceCar.getSpeed(), AIraceCar.getAcceleration(), (double) AIraceCar.getNos(), car_image);
-                raceCar.setDistance(10);
-                
-                
+                raceCar.setDistance(trackLength);
+
+                raceCar.getDistanceTraveled();
+
+                while (raceCar.getDistanceTraveled() < raceCar.getDistance()) {
+                    raceCar.run();
+                    AIraceCar.incrementPerformanceTime();
+                }
+            } // for every race car AI results!
+
+            // Now we sort the list and remove the worst
+            Collections.sort(rList);
+
+            // AI Race Car replacement
+            int removal = (int) (population * .2);
+            for (int i = (population - 1); i < removal; i--) {
+                rList.set(i, rList.get((population - 1) - i));
+
             }
+
+            // Reset the time after sorting and replacement has happened. 
+            if (raceCount < 15) {
+                for (RacerAI r : rList) {
+                    r.resetTime();
+                }
+            }
+
+            raceCount++;
         }
-        System.out.println(rList.toString());
+
+        //System.out.println(rList.toString());
+    }
+
+    public RacerAI getBestRacer() {
+        return rList.get(0);
     }
 
 }

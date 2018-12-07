@@ -9,20 +9,20 @@ package dragrace;
  *
  * @author Marco
  */
-public class RacerAI {
+public class RacerAI implements Comparable<RacerAI> {
 
     private int speed;
     private int acceleration;
     private int nos;
     private int statTotal;
-    private double performanceTime;
+    public double performanceTime;
 
     public void RacerAI() {
 
     }
 
-    void evalPerfomance() {
-
+    public void incrementPerformanceTime() {
+        performanceTime++;
     }
 
     void incrementSpeed() {
@@ -78,6 +78,10 @@ public class RacerAI {
         return performanceTime;
     }
 
+    public void resetTime() {
+        performanceTime = 0;
+    }
+
     boolean maxedOut() {
         if ((speed + acceleration + nos) >= 16) {
             return true;
@@ -90,8 +94,18 @@ public class RacerAI {
         return speed + acceleration + nos;
     }
 
+    @Override
+    public int compareTo(RacerAI t) {
+        if (this.performanceTime < t.performanceTime) {
+            return -1;
+        } else if (t.performanceTime < this.performanceTime) {
+            return 1;
+        }
+        return 0;
+    }
+    
     public String toString() {
-        return "Speed: " + speed + "\nAcceleration: " + acceleration + "\nNos: " + nos;
+        return "Speed: " + speed + "\nAcceleration: " + acceleration + "\nNos: " + nos + "\nPerformance Time: " + performanceTime;
 
     }
 

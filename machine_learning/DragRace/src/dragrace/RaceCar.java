@@ -16,6 +16,7 @@ public class RaceCar {
     private int nos_time_placeholder;
     private double nos_temp;
     private double acc_temp;
+    private double top_speed_temp;
 
     // Car statistics
     private final String name;
@@ -68,6 +69,10 @@ public class RaceCar {
 
     public double getNitro() {
         return nitro;
+    }
+
+    public double getDistance() {
+        return track_distance;
     }
 
     public double getTrackDistance() {
@@ -123,14 +128,15 @@ public class RaceCar {
     public void editRaceCar(int speed, int acceleration, double nitro) {
 
         // Set car stats variables
-        this.top_speed = (double) ((speed - 1) * (160 - 140) / (10 - 1) + 140); // mph
-        this.acceleration = ((double) (60 / ((acceleration - 1) * (3 - 8.5) / (10 - 1) + 8.5)));
-        this.nitro = (nitro * .5);
-        this.nos_time = (int) (((nitro - 1) * (22 - 10) / (10 - 1) + 10));
+        this.top_speed = (double) ((speed - 1) * (160 - 125) / (10 - 1) + 140); // mph
+        this.acceleration = ((double) (60 / ((acceleration - 1) * (4 - 9.5) / (10 - 1) + 9.5)));
+        this.nitro = (nitro * .7);
+        this.nos_time = (int) (((nitro - 1) * (35 - 10) / (10 - 1) + 10));
 
         // Set all temp variables
-        acc_temp = ((double) ((speed - 1) * (180 - 140) / (10 - 1) + 140));
-        nos_temp = (nitro * .5);
+        top_speed_temp = (double) ((speed - 1) * (160 - 125) / (10 - 1) + 140);
+        acc_temp = ((double) (60 / ((acceleration - 1) * (4 - 9.5) / (10 - 1) + 9.5)));
+        nos_temp = (nitro * .7);
         nos_time_placeholder = this.nos_time;
 
         // Set slider values
@@ -145,6 +151,7 @@ public class RaceCar {
         nos_time = nos_time_placeholder;
         nitro = nos_temp;
         acceleration = acc_temp;
+        top_speed = top_speed_temp;
         use_nos = false;
 
     }

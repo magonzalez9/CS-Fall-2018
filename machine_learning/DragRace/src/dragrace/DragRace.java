@@ -15,11 +15,8 @@ public class DragRace {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        RaceFrame r = new RaceFrame();
-//        r.setVisible(true);
-
-        Trainer t = new Trainer(12, 2, .001);
-        t.train();
+        RaceFrame r = new RaceFrame();
+        r.setVisible(true);
 
     }
 }

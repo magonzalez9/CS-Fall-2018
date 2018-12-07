@@ -8,13 +8,14 @@ public class RaceFrame extends javax.swing.JFrame {
     DisplayRace displayRace;
     CarFreeList freeList = new CarFreeList();
     CarList carList = new CarList();
+    RacerAI AIRacer;
     int i;
     int max_stats = 25;
 
     public RaceFrame() {
         initComponents();
         setVisible(true);
-        setSize(580, 400);
+        setSize(930, 400);
         displayRace = new DisplayRace();
 
         // set slider values
@@ -31,7 +32,10 @@ public class RaceFrame extends javax.swing.JFrame {
         distanceSlider.setMaximum(100);
         distanceSlider.setValue(1);
         comboBox.removeAllItems();
-        distanceSlider.setEnabled(false);
+        //distanceSlider.setEnabled(false);
+        populationField.setText("10");
+        crossoverField.setText("2");
+        muRateField.setText(".001");
 
     }
 
@@ -64,6 +68,16 @@ public class RaceFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         statsLabel = new javax.swing.JLabel();
+        AIRACER = new javax.swing.JLabel();
+        populationField = new javax.swing.JTextField();
+        populationLabel = new javax.swing.JLabel();
+        crossoverField = new javax.swing.JTextField();
+        cOverLabel = new javax.swing.JLabel();
+        muRateField = new javax.swing.JTextField();
+        muLabel = new javax.swing.JLabel();
+        popLabel = new javax.swing.JLabel();
+        trainButton = new javax.swing.JButton();
+        addAIButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -77,7 +91,7 @@ public class RaceFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(goButton);
-        goButton.setBounds(440, 210, 70, 30);
+        goButton.setBounds(440, 210, 100, 30);
 
         comboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -128,10 +142,10 @@ public class RaceFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(nitroSlider);
-        nitroSlider.setBounds(30, 200, 190, 29);
+        nitroSlider.setBounds(30, 200, 190, 26);
 
         jLabel2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 18)); // NOI18N
-        jLabel2.setText("Race Car Simulation");
+        jLabel2.setText("Race Car Simulation 2.0");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(160, 0, 250, 40);
 
@@ -174,7 +188,7 @@ public class RaceFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(340, 210, 70, 30);
+        jButton1.setBounds(320, 210, 110, 30);
 
         distanceSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -182,7 +196,7 @@ public class RaceFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(distanceSlider);
-        distanceSlider.setBounds(30, 260, 150, 29);
+        distanceSlider.setBounds(30, 260, 150, 26);
 
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -204,12 +218,74 @@ public class RaceFrame extends javax.swing.JFrame {
 
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(320, 70, 220, 110);
+        jLabel7.setBounds(600, 70, 290, 110);
 
         statsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         statsLabel.setText("4");
         getContentPane().add(statsLabel);
         statsLabel.setBounds(200, 300, 60, 30);
+
+        AIRACER.setText("AI Racer");
+        getContentPane().add(AIRACER);
+        AIRACER.setBounds(720, 40, 90, 40);
+
+        populationField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                populationFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(populationField);
+        populationField.setBounds(620, 100, 70, 20);
+
+        populationLabel.setText("Population");
+        getContentPane().add(populationLabel);
+        populationLabel.setBounds(620, 80, 70, 14);
+
+        crossoverField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crossoverFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(crossoverField);
+        crossoverField.setBounds(710, 100, 70, 20);
+
+        cOverLabel.setText("Crossover");
+        getContentPane().add(cOverLabel);
+        cOverLabel.setBounds(710, 80, 70, 14);
+
+        muRateField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                muRateFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(muRateField);
+        muRateField.setBounds(800, 100, 70, 20);
+
+        muLabel.setText("MU Rate");
+        getContentPane().add(muLabel);
+        muLabel.setBounds(800, 80, 70, 14);
+
+        popLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(popLabel);
+        popLabel.setBounds(320, 70, 220, 110);
+
+        trainButton.setText("Train");
+        trainButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trainButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(trainButton);
+        trainButton.setBounds(650, 140, 80, 23);
+
+        addAIButton.setText("Add");
+        addAIButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAIButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(addAIButton);
+        addAIButton.setBounds(760, 140, 70, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -339,6 +415,57 @@ public class RaceFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboBoxActionPerformed
 
+    private void populationFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_populationFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_populationFieldActionPerformed
+
+    private void crossoverFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crossoverFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crossoverFieldActionPerformed
+
+    private void muRateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muRateFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_muRateFieldActionPerformed
+
+    private void trainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainButtonActionPerformed
+        int population = Integer.parseInt(populationField.getText());
+        int crossOver = Integer.parseInt(crossoverField.getText());
+        double muRate = Double.parseDouble(muRateField.getText());
+
+        Trainer t = new Trainer(population, crossOver, muRate, distanceSlider.getValue());
+        t.train();
+        AIRacer = t.getBestRacer();
+    }//GEN-LAST:event_trainButtonActionPerformed
+
+    private void addAIButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAIButtonActionPerformed
+        // Get car infomation
+        String car_name = JOptionPane.showInputDialog("Please input the name of the car: ");
+        int speed = AIRacer.getSpeed();
+        int acceleration = AIRacer.getAcceleration();
+        int nitro = AIRacer.getNos();
+
+        speedSlider.setValue(speed);
+        speedLabel.setText("" + speedSlider.getValue());
+        accSlider.setValue(acceleration);
+        accLabel.setText("" + accSlider.getValue());
+        nitroSlider.setValue(nitro);
+        nitroLabel.setText("" + nitroSlider.getValue());
+
+        // Create the car object and store it in CarFreeList
+        ImageIcon car_image = new ImageIcon(new ImageIcon(getClass().getResource("images/" + freeList.remove(0))).getImage());
+        RaceCar race_car = new RaceCar(car_name, speed, acceleration, nitro, car_image);
+        race_car.setDistance(distanceSlider.getValue());
+
+        // Now we want to draw the car on the panel
+        carList.add(race_car);
+        displayRace.addCar(race_car);
+
+        // Combo box
+        comboBox.addItem(race_car.getCarName());
+        //enable trackLength
+        distanceSlider.setEnabled(true);
+    }//GEN-LAST:event_addAIButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -375,14 +502,18 @@ public class RaceFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AIRACER;
     private javax.swing.JLabel accLabel;
     private javax.swing.JSlider accSlider;
+    private javax.swing.JButton addAIButton;
     private javax.swing.JButton addButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.JLabel cOverLabel;
     private javax.swing.JComboBox comboBox;
+    private javax.swing.JTextField crossoverField;
     private javax.swing.JSlider distanceSlider;
     private javax.swing.JButton goButton;
     private javax.swing.JButton jButton1;
@@ -394,12 +525,18 @@ public class RaceFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel list_label;
     private javax.swing.JLabel milesLabel;
+    private javax.swing.JLabel muLabel;
+    private javax.swing.JTextField muRateField;
     private javax.swing.JLabel nitroLabel;
     private javax.swing.JSlider nitroSlider;
+    private javax.swing.JLabel popLabel;
+    private javax.swing.JTextField populationField;
+    private javax.swing.JLabel populationLabel;
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel speedLabel;
     private javax.swing.JSlider speedSlider;
     private javax.swing.JLabel statsLabel;
+    private javax.swing.JButton trainButton;
     // End of variables declaration//GEN-END:variables
 
 }
