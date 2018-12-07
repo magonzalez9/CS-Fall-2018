@@ -14,6 +14,7 @@ public class RacerAI {
     private int speed;
     private int acceleration;
     private int nos;
+    private int statTotal;
     private double performanceTime;
 
     public void RacerAI() {
@@ -25,19 +26,73 @@ public class RacerAI {
     }
 
     void incrementSpeed() {
-        this.speed++;
+        if (speed >= 10) {
+            if (acceleration < 10) {
+                acceleration++;
+            } else {
+                nos++;
+            }
+        } else {
+            speed++;
+        }
+
     }
 
     void incrementAcceleration() {
-        this.acceleration++;
+        if (acceleration >= 10) {
+            if (nos < 10) {
+                nos++;
+            } else {
+                speed++;
+            }
+        } else {
+            acceleration++;
+        }
     }
 
     void incrementNos() {
-        this.nos++;
+        if (nos >= 10) {
+            if (speed < 10) {
+                speed++;
+            } else {
+                acceleration++;
+            }
+        } else {
+            nos++;
+        }
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getAcceleration() {
+        return acceleration;
+    }
+
+    public int getNos() {
+        return nos;
+    }
+
+    public double getPerformanceTime() {
+        return performanceTime;
+    }
+
+    boolean maxedOut() {
+        if ((speed + acceleration + nos) >= 16) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     int getStatTotal() {
-        return this.speed + this.acceleration + this.nos;
+        return speed + acceleration + nos;
+    }
+
+    public String toString() {
+        return "Speed: " + speed + "\nAcceleration: " + acceleration + "\nNos: " + nos;
+
     }
 
 }

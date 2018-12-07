@@ -17,9 +17,9 @@ public class DragRace {
     public static void main(String[] args) {
 //        RaceFrame r = new RaceFrame();
 //        r.setVisible(true);
-        
-        Trainer t = new Trainer(10,10,10);
 
+        Trainer t = new Trainer(12, 2, .001);
+        t.train();
 
     }
 }

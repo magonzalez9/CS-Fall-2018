@@ -51,11 +51,23 @@ public class RaceCar {
     }
 
     public void setDistance(int distance) {
-        track_distance = (distance - 1) * (8000 - 91.44) / (100 - 1) + 91.44;
+        track_distance = (distance - 1) * (8000 - 91.44) / (100 - 1) + 91.44; // meters
     }
 
     public void activateNOS() {
         use_nos = true;
+    }
+
+    public double getTop_speed() {
+        return top_speed;
+    }
+
+    public double getAcceleration() {
+        return acceleration;
+    }
+
+    public double getNitro() {
+        return nitro;
     }
 
     public double getTrackDistance() {

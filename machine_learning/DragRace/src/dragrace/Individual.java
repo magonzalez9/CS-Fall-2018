@@ -5,6 +5,8 @@
  */
 package dragrace;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -86,36 +88,62 @@ public class Individual implements Cloneable, Evaluable, Comparable<Individual> 
         fitness = Environment.eval(this);
     }
 
-    public byte getSpeedStat() {
-        byte speed = 0;
+    public int getSpeedStat() {
+        int bit = 128;
+        int speed = 0;
         for (int i = 0; i <= 7; i++) {
-            speed += dna[i];
+            if (dna[i] == 1) {
+                speed += bit;
+            }
+            bit -= (bit / 2);
         }
         return speed;
-        
+
     }
 
-    public byte getAccStat() {
-        byte acc = 0;
+    public int getAccStat() {
+        int bit = 128;
+        int acc = 0;
         for (int i = 8; i <= 15; i++) {
-            acc += dna[i];
+            if (dna[i] == 1) {
+                acc += bit;
+            }
+            bit -= (bit / 2);
         }
         return acc;
     }
 
-    public byte getNosStat() {
-        byte nos = 0;
+    public int getNosStat() {
+        int bit = 128;
+        int nos = 0;
         for (int i = 16; i <= 23; i++) {
-            nos += dna[i];
+            if (dna[i] == 1) {
+                nos += bit;
+            }
+            bit -= (bit / 2);
         }
         return nos;
 
     }
 
+    public String getMaxStat() {
+        int[] stats = new int[]{getSpeedStat(), getAccStat(), getNosStat()};
+        Arrays.sort(stats);
+
+        if (getSpeedStat() == stats[2]) {
+            return "speed";
+        } else if (getAccStat() == stats[2]) {
+            return "acceleration";
+        } else {
+            return "nos";
+        }
+
+    }
+
     public String printIndividualStats() {
-        return "Speed: " + getSpeedStat() + "\n" +
-               "Acceleration: " + getAccStat() + "\n" +
-               "Nos: " + getNosStat();
+        return "Speed: " + getSpeedStat() + "\n"
+                + "Acceleration: " + getAccStat() + "\n"
+                + "Nos: " + getNosStat();
     }
 
     private String format(byte[] dna) { // make the byte[] into a String

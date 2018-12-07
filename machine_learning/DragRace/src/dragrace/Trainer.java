@@ -5,6 +5,8 @@
  */
 package dragrace;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Marco
@@ -22,38 +24,46 @@ public class Trainer {
         pList = new Population(population);
         rList = new RaceAIList();
 
+        for (int i = 0; i < population; i++) {
+            rList.add(new RacerAI());
+        }
+
         this.population = population;
         this.crossover = crossover;
         this.muRate = (int) (1 / muRate);
     }
 
     public void train() {
+        // Do a generation
+        pList.doageneration(muRate, crossover);
         IndividualList indvidualList = pList.getPopulationList();
-        
-        for (int i = 0; i < indvidualList.size(); i++) {
-            if (rList.isEmpty()) {
+
+        while (!rList.trainingComplete()) {
+            pList.doageneration(muRate, crossover);
+
+            // Increment stat based on the GA gen results 
+            for (int i = 0; i < pList.getPopulationList().size(); i++) {
+                if (pList.getPopulationList().get(i).getMaxStat().equals("speed")) {
+                    rList.get(i).incrementSpeed();
+                } else if (pList.getPopulationList().get(i).getMaxStat().equals("acceleration")) {
+                    rList.get(i).incrementAcceleration();
+                } else {
+                    rList.get(i).incrementNos();
+                }
+
+            } // --end of for every individual 
+
+            // Lets see the results
+            // Now we test out the stats!
+            for (RacerAI AIraceCar : rList) {
+                ImageIcon car_image = new ImageIcon(new ImageIcon(getClass().getResource("images/car1.png")).getImage());
+                RaceCar raceCar = new RaceCar("AI", AIraceCar.getSpeed(), AIraceCar.getAcceleration(), (double) AIraceCar.getNos(), car_image);
+                raceCar.setDistance(10);
+                
                 
             }
         }
-        pList.doageneration(muRate, crossover);
-        System.out.println(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
-
-        for (int i = 0; i < pList.getPopulationList().size(); i++) {
-            System.out.println("Speed: " + pList.getPopulationList().get(i).getSpeedStat());
-            System.out.println("Acceleration: " + pList.getPopulationList().get(i).getAccStat());
-            System.out.println("NOS: " + pList.getPopulationList().get(i).getNosStat());
-            System.out.println(" ");
-        }
-
-        pList.doageneration(muRate, crossover);
-        System.out.println(pList.toString() + "\nFitness avg:" + pList.evaluateFitness());
-        System.out.println("NEW");
-        for (int i = 0; i < pList.getPopulationList().size(); i++) {
-            System.out.println("Speed: " + pList.getPopulationList().get(i).getSpeedStat());
-            System.out.println("Acceleration: " + pList.getPopulationList().get(i).getAccStat());
-            System.out.println("NOS: " + pList.getPopulationList().get(i).getNosStat());
-            System.out.println(" ");
-        }
+        System.out.println(rList.toString());
     }
 
 }
