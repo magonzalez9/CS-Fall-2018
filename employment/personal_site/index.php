@@ -141,20 +141,6 @@
               <span class="text-primary">May 2016 - Present</span>
             </div>
           </div>
-          <div class="resume-item d-flex flex-column flex-md-row">
-            <div class="resume-content mr-auto">
-              <h3 class="mb-0">Web Assistant</h3>
-              <div class="subheading mb-3">The Salem Spark</div>
-              <ul>
-              	<li>Update website's user interface</li>
-				<li>Design content infrastructure</li> 
-				<li>Meet with client and implement requirements</li>
-              </ul>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">August 2018</span>
-            </div>
-          </div>
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
@@ -167,7 +153,7 @@
               </ul>
             </div>
             <div class="resume-date text-md-right">
-              <span class="text-primary">January 2016 - December 2017</span>
+              <span class="text-primary">Jan 2016 - Dec 2017</span>
             </div>
           </div>
 
@@ -182,11 +168,24 @@
               </ul>
             </div>
             <div class="resume-date text-md-right">
-              <span class="text-primary">December 2016 - February 2017</span>
+              <span class="text-primary">Dec 2016 - Feb 2017</span>
             </div>
           </div>
 
-         
+          <div class="resume-item d-flex flex-column flex-md-row">
+            <div class="resume-content mr-auto">
+              <h3 class="mb-0">Web Assistant</h3>
+              <div class="subheading mb-3">The Salem Spark</div>
+              <ul>
+              	<li>Update website's user interface</li>
+				<li>Design content infrastructure</li> 
+				<li>Meet with client and implement requirements</li>
+              </ul>
+            </div>
+            <div class="resume-date text-md-right">
+              <span class="text-primary">Aug 2018</span>
+            </div>
+          </div>
 
         </div>
 
@@ -301,7 +300,7 @@
                 </tr>
                 <tr>
                   <td>Linux</td>
-                  <td>Intermediate</td>
+                  <td>Basics</td>
                   <td>
                     <div class="progress" style="width: 100%">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
