@@ -19,6 +19,11 @@ public class HashStuffMain {
     public static void main(String[] args) {
         HashMap<String, String> myMap = new HashMap<>();
         myMap.put("Marco", "Gonzalez"); 
+        System.out.println(myMap.size());
+        myMap.replace("Marco", "Antonio"); 
+        
+        Hashset<String, Integer> n = new Hashset<>(); 
+        
         
         // Loop through a hash map
         for (HashMap.Entry<String, String> entry : myMap.entrySet()){
