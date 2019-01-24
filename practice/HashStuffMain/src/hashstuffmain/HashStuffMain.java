@@ -17,16 +17,12 @@ public class HashStuffMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        HashMap<String, Integer> myMap = new HashMap<>();
-
-        Map<String, Integer> map = new MyLinearMap<>();
-        map.put("Word1", 1);
-        map.put("Word2", 2);
-        Integer value = map.get("Word1");
-        System.out.println(value);
-
-        for (String key : map.keySet()) {
-            System.out.println(key + ", " + map.get(key));
+        HashMap<String, String> myMap = new HashMap<>();
+        myMap.put("Marco", "Gonzalez"); 
+        
+        // Loop through a hash map
+        for (HashMap.Entry<String, String> entry : myMap.entrySet()){
+            System.out.println(entry.getKey() + "/" + entry.getValue());
         }
     }
 
