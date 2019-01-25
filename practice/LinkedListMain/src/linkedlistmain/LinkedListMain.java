@@ -3,15 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inheritancemain;
+package linkedlistmain;
 
 /**
  *
  * @author Marco Gonzalez
  */
-public class Client extends ClientBaseClass{
-    
-    public Client(int id){
-        super(id); 
+public class LinkedListMain {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
     }
+    
 }
