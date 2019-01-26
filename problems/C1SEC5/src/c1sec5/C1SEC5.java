@@ -3,30 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfacemain;
-
-import java.util.List;
+package c1sec5;
 
 /**
  *
  * @author Marco
  */
-public class InterfaceMain {
+public class C1SEC5 {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-
-        ListClientExample t = new ListClientExample();
-        List myList = t.getList();
+        int a = 2; 
+        int b = 4; 
         
-        myList.add(2);
-        myList.add(3);
+        a = a ^ b; 
+        b = b ^ a; 
+        a = b ^ a; 
         
-        System.out.println(myList.toString());
-
+        System.out.println(a);
+        System.out.println(b);
     }
-
+    
 }
