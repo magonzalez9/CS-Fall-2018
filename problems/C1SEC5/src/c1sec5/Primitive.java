@@ -17,8 +17,12 @@ public class Primitive {
     // index 0 corresponding to the least significant bit, and the bit at index 
     // 63 corresponding to the most significant bit. Implement code that takes as 
     // input a 64-bit integer X and swaps the bits at indices i and j. 
-    public byte getInteger(byte x, int i, int j) {
-        return 3;
+    public long getInteger(long x, int i, int j) {
+        if (((x >>> i) & 1) != ((x >>> j) & 1)) {
+            long bitMask = (1L << i) | (1L << j);
+            x ^= bitMask;
+        }
+        return x;
     }
 
     // Given two integer-valued variables a and b, can you swap without using an additional
@@ -35,21 +39,23 @@ public class Primitive {
 
         while (x != 0) {
             result ^= 1;
-            x &= (x - 1); // erase lowest set bit
+            x &= (x - 1); // erases lowest set bit
         }
 
         return result;
     }
 
     public void isolateNumbers(int number) {
-        int mod;
+        int ithInt;
         while (number > 0) {
-            mod = number % 10;
+            ithInt = number % 10;
             number = number / 10;
         }
     }
 
-    public void baseConverstion() {
-
+    public String decicmalBaseConversion(String number,int fromBase, int toBase) {
+        // Parse the number with source radix  
+        // and return in specified radix(base) 
+        return Integer.toString(Integer.parseInt(number, fromBase), toBase);
     }
 }

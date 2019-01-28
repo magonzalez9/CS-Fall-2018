@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Marco
  */
-public class C1SEC5 {
+public class Sec4Primitives {
 
     /**
      * @param args the command line arguments
@@ -42,7 +42,11 @@ public class C1SEC5 {
 
         String strNumber = "123";
         int b = Integer.parseInt(strNumber);
-      
+
+        // Method testing
+        Primitive t = new Primitive();
+        String result = t.decicmalBaseConversion("10", 10, 2);
+        System.out.println(result);
 
     }
 
