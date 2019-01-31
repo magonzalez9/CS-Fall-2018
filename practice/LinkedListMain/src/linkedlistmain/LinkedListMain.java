@@ -17,11 +17,7 @@ public class LinkedListMain {
     public static void main(String[] args) {
         // TODO code application logic here
         List myList = new LinkedList(); 
-        
-        String sentence = "Marco likes chicken";
-        
-        System.out.println(sentence.lastIndexOf(' '));
-        
+       
         
         
         
