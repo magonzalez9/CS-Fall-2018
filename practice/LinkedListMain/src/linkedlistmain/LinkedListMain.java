@@ -16,10 +16,14 @@ public class LinkedListMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        List myList = new LinkedList(); 
+        List myList = new ArrayList(); 
+        
        
+        Hashtable<String, Integer> ht = new Hashtable<>(); 
         
-        
+        String a = "Egee fdf ";
+        String c = String.valueOf(123);
+
         
     
       
