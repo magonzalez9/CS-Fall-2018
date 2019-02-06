@@ -12,4 +12,5 @@ package linkedlistmain;
 public class Node {
     Node next; 
     
+    
 }
