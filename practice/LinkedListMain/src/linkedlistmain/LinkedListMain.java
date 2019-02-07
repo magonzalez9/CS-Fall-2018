@@ -16,13 +16,19 @@ public class LinkedListMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        List myList = new ArrayList(); 
-        
-       
-        Hashtable<String, Integer> ht = new Hashtable<>(); 
-        
-        String a = "Egee fdf ";
-        String c = String.valueOf(123);
+      LinkedList myList = new LinkedList(); 
+      
+      myList.append(1);
+      myList.append(2);
+      myList.append(3);
+      myList.append(4);
+      
+      myList.deleteWithValue(3);
+      
+      System.out.println(myList.toString());
+      
+      // Reverse a linked list
+      
 
         
     
