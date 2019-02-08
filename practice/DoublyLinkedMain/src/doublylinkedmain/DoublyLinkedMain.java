@@ -19,23 +19,16 @@ public class DoublyLinkedMain {
     public static void main(String[] args) {
         // TODO code application logic here
         DoublyLinkedList dList = new DoublyLinkedList();
-
-        Deque<String> a = new ArrayDeque();
-//        a.push("s");
-//        a.push("i");
-//        a.push("n");
-//        a.push("e");
-//        a.push("p");
         
-        a.add("s");
-        a.add("i");
-        a.add("n");
-        a.add("e");
-        a.add("p");
-       
+        LinkedList<Integer> stack = new LinkedList(); 
         
-        System.out.println(a.toString());
-        System.out.println(a.remove());
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.pop(); 
+        stack.pop(); 
+        stack.peek(); 
+        System.out.println(stack.toString());
     }
 
 }

@@ -14,7 +14,7 @@ public class DoublyLinkedList {
     Node head;
     Node tail;
 
-    public void append(int data) {
+    public void addLast(int data) {
         if (head == null) {
             head = new Node(data);
             return;
