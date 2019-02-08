@@ -16,18 +16,22 @@ public class DoublyLinkedMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        DLinkedList dList = new DLinkedList(); 
+        DLinkedList dList = new DLinkedList();
         dList.append(1);
         dList.append(2);
         dList.append(3);
         dList.append(4);
-        
+
         dList.deleteByValue(2);
         dList.deleteByValue(1);
         dList.deleteByValue(4);
-        
-        
-        System.out.println(dList.toString());
+        dList.deleteByValue(3);
+
+        if (dList.isEmpty()) {
+            
+        } else {
+            System.out.println(dList.toString());
+        }
     }
-    
+
 }

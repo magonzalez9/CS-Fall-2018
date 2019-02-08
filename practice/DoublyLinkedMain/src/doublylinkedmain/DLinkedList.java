@@ -31,22 +31,27 @@ public class DLinkedList {
     }
 
     public void deleteByValue(int data) {
-        if (head.data == data) {
+        if (head.data == data && head.next != null) {
             head = head.next;
+            return;
+        } else if (head.data == data && head.next == null) {
+            head = null;
             return;
         }
 
         Node current = head.next;
-
         while (current.next != null) {
-            if (current.next.next == null) {
-                
-            }
             if (current.data == data) {
                 current.prev.next = current.next;
                 current.next.prev = current.prev;
             }
             current = current.next;
+        }
+
+        // Check the last node 
+        if (current.data == data) {
+            current.prev.next = null;
+            current.prev = null;
         }
     }
 
