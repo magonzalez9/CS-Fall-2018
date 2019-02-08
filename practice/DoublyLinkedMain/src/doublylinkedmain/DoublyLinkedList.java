@@ -9,7 +9,7 @@ package doublylinkedmain;
  *
  * @author Marco
  */
-public class DLinkedList {
+public class DoublyLinkedList {
 
     Node head;
     Node tail;

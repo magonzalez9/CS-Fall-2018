@@ -5,6 +5,8 @@
  */
 package doublylinkedmain;
 
+import java.util.*;
+
 /**
  *
  * @author Marco
@@ -16,22 +18,24 @@ public class DoublyLinkedMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        DLinkedList dList = new DLinkedList();
-        dList.append(1);
-        dList.append(2);
-        dList.append(3);
-        dList.append(4);
+        DoublyLinkedList dList = new DoublyLinkedList();
 
-        dList.deleteByValue(2);
-        dList.deleteByValue(1);
-        dList.deleteByValue(4);
-        dList.deleteByValue(3);
-
-        if (dList.isEmpty()) {
-            
-        } else {
-            System.out.println(dList.toString());
-        }
+        Deque<String> a = new ArrayDeque();
+//        a.push("s");
+//        a.push("i");
+//        a.push("n");
+//        a.push("e");
+//        a.push("p");
+        
+        a.add("s");
+        a.add("i");
+        a.add("n");
+        a.add("e");
+        a.add("p");
+       
+        
+        System.out.println(a.toString());
+        System.out.println(a.remove());
     }
 
 }
