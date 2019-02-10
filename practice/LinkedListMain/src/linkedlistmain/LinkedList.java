@@ -13,7 +13,14 @@ public class LinkedList {
 
     Node head;
 
-    public void append(int data) {
+    public void addFirst(int data) {
+        Node newHead = new Node(data);
+        newHead.next = head;
+
+        head = newHead;
+    }
+
+    public void addLast(int data) {
         if (head == null) {
             head = new Node(data);
             return;
@@ -25,13 +32,6 @@ public class LinkedList {
             current = current.next;
         }
         current.next = new Node(data);
-    }
-
-    public void prepend(int data) {
-        Node newHead = new Node(data);
-        newHead.next = head;
-
-        head = newHead;
     }
 
     public void deleteWithValue(int data) {
@@ -57,6 +57,7 @@ public class LinkedList {
         return (head == null);
     }
 
+    @Override
     public String toString() {
         if (head == null) {
             return "No data";

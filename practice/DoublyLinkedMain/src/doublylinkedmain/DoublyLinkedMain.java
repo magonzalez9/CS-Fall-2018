@@ -29,6 +29,20 @@ public class DoublyLinkedMain {
         stack.pop(); 
         stack.peek(); 
         System.out.println(stack.toString());
+        
+        LinkedList linked = new LinkedList();
+        
+        linked.addLast(1);
+        linked.addLast(2);
+        linked.addFirst(7);
+        linked.addLast(0);
+        System.out.println(linked.size());
+        for (int i = 0; i < 10; i++) {
+            linked.contains(i);
+        }
+
+        
+        System.out.println(linked.toString());
     }
 
 }

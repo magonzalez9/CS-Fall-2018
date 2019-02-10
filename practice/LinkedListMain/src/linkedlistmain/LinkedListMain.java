@@ -18,10 +18,10 @@ public class LinkedListMain {
         // TODO code application logic here
       LinkedList myList = new LinkedList(); 
       
-      myList.append(1);
-      myList.append(2);
-      myList.append(3);
-      myList.append(4);
+      myList.addLast(1);
+      myList.addLast(2);
+      myList.addLast(3);
+      myList.addLast(4);
       
       myList.deleteWithValue(3);
       
