@@ -34,15 +34,43 @@ public class LinkedList {
         current.next = new Node(data);
     }
 
-    public void deleteWithValue(int data) {
-        if (head == null) {
+    public void deleteFirst() {
+        if (!isEmpty()) {
+            head = head.next;
+        }
+    }
+
+    public void deleteLast() {
+        if (!isEmpty()) {
+            if (head.next == null) {
+                head = null;
+                return;
+            }
+            Node current = head;
+            while (current.next != null) {
+                if (current.next.next == null) {
+                    current.next = null;
+                    return;
+                }
+                current = current.next;
+            }
+
+        }
+    }
+
+    public void deleteByValue(int data) {
+        // Check if LinkedList is empty
+        if (isEmpty()) {
             return;
         }
+
+        // Check if data is at head
         if (head.data == data) {
             head = head.next;
             return;
         }
 
+        // Find nodes matching data
         Node current = head;
         while (current.next != null) {
             if (current.next.data == data) {

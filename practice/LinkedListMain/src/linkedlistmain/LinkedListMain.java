@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package linkedlistmain;
-import java.util.*; 
+
+import java.util.*;
+
 /**
  *
  * @author Marco Gonzalez
@@ -16,23 +18,18 @@ public class LinkedListMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-      LinkedList myList = new LinkedList(); 
-      
-      myList.addLast(1);
-      myList.addLast(2);
-      myList.addLast(3);
-      myList.addLast(4);
-      
-      myList.deleteWithValue(3);
-      
-      System.out.println(myList.toString());
-      
-      // Reverse a linked list
-      
+        LinkedList myList = new LinkedList();
 
+        myList.addLast(1);
+        myList.addLast(2);
+        myList.addLast(3);
         
-    
-      
+        
+        myList.deleteByValue(3);
+
+        System.out.println(myList.toString());
+
+        // Reverse a linked list
     }
-    
+
 }
