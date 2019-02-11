@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Marco
  */
-public class Problems {
+class Problems {
 
     // Merge two sorted arrays
     public int[] mergeSorted(int[] a, int[] b) {
@@ -19,34 +19,40 @@ public class Problems {
 
         int j = 0; // pointer for array a
         int k = 0; // pointer for array b
+        int i = 0;
 
-        for (int i = 0; i < (a.length + b.length); i++) {
-            if (j < a.length && k < b.length) {
-                if (a[j] < b[k]) {
-                    c[i] = a[j];
-                    j++;
-                } else if (a[j] > b[k]) {
-                    c[i] = b[k];
-                    k++;
-                } else if (a[j] == a[k]) {
-                    c[i] = b[k];
-                    c[i + 1] = a[j];
-
-                    i += 2;
-                    k++;
-                    j++;
-                }
-            } else if (j < a.length) {
+        while (j < a.length && k < b.length) {
+            if (a[j] < b[k]) {
                 c[i] = a[j];
                 j++;
-            } else {
+            } else if (a[j] > b[k]) {
                 c[i] = b[k];
                 k++;
+            } else {
+                c[i] = a[j];
+                c[i + 1] = b[k];
+                j++;
+                k++;
+                i++;
             }
+            i++;
+        } // 
+
+        while (j < a.length) {
+            c[i] = a[j];
+            j++;
+            i++;
+        }
+
+        while (k < b.length) {
+            c[i] = b[k];
+            k++;
+            i++;
         }
 
         return c;
-    } //-- end of merge two sorted arrays
+
+    }
 
     // Reorder entries so that even appears first then odd without allocating new memory
     public int[] sortEvenOdd(int[] a) {
@@ -68,27 +74,27 @@ public class Problems {
             i++;
         }
         return a;
-    }// --end of sortEvenOdd
+    } // --end of sortEvenOdd
 
     // Given sorted array, determine if there is a pair of numbers that sum the input x
-    public boolean checkSumInArray(int[] numbers, int x) {
+    public boolean checkSumInArray(int[] a, int sum) {
+        int left = 0;
+        int right = a.length - 1;
         int i = 0;
-        int j = 0;
-        int r = numbers.length - 1;
-        boolean flag = false;
 
-        while (i < numbers.length) {
-            if ((numbers[i] + numbers[r]) > x) {
-                r--;
-            } else if ((numbers[i] + numbers[r]) < x) {
-                j++;
-            } else if ((numbers[i] + numbers[r]) == x) {
-                flag = true;
+        while (i < a.length) {
+            if ((a[left] + a[right]) == sum) {
+                return true;
+            } else if ((a[right] + a[left]) > sum) {
+                right--;
+            } else if ((a[right] + a[left]) < sum) {
+                left++;
+            } else if (a[right] == a[left]) {
+                return false;
             }
             i++;
         }
-
-        return flag;
+        return false;
     } // --end of checkSumInArray
 
     public boolean checkIfSynadrome(String word1, String word2) {
@@ -132,4 +138,136 @@ public class Problems {
         return flag;
     }// --end of checkIfSynadrome
 
+    public ArrayList<Integer> breakInteger(int a) {
+        int iDigit = 0, i = 0;
+        ArrayList<Integer> digits = new ArrayList<>();
+
+        while (a != 0) {
+            iDigit = a % 10;
+            digits.add(iDigit);
+            a /= 10; // reduce number
+            i++;
+        }
+        Collections.reverse(digits);
+
+        return digits;
+    }// --end of breakInteger
+
+    public ArrayList<Integer> breakIntegerStr(int a) {
+
+        ArrayList<Integer> digits = new ArrayList<>();
+        String str = Integer.toString(a);
+
+        for (int i = 0; i < str.length(); i++) {
+            digits.add(Character.getNumericValue(str.charAt(i)));
+        }
+
+        return digits;
+
+    }// --end of breakIntegerStr
+
+    public boolean isPalindrome(String word) {
+        int j = 0, k = word.length() - 1;
+        boolean flag = true;
+
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(j) == word.charAt(k)) {
+                j++;
+                k--;
+            } else {
+                flag = false;
+            }
+        }
+        return flag;
+    }// --end of isPalyndrome
+
+    // Extract numbers from String and return array
+    public ArrayList<Integer> extractDigits(String input) {
+        ArrayList<Integer> digits = new ArrayList<>();
+
+        for (int i = 0; i < input.length(); i++) {
+            if (Character.isDigit(input.charAt(i))) {
+                digits.add(Character.getNumericValue(input.charAt(i)));
+            }
+        }
+        return digits;
+    }
+
+    // Remove duplicates from string
+    public String removeStrDuplicates(String input) {
+        HashSet<Character> hs = new HashSet<>();
+        StringBuilder sb = new StringBuilder();
+        input = input.toLowerCase();
+
+        for (int i = 0; i < input.length(); i++) {
+            if (hs.add(input.charAt(i))) {
+                sb.append(input.charAt(i));
+            }
+        }
+        return input;
+    }
+
+    // Convert integer to string w/out parseInt
+    public String intToStr(int input) {
+        StringBuilder str = new StringBuilder();
+
+        int mod = 0;
+        while (input != 0) {
+            mod = input % 10;
+            if (mod < 0) {
+                mod *= -1;
+            }
+            str.append(mod);
+            input /= 10;
+        }
+
+        return str.reverse().toString();
+    }
+
+    // Convert string to integer 
+    public int strToInt(String str) {
+        int answer = 0, factor = 1;
+
+        for (int i = str.length() - 1; i >= 0; i--) {
+            answer += (str.charAt(i) - '0') * factor;
+            factor *= 10;
+        }
+        return answer;
+
+    }
+
+    // Reverse words in a sentence e.g. "marco likes chicken" -> "chicken likes marco"
+    public String reverseSentence(String input) {
+        String[] words = input.split(" ");
+        StringBuilder returnStr = new StringBuilder();
+
+        for (int i = words.length - 1; i >= 0; i--) {
+            returnStr.append(words[i] + " ");
+        }
+
+        return returnStr.toString();
+    }
+
+    // Base coversion
+    public String decicmalBaseConversion(String number, int fromBase, int toBase) {
+        // Parse the number with source radix  
+        // and return in specified radix(base) 
+        return Integer.toString(Integer.parseInt(number, fromBase), toBase);
+    }
+
+    // Given two integer-valued variables a and b, can you swap without using an additional
+    // temporary variable?
+    public void swapWithoutTemp(int a, int b) {
+        a = a ^ b;
+        b = b ^ a;
+        a = b ^ a;
+    }
+
+    // Compute all valid IP Addresses
+    // Reverse a linked list
+    // How would you reverse every other node in a linked list
+    // Implement BST
+    // Rotate an array from 1|3|4|6|8 rotate by 2: 6|8|1|3|4
+    // Implement stack that holds minimum
+    // Design Expedia
 }
