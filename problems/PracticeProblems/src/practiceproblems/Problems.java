@@ -97,46 +97,26 @@ class Problems {
         return false;
     } // --end of checkSumInArray
 
-    public boolean checkIfSynadrome(String word1, String word2) {
-
-        boolean flag = true;
-        if (word1.length() == word2.length()) {
-            word1 = word1.toLowerCase();
-            word2 = word2.toLowerCase();
-
-            Hashtable<Character, Integer> ht1 = new Hashtable<>();
-            Hashtable<Character, Integer> ht2 = new Hashtable<>();
-
-            int i = 0;
-
-            while (i < word1.length()) {
-                if (ht1.containsKey(word1.charAt(i))) {
-                    ht1.put(word1.charAt(i), ht1.get(word1.charAt(i)) + 1);
-                } else {
-                    ht1.put(word1.charAt(i), 1);
-                }
-
-                if (ht2.containsKey(word2.charAt(i))) {
-                    ht2.put(word2.charAt(i), ht2.get(word2.charAt(i)) + 1);
-                } else {
-                    ht2.put(word2.charAt(i), 1);
-                }
-                i++;
-            }// --end of while
-
-            Set<Character> keys = ht1.keySet();
-
-            // for-each loop
-            for (Character key : keys) {
-                if (!(ht2.containsKey(key) && ht2.containsValue(ht1.get(key)))) {
-                    flag = false;
-                }
-            }
-        } else {
-            flag = false;
+    public boolean checkIfPermutation(String a, String b) {
+        if (a.length() != b.length()) {
+            return false;
         }
-        return flag;
-    }// --end of checkIfSynadrome
+
+        int[] letters = new int[128];
+        for (int i = 0; i < a.length(); i++) {
+            letters[a.charAt(i)] += 1;
+        }
+
+        for (int i = 0; i < b.length(); i++) {
+            letters[b.charAt(i)] -= 1;
+
+            if (letters[b.charAt(i)] < 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }// --end of checkIfPermutation
 
     public ArrayList<Integer> breakInteger(int a) {
         int iDigit = 0, i = 0;
@@ -167,6 +147,7 @@ class Problems {
     }// --end of breakIntegerStr
 
     public boolean isPalindrome(String word) {
+        word = word.toLowerCase();
         int j = 0, k = word.length() - 1;
         boolean flag = true;
 
@@ -261,6 +242,81 @@ class Problems {
         a = a ^ b;
         b = b ^ a;
         a = b ^ a;
+    }
+
+    // Implement an algorithm to determine if a string has all unique characters without additional DS
+    // KEEP IN MIND lowercase and upper case characters are treated as different charachters!!!
+    public boolean checkStringDuplicates(String str) {
+        if (str.length() > 128) { // only 128 unique characters exist!
+            return false;
+        }
+        str = str.toLowerCase();
+        int currentIndex;
+        int lastIndex;
+
+        for (int i = 0; i < str.length(); i++) {
+            currentIndex = str.indexOf(str.charAt(i));
+            lastIndex = str.lastIndexOf(str.charAt(i));
+
+            if (currentIndex != lastIndex) {
+                return false;
+
+            }
+        }
+
+        return true;
+    }
+
+    // Write a method that replaces all spaces with %20 (or if I am asked to replace something in string)
+    public String replaceSpaces(String str) {
+        String returnStr;
+        int wSpaceCount = 0;
+        char[] a = str.toCharArray();
+
+        // Count spaces (or desired character)
+        for (Character c : a) {
+            if (c == ' ') {
+                wSpaceCount++;
+            }
+        }
+
+        wSpaceCount = (wSpaceCount * 3) - 2; // Size of new array (to add space for new chars '%20')
+        char[] b = new char[a.length + wSpaceCount];
+        int j = 0;
+
+        for (int i = 0; i < b.length; i++) {
+            if (a[j] != ' ') {
+                b[i] = a[j];
+            } else {
+                b[i] = '%';
+                b[++i] = '2';
+                b[++i] = '0';
+            }
+            j++;
+        }
+        returnStr = new String(b);
+        return returnStr;
+    } // --end of repleaceSpaces()
+
+    // Compress str e.g "aabbcc" => a2b2c2
+    public String compress(String str) {
+        StringBuilder compressed = new StringBuilder();
+        int counter = 0;
+
+        for (int i = 0; i < str.length(); i++) {
+            counter++;
+
+            if (i + 1 >= str.length() || str.charAt(i) != str.charAt(i + 1)) {
+                compressed.append(str.charAt(i));
+                compressed.append(counter);
+                counter = 0;
+            }
+        }
+        if (compressed.length() < str.length()) {
+            return compressed.toString();
+        } else {
+            return str;
+        }
     }
 
     // Compute all valid IP Addresses
