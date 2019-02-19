@@ -20,14 +20,17 @@ public class LinkedListMain {
         // TODO code application logic here
         LinkedList myList = new LinkedList();
 
-        myList.addLast(1);
-        myList.addLast(2);
         myList.addLast(3);
-        
-        
-        myList.deleteByValue(3);
-
+        myList.addLast(5);
+        myList.addLast(8);
+        myList.addLast(5);
+        myList.addLast(10);
+        myList.addLast(2); 
+        myList.addLast(1);
+       
+        myList.partionList(5);
         System.out.println(myList.toString());
+
 
         // Reverse a linked list
     }

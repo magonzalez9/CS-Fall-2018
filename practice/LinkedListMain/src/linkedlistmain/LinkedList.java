@@ -5,6 +5,8 @@
  */
 package linkedlistmain;
 
+import java.util.*;
+
 /**
  *
  * @author Marco Gonzalez
@@ -81,6 +83,101 @@ public class LinkedList {
         }
     }
 
+    // ----------------- Practice problems --------------------------------------
+    public void deleteDuplicates() {
+        if (isEmpty()) {
+            return;
+        }
+
+        HashSet<Integer> hs = new HashSet<>();
+        Node current = head;
+        Node previous = null;
+
+        while (current != null) {
+            if (!hs.add(current.data)) {
+                previous.next = current.next;
+            } else {
+                previous = current;
+            }
+            current = current.next;
+        }
+    }
+
+    public int getKthToLast(int k) {
+        if (isEmpty()) {
+            return 0;
+        }
+        Node previous = head;
+        Node current = head;
+        int currentK = 1;
+
+        while (current.next != null) {
+            if (currentK != k) {
+                currentK++;
+            } else {
+                previous = previous.next;
+            }
+            current = current.next;
+        }
+
+        if (currentK == k) {
+            return previous.data;
+        } else {
+            return 0;
+        }
+    }
+
+    public void partionList(int x) {
+        if (isEmpty()) {
+            return;
+        }
+
+        Node leftHead = null;
+        Node leftTail = null;
+        Node rightHead = null;
+        Node rightTail = null;
+
+        Node current = head;
+
+        while (current != null) {
+            Node next = current.next;
+            current.next = null;
+
+            if (current.data < x) {
+                if (leftHead == null) {
+                    leftTail = current;
+                    leftHead = leftTail;
+                } else {
+                    leftTail.next = current;
+                    leftTail = leftTail.next; // move pointer to next node
+                }
+            } else {
+                if (rightHead == null) {
+                    rightTail = current;
+                    rightHead = rightTail;
+                } else {
+                    rightTail.next = current;
+                    rightTail = rightTail.next; // move pointer to next node
+                }
+            }
+
+            current = next;
+        }
+
+        leftTail.next = rightHead;
+    }
+
+    // Delete middle node
+    public void deleteMiddleNode(Node n) {
+        if (n.next != null && n != null) {
+            n.data = n.next.data;
+            n.next = n.next.next;
+        }
+
+    }
+
+    // Reverse a linked list 
+    // ----------------- Practice problems --------------------------------------
     public boolean isEmpty() {
         return (head == null);
     }
