@@ -318,12 +318,89 @@ class Problems {
             return str;
         }
     }
+    
+    // Check if string is palindrome permutation e.g. 'tact coa' => taco cat
+    public boolean checkPalindromePermutation(String str) {
+        Hashtable<Character, Integer> ht = new Hashtable();
 
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) != ' ') {
+                if (ht.containsKey(str.charAt(i))) {
+                    ht.put(str.charAt(i), ht.get(str.charAt(i)) + 1);
+                } else {
+                    ht.put(str.charAt(i), 1);
+                }
+            }
+        }
+
+        int countOdd = 0;
+
+        Set<Character> ks = ht.keySet();
+
+        for (Character key : ks) {
+            if ((ht.get(key) % 2) != 0) {
+                countOdd++;
+            }
+        }
+
+        if (countOdd > 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    // check the number of edits
+    public boolean numEdits(String a, String b) {
+        if ((a.length() - b.length()) > 1 || (a.length() - b.length()) < -1) {
+            
+            return false;
+        }
+
+        int j = 0;
+        int edits = 0;
+
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) != b.charAt(j)) {
+                edits++;
+                if (edits > 1) {
+                    return false;
+                }
+                if (b.length() > a.length()) {
+                    i--;
+                    j++;
+                }
+
+            } else {
+                if (j != b.length() - 1) {
+                    j++;
+                }
+
+            }
+        }
+
+        return true;
+    }
+    
+    // Find the the indices that add up to sum k
+    public int[] twoSum(int[] nums, int target) {
+        int[] result = new int[2];
+        Map map = new HashMap();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(target - nums[i])) {
+                result[1] = i;
+                result[0] = Integer.valueOf(map.get(target - nums[i]).toString());
+                return result;
+            }
+
+            map.put(nums[i], i);
+        }
+        return result;
+    }
+    
     // Compute all valid IP Addresses
-    // Reverse a linked list
-    // How would you reverse every other node in a linked list
-    // Implement BST
-    // Rotate an array from 1|3|4|6|8 rotate by 2: 6|8|1|3|4
+    // Rotate an array from 1|3|4|6|8 rotate by 2: 6|8|1|3|4 (Come back)
     // Implement stack that holds minimum
     // Design Expedia
 }

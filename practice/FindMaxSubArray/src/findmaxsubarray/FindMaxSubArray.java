@@ -29,7 +29,7 @@ public class FindMaxSubArray {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int[] values = {2, -3, 5, 2, 1,-1, -3, -1, 20, 90};
+        int[] values = {2, -3, 5, 2, 1, -1, -3, -1, 20, 90};
         int[] maxSubArr = findMaxSubArray(values, 0, (values.length - 1));
         System.out.println(Arrays.toString(maxSubArr));
 
@@ -84,6 +84,25 @@ public class FindMaxSubArray {
         int[] B = {max_left, max_right, (left_sum + right_sum)};
 
         return B;
+    }
+
+    public static void countingSort(int[] A, int[] B, int k) {
+        int[] C = new int[k + 1];
+        for (int i = 0; i < k; i++) {
+            C[i] = 0;
+        }
+        for (int j = 0; j < A.length; j++) {
+            C[A[j]] = C[A[j]] + 1; // Count number of elements by index
+        }
+        for (int i = 1; i < k; i++) {
+            C[i] = C[i] + C[i - 1];
+        }
+        for (int j = A.length - 1; j > 0; j--) {
+            B[C[A[j]]] = A[j];
+            C[A[j]] = C[A[j]] - 1;
+        }
+        System.out.println(Arrays.toString(B));
+//        System.out.println(Arrays.toString(C));
     }
 
 }

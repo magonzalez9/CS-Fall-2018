@@ -176,6 +176,31 @@ public class LinkedList {
 
     }
 
+    public void reverseList() {
+        if (head == null) {
+            return;
+        }
+
+        Node current = head;
+        Node newHead = null;
+
+        while (current != null) {
+            Node next = current.next; // Helper next pointer
+            current.next = null;
+
+            if (newHead == null) {
+                newHead = current;
+            } else {
+                current.next = newHead;
+                newHead = current;
+            }
+
+            current = next;
+        }
+
+        head = newHead;
+    }
+
     // Reverse a linked list 
     // ----------------- Practice problems --------------------------------------
     public boolean isEmpty() {

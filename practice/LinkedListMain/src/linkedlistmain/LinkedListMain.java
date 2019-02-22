@@ -28,7 +28,9 @@ public class LinkedListMain {
         myList.addLast(2); 
         myList.addLast(1);
        
-        myList.partionList(5);
+        System.out.println(myList.toString());
+        myList.reverseList();
+        
         System.out.println(myList.toString());
 
 

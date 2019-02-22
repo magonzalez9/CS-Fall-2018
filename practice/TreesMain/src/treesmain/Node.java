@@ -11,18 +11,17 @@ package treesmain;
  */
 public class Node {
 
-    int key;
-    String name;
+    int data;
 
     Node leftChild;
     Node rightChild;
 
-    Node(int key, String name) {
-        this.key = key;
-        this.name = name;
+    Node(int data) {
+        this.data = data;
+
     }
 
     public String toString() {
-        return name + " has a key " + key;
+        return "(" + data + ")";
     }
 }
