@@ -63,6 +63,10 @@ public class BinaryTree {
 
         return false;
     }
+    
+    public void deleteNode(int x){
+        
+    }
 
     public void printInOrder(Node focusNode) {
 
@@ -91,5 +95,7 @@ public class BinaryTree {
         }
 
     }
+    
+    
 
 }
