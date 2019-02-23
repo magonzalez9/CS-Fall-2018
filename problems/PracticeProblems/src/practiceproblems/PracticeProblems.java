@@ -78,6 +78,8 @@ public class PracticeProblems {
         System.out.println("Palindrome/Permutations Result: " + problem.checkPalindromePermutation("cop coa"));
 
         System.out.println("Edits result: " + problem.numEdits("pale", "bale"));
+        
+        
 
     }
 
