@@ -78,9 +78,9 @@ public class PracticeProblems {
         System.out.println("Palindrome/Permutations Result: " + problem.checkPalindromePermutation("cop coa"));
 
         System.out.println("Edits result: " + problem.numEdits("pale", "bale"));
-        
-        
 
+        int[] two = {1, 2, 3, 4, 5, 5, 7, 8, 9, 10};
+        System.out.println("Two sum " + Arrays.toString(problem.twoSum(two, 122)));
     }
 
 }
