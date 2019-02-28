@@ -1,12 +1,12 @@
-var img = document.getElementById("picture");
-var img = 1; 
-// 60984
+
+var currentImg = 1; 
 
 function getImagePixels()  {
+	var img = document.getElementById("picture");
 	// Create canvas and get image
     var c = document.createElement("canvas");
 	var ctx = c.getContext("2d");
-   
+
     // Set canvas dimensions proportional to image dimensions
     c.width = img.width; 
     c.height = img.height; 
@@ -21,36 +21,18 @@ function getImagePixels()  {
     var j = 0; 
 
     // Multi dimensional array (x by x)
-
 	for (var i = 0; i < imgData.data.length; i+=4) {
-		pixelArray[j] = getGrayScaleValue(imgData.data[i], imgData.data[i+1], imgData.data[i+2]);
+		pixelArray[j] = "("+imgData.data[i] +","+imgData.data[i+1]+","+imgData.data[i+2]+")";
 		j++; 
   	}
 
     return pixelArray; 
 } // --end of function getImagePixels
 
-function getGrayScaleValue(r, g, b){
-	// Apply affine transfomation to rgb values in order to color-categorize the pixels from 0-1
-	// E.g. 0 (lighter pixel) - 1 (darker pixel) 
-	// f(t)=(d−c)(b−a) / (t−a) + c
-	var rValue = parseFloat(((r - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
-	var gValue = parseFloat(((g - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
-	var bValue = parseFloat(((b - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
 
-	var sumAvg = ((rValue + gValue + bValue) / 3).toFixed(2);
-
-	// The lower the number the greater the darkness definition 
-	var bwSensitivity = .5; 
-
-	if (sumAvg >= bwSensitivity) {
-		return "*";
-	} else if (sumAvg < bwSensitivity){ 
-		return "_"; 
-	}
-} // --end of function getGrayScaleValue
 
 function debug(){
+	var img = document.getElementById("picture");
 	pixelArray = getImagePixels(); 
 
 	var cleanStr = ""; 
@@ -66,6 +48,7 @@ function debug(){
 
 	document.getElementById("pixels").innerHTML = cleanStr;
 }
+
 function analyzeImage(){
 	// Get settings 
 	var interval = parseInt(document.getElementById('interval').value, 10); 
@@ -105,7 +88,6 @@ function analyzeImage(){
         	// Get the count
         	console.log(faces.length); 
         	if (faces.length > 0 ) {
-        		console.log(faces);
 			    $div = $("<div>", {"class": "face-box"});
 			    $div.css('top', faces[0].positionY);
 			    $div.css('left', faces[0].positionX );
@@ -124,11 +106,31 @@ function analyzeImage(){
 
 function getNextPhoto(next){
 	if (next == true) {
-		img++;
+		currentImg++;
 	} else {
 
-		img--; 
+		currentImg--; 
 	}
 	document.getElementById("wrapper").innerHTML = "";
-	document.getElementById("picture").setAttribute("src", "original_photos/color/" + img + ".jpg");
+	document.getElementById("picture").setAttribute("src", "original_photos/color/" + currentImg + ".jpg");
 }
+
+function getGrayScaleValue(r, g, b){
+	// Apply affine transfomation to rgb values in order to color-categorize the pixels from 0-1
+	// E.g. 0 (lighter pixel) - 1 (darker pixel) 
+	// f(t)=(d−c)(b−a) / (t−a) + c
+	var rValue = parseFloat(((r - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
+	var gValue = parseFloat(((g - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
+	var bValue = parseFloat(((b - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
+
+	var sumAvg = ((rValue + gValue + bValue) / 3).toFixed(2);
+
+	// The lower the number the greater the darkness definition 
+	var bwSensitivity = .5; 
+
+	if (sumAvg >= bwSensitivity) {
+		return "*";
+	} else if (sumAvg < bwSensitivity){ 
+		return "_"; 
+	}
+} // --end of function getGrayScaleValue
