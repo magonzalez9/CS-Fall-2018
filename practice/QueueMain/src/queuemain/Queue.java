@@ -37,7 +37,7 @@ public class Queue {
 
     public char remove() {
         char temp = queArray[front++];
-        if (front == maxSize) {
+        if (front == maxSize-1) {
             front = 0; // Deal w/ wrap around
         }
         nItems--;
