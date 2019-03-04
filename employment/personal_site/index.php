@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,14 +71,14 @@
           <div class="subheading mb-5">30 S Gun Club Rd · Independence, OR 97351 · (971) 209-0379 ·
             <a href="mailto:magonzalez@willamette.edu">magonzalez@willamette.edu</a>
           </div>
-          <p class="lead mb-5">Experienced Programmer with a demonstrated history of working experience, as well as skilled in a wide range of programming languages and development tools. I have proven the ability to manage multiple projects while meeting challenging deadlines. I am also trusted with oversight of client and faculty relationships databases. </p>
+          <p class="lead mb-5">Experienced Computer Programmer with a demonstrated history of working experience, as well as skilled in a wide range of programming languages and development tools. I have proven the ability to manage multiple projects while meeting specific deadlines. I am also trusted with oversight of client and faculty relationships databases. </p>
           <div class="social-icons">
             <a href="https://www.linkedin.com/in/magonzalez9/">
               <i class="fab fa-linkedin-in"></i>
             </a>
-            <a href="https://github.com/magonzalez9">
+            <!-- <a href="https://github.com/magonzalez9">
               <i class="fab fa-github"></i>
-            </a>
+            </a> -->
             <a href="https://www.instagram.com/gonzalez_marco9/">
               <i class="fab fa-instagram"></i>
             </a>
@@ -99,7 +100,6 @@
               <h3 class="mb-0">Willamette University</h3>
               <div class="subheading mb-3">Bachelor of Arts</div>
               <div>Computer Science &amp; Arts, Technology and Multimedia</div>
-              <p>GPA: 3.31</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">August 2015 - May 2019</span>
@@ -110,7 +110,6 @@
             <div class="resume-content mr-auto">
               <h3 class="mb-0">Central High School</h3>
               <div class="subheading mb-3">Advanced Mastery of Arts and Technology</div>
-              <p>GPA: 3.89</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">September 2011 - June 2015</span>
@@ -131,14 +130,28 @@
               <h3 class="mb-0">Assistant Web Programmer</h3>
               <div class="subheading mb-3">Willamette University</div>
               <ul>
-              	<li>Maintain, develop, and analyze PHP/JavaScript web-based applications </li>
-				<li>Document and debug existing code</li> 
-				<li>PostgreSQL database management</li>
-				<li>Meet with client and implement requirements</li>
+                <li>Maintain, develop, and analyze PHP/JavaScript web applications </li>
+        <li>Document and debug existing code</li> 
+        <li>PostgreSQL database management</li>
+        <li>Meet with client and implement requirements</li>
               </ul>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">May 2016 - Present</span>
+            </div>
+          </div>
+          <div class="resume-item d-flex flex-column flex-md-row">
+            <div class="resume-content mr-auto">
+              <h3 class="mb-0">Web Assistant</h3>
+              <div class="subheading mb-3">The Salem Spark</div>
+              <ul>
+                <li>Update website's user interface</li>
+        <li>Design content infrastructure</li> 
+        <li>Meet with client and implement requirements</li>
+              </ul>
+            </div>
+            <div class="resume-date text-md-right">
+              <span class="text-primary">August 2018</span>
             </div>
           </div>
 
@@ -147,13 +160,13 @@
               <h3 class="mb-0">Technical Assistant</h3>
               <div class="subheading mb-3">World Languages Studio - Willamette University</div>
               <ul>
-              	<li>Maintain department website</li>
-				<li>Troubleshoot web and technical related issues</li> 
-				<li>Spanish assistant</li>
+                <li>Maintain department website</li>
+        <li>Troubleshoot web and technical related issues</li> 
+        <li>Spanish assistant</li>
               </ul>
             </div>
             <div class="resume-date text-md-right">
-              <span class="text-primary">Jan 2016 - Dec 2017</span>
+              <span class="text-primary">January 2016 - December 2017</span>
             </div>
           </div>
 
@@ -162,30 +175,17 @@
               <h3 class="mb-0">Web Developer</h3>
               <div class="subheading mb-3">Willamette University & University of British Columbia</div>
               <ul>
-              	<li>Design and build website used for psychology related treatments</li>
-				<li>Meet with personnel in order to facilitate their needs</li> 
-				<li>Deploy and maintain website</li>
+                <li>Design and build website used for psychology related treatments</li>
+        <li>Meet with personnel in order to facilitate their needs</li> 
+        <li>Deploy and maintain website</li>
               </ul>
             </div>
             <div class="resume-date text-md-right">
-              <span class="text-primary">Dec 2016 - Feb 2017</span>
+              <span class="text-primary">December 2016 - February 2017</span>
             </div>
           </div>
 
-          <div class="resume-item d-flex flex-column flex-md-row">
-            <div class="resume-content mr-auto">
-              <h3 class="mb-0">Web Assistant</h3>
-              <div class="subheading mb-3">The Salem Spark</div>
-              <ul>
-              	<li>Update website's user interface</li>
-				<li>Design content infrastructure</li> 
-				<li>Meet with client and implement requirements</li>
-              </ul>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">Aug 2018</span>
-            </div>
-          </div>
+         
 
         </div>
 
@@ -197,7 +197,7 @@
         <div class="my-auto">
           <h2 class="mb-5">Skills</h2>
 
-          <div class="subheading mb-3">Programming Languages &amp; Tools</div>
+          <div class="subheading mb-3">Languages &amp; Tools</div>
 
           <!-- Exposure -> Basics -> Intermediate -> Experienced -->
 
@@ -209,127 +209,105 @@
               <tbody>
                 <tr>
                   <td>PHP</td>
-                  <td>Experienced (3 Years)</td>
+                  <td>Experienced</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#x25C9;&#x25C9;</p>
                   </td>
                 </tr>
                 <tr>
                   <td>Java</td>
-                  <td>Experienced (4 Years)</td>
+                  <td>Experienced</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>JavaScript</td>
-                  <td>Intermediate</td>
-                  <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Python</td>
-                  <td>Basics</td>
-                  <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                <tr>
-                  <td>SQL</td>
-                  <td>Intermediate</td>
-                  <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#x25C9;&#x25C9;</p>
+                    
                   </td>
                 </tr>
                 <tr>
                   <td>HTML</td>
-                  <td>Advanced</td>
+                  <td>Experienced</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                   <p> &#x25C9;&#x25C9;&#x25C9;&#x25C9;&#x25C9;</p>
                   </td>
                 </tr>
                 <tr>
-                  <td>CSS</td>
-                  <td>Basics</td>
+                  <td>JavaScript&nbsp;&nbsp;&nbsp;</td>
+                  <td>Experienced</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                  <p> &#x25C9;&#x25C9;&#x25C9;&#x25C9;&#9675;</p>
                   </td>
                 </tr>
-                 <tr>
+                <tr>
+                  <td>SQL</td>
+                  <td>Intermediate</td>
+                  <td>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#9675;&#9675;</p>
+                  </td>
+                </tr>
+                <tr>
                   <td>Github</td>
                   <td>Intermediate</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>AJAX</td>
-                  <td>Intermediate</td>
-                  <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#9675;&#9675;</p>
                   </td>
                 </tr>
                 <tr>
                   <td>JSON</td>
                   <td>Intermediate</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#9675;&#9675;</p>
                   </td>
                 </tr>
                 <tr>
-                  <td>Linux</td>
-                  <td>Basics</td>
+                  <td>AJAX</td>
+                  <td>Intermediate</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#9675;&#9675;</p>
                   </td>
                 </tr>
+
+                <tr>
+                  <td>Linux</td>
+                  <td>Intermediate</td>
+                  <td>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#9675;&#9675;</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Python</td>
+                  <td>Basics</td>
+                  <td>
+                    <p> &#x25C9;&#x25C9;&#9675;&#9675;&#9675;</p>
+                  </td>
+                </tr>
+                <tr>
+                
+                <tr>
+                  <td>CSS</td>
+                  <td>Basics</td>
+                  <td>
+                    <p> &#x25C9;&#x25C9;&#9675;&#9675;&#9675;</p>
+                  </td>
+                </tr>
+    
                 <tr>
                   <td>XML</td>
                   <td>Exposure</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                   <p> &#x25C9;&#9675;&#9675;&#9675;&#9675;</p>
                   </td>
                 </tr>
                 <tr>
                   <td>XSLT</td>
                   <td>Exposure</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#9675;&#9675;&#9675;&#9675;</p>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div class="subheading mb-3">Software &amp; Development Tools</div>
+          <div class="subheading mb-3">Software and Development Technologies</div>
 
           <!-- Exposure -> Basics -> Intermediate -> Experienced -->
 
@@ -343,27 +321,53 @@
                   <td>JIRA</td>
                   <td>Intermediate</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#9675;&#9675;</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Cascade CMS</td>
+                  <td>Intermediate</td>
+                  <td>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#9675;&#9675;</p>
                   </td>
                 </tr>
                 <tr>
                   <td>Confluence</td>
                   <td>Basics</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#x25C9;&#9675;&#9675;&#9675;</p>
+                  </td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+
+          <div class="subheading mb-3">Multimedia</div>
+                    <div class="container">         
+            <table class="table table-hover">
+            <col width="80">
+            <col width="80">
+            <col width="50">
+              <tbody>
+                <tr>
+                  <td>Adobe Photoshop&nbsp;</td>
+                  <td>Advanced</td>
+                  <td>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#x25C9;&#9675;</p>
                   </td>
                 </tr>
                 <tr>
-                  <td>Cascade Content Management System</td>
+                  <td>Adobe Premiere</td>
                   <td>Intermediate</td>
                   <td>
-                    <div class="progress" style="width: 100%">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <p> &#x25C9;&#x25C9;&#x25C9;&#9675;&#9675;</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Logic Pro X</td>
+                  <td>Basics</td>
+                  <td>
+                    <p> &#x25C9;&#x25C9;&#9675;&#9675;&#9675;</p>
                   </td>
                 </tr>
               </tbody>
@@ -393,8 +397,8 @@
       <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="interests">
         <div class="my-auto">
           <h2 class="mb-5">Interests</h2>
-          <p>I enjoy most of my time being outdoors. In the winter, I am an avid skier and novice ice climber. During the warmer months here in Oregon, I enjoy mountain biking, free climbing, and kayaking.</p>
-          <p class="mb-0">When forced indoors, I follow a number of sci-fi and fantasy genre movies and television shows, I am an aspiring chef, and I spend a large amount of my free time exploring the latest technology advancements in the front-end web development world.</p>
+          <p>Apart from being a full-time student, I enjoy physical activities, fixing iPhone screens and refurbishing/modding retro video game consoles. In the winter, I play soccer at my local indoor sports park. During the warmer months here in Oregon, I enjoy hiking and participating in the Willamette Valley Soccer League.</p>
+          <p class="mb-0">I follow a number of sci-fi, action, and comedy television shows. My favorite shows include The Office, Dragon Ball Z, Pokémon, Stranger Things and Rick and Morty. I love to play video games (both retro and modern) and I spend a good amount of my free time exploring the latest technology advancements in the computer software/hardware world.</p>
         </div>
       </section>
 
@@ -415,7 +419,7 @@
               Elks Foundation Scholar</li>
             <li>
               <i class="fa-li fa fa-trophy text-warning"></i>
-              Northwest Conference Soccer Champion</li>
+              NCAA Northwest Conference Soccer Champion</li>
             <li>
               <i class="fa-li fa fa-trophy text-warning"></i>
              NCAA DIII National Soccer Tournament Participant</li>
