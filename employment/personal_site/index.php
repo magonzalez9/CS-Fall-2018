@@ -22,6 +22,15 @@
     <!-- Custom styles for this template -->
     <link href="css/resume.min.css" rel="stylesheet">
 
+    <!--api link-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!--call back function-->
+    <script>
+        function onSubmit(token) {
+            document.getElementById('contact_form').submit();
+        }
+    </script>
+
   </head>
 
   <body id="page-top">
@@ -55,6 +64,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
           
         </ul>
@@ -427,6 +439,39 @@
               <i class="fa-li fa fa-trophy text-warning"></i>
              National Honors Society</li>
           </ul>
+        </div>
+      </section>
+
+       <hr class="m-0">
+
+      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="contact">
+        <div class="my-auto">
+          <h2 class="mb-5">Contact</h2>
+          <!--REMEMBER TO ADD reCAPTCHA!!!-->
+          <div class="col-sm-7 slideanim">
+            <div class="row">
+              <div class="col-sm-6 form-group">
+              <form id="contact_form" action="contact_response.php" method="post">
+                <input class="form-control" id="name" name="name" placeholder="Name" type="text" required> 
+              </div>
+              <div class="col-sm-6 form-group">
+                <input class="form-control" id="email" name="email" placeholder="Email" type="email" required> 
+            
+              </div>
+              <div class="col-sm-12 form-group">
+                <input class="form-control" id="subject" name="subject" placeholder="Subject" type="subject" required>  
+            
+              </div>
+            </div>
+          <textarea class="form-control" id="message" name="message" placeholder="Message" rows="5" required></textarea><br>
+            <div class="row">
+              <div class="col-sm-12 form-group">
+              <button class="btn btn-default pull-right g-recaptcha" data-sitekey="6LdUQZUUAAAAAD19FT99oF-ynikiuuL90hg39-1S" data-callback='onSubmit'>Send</button>
+                <!-- <button class="btn btn-default pull-right" type="submit">Send</button> -->
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
