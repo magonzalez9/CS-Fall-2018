@@ -50,6 +50,7 @@ function debug(){
 }
 
 function analyzeImage(){
+
 	// Get settings 
 	var interval = parseInt(document.getElementById('interval').value, 10); 
 	var minNeighbors = parseInt(document.getElementById('minNeighbors').value, 10);
@@ -61,8 +62,6 @@ function analyzeImage(){
 	} else {
 		grayscale = true; 
 	}
-
-	//alert( interval + "\n" +  minNeighbors + "\n" +  grayscale);
 
 	/* RETURN VALUES */
 	// x — X coord of the face in the picture
@@ -88,6 +87,8 @@ function analyzeImage(){
         	// Get the count
         	console.log(faces.length); 
         	if (faces.length > 0 ) {
+        		
+        		// Draw the BOX
 			    $div = $("<div>", {"class": "face-box"});
 			    $div.css('top', faces[0].positionY);
 			    $div.css('left', faces[0].positionX );
