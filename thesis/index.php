@@ -15,7 +15,7 @@
 	</style>
 </head>
 <body>
-<h1>Photo Detection Application</h1>
+<h1>Photo Approval Application</h1>
 <div id="wrapper"></div>
 <img id="picture" src="original_photos/color/1.jpg">
 <br />
@@ -38,9 +38,8 @@ Confidence: <input type="number" id="confidence" name="confidence" min="1" max="
 <!-- <button onclick="debug()">Analyze</button> -->
 <p id="pixels"> </p>
 
-
-
 <p id="response"></p>
+<p id="data"></p>
 </fieldset>
 
 </body>

@@ -1,4 +1,3 @@
-
 var currentImg = 1; 
 
 function getImagePixels()  {
@@ -50,12 +49,13 @@ function debug(){
 }
 
 function analyzeImage(){
-
+	var img = document.getElementById("picture");
 	// Get settings 
 	var interval = parseInt(document.getElementById('interval').value, 10); 
 	var minNeighbors = parseInt(document.getElementById('minNeighbors').value, 10);
 	var confidence = parseInt(document.getElementById('confidence').value, 10); 
 	var grayscale = document.querySelector('input[name="grayscale"]:checked').value;
+	var imageData = ""; 
 
 	if (grayscale == "false") {
 		grayscale = false; 
@@ -86,8 +86,14 @@ function analyzeImage(){
         complete: function (faces) {
         	// Get the count
         	console.log(faces.length); 
+        	
         	if (faces.length > 0 ) {
-        		
+        		// Output data for TESTING -------------------------------------------------------
+        		imageData +=  "Image data (width: " + img.width + " | height:" + img.height + ")<br>";
+        		imageData += "(x:" + faces[0].positionX + "y:" +  faces[0].positionY +")" + "<br>"+ "width: "+ faces[0].width + "height: "+ faces[0].height;
+        		document.getElementById("data").innerHTML = imageData;
+        		// Output data for TESTING -------------------------------------------------------
+
         		// Draw the BOX
 			    $div = $("<div>", {"class": "face-box"});
 			    $div.css('top', faces[0].positionY);

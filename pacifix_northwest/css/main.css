@@ -1,0 +1,128 @@
+h1{
+	color: white;
+	font-size: 55px;
+}
+
+h1#index{
+	color: white;
+	font-size: 55px;
+	text-align: center;
+}
+label{
+	color: white;
+	font-size: 18px;
+}
+legend{
+	color: white;
+	font-size:22px;
+	font-style: italic;
+}
+
+p#rDescription{
+	color:white;
+	font-style: italic;
+	font-size: 28px;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+
+}
+
+input[type=radio] {
+
+    font-size: 40px;
+    color: grey;
+
+}
+
+/*----------admin--------*/
+
+a{
+
+	font-size: 22px;
+	color: #323232;
+}
+
+/*INDEX.php----------------------*/
+
+p#index {
+
+	color: white;
+	text-align: center;
+	font-size: 20px;
+}
+/*------------------Admin View---------------*/
+
+table{
+	 font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td.right{
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    width: 60%;
+    font-size: 20px;
+    font-style: italic;
+
+}
+td.left {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    width: 16%;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+
+}
+
+p#admin{
+	color:white;
+	font-style: italic;
+	font-size: 28px;
+
+
+
+}
+/*-----------------about-------------*/
+
+img#marco{
+    height: 80px;
+	display: block;
+    margin: auto;
+    width: 15%;
+	position: relative;
+	margin-top: 35px;
+	height:auto;
+
+
+}
+
+p#about{
+    font-style: italic;
+    color: white;
+    font-size: 22px;
+    text-align: center;
+
+}
+
+p#thank_you{
+	font-size: 22px;
+	color:white;
+ 
+
+}
+
+
+
+
