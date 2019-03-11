@@ -34,8 +34,8 @@ Confidence: <input type="number" id="confidence" name="confidence" min="1" max="
 <input type="radio" name="grayscale" id="grayscale" value="true"> True<br>
 <input type="radio" name="grayscale" id="grayscale" value="false" checked="checked"> False<br>
 <br>
-<button onclick="analyzeImage()">Analyze</button>
-<!-- <button onclick="debug()">Analyze</button> -->
+<!-- <button onclick="analyzeImage()">Analyze</button> -->
+<button onclick="debug()">Analyze</button>
 <p id="pixels"> </p>
 
 <p id="response"></p>

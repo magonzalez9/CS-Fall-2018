@@ -16,13 +16,23 @@ function getImagePixels()  {
 
 
     // Loop through every pixel in order to determine its color
-    var pixelArray = new Array(); 
-    var j = 0; 
+    var pixelArray = new Array(img.height); 
+    var p = 0; 
 
-    // Multi dimensional array (x by x)
-	for (var i = 0; i < imgData.data.length; i+=4) {
-		pixelArray[j] = "("+imgData.data[i] +","+imgData.data[i+1]+","+imgData.data[i+2]+")";
-		j++; 
+  	// Multi dimensional array (x by x)
+	for (var i = 0; i < img.height; i++) {
+		// Multi dimensional array (x by x)
+		pixelArray[i] = new Array(img.width);
+
+		for (var j = 0; j < img.width; j++) {
+
+			if (imgData.data[p] > 160 && imgData.data[p+1] > 155 && imgData.data[p+2] > 155) {
+				pixelArray[i][j] = '_';
+			} else {
+				pixelArray[i][j] = '+'; 
+			}
+			p+=4; 
+	  	}
   	}
 
     return pixelArray; 
@@ -35,14 +45,12 @@ function debug(){
 	pixelArray = getImagePixels(); 
 
 	var cleanStr = ""; 
-	var multiplier = img.width; 
-	for (var i = 0; i < pixelArray.length; i++) {
-		cleanStr += pixelArray[i] + "";
-
-		if (i == multiplier) {
-			cleanStr += "|<br />"; 
-			multiplier+=img.width; 
+	for(var i = 0; i < img.height; i++){
+		for (var j = 0; j < img.width; j++) {
+			cleanStr += pixelArray[i][j];
+			console.log(j); 
 		}
+		cleanStr += "<br>";
 	}
 
 	document.getElementById("pixels").innerHTML = cleanStr;
