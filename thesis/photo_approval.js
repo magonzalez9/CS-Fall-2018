@@ -1,5 +1,4 @@
 var currentImg = 1; 
-
 function getImagePixels()  {
 	var img = document.getElementById("picture");
 	// Create canvas and get image
@@ -111,13 +110,10 @@ function analyzeImage(){
 			    $div.css('height', faces[0].height );
 			    $("#wrapper").append($div);
 			    document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
-			    document.getElementById("faceOutput").innerHTML = ""; 
         	} else {
-        		document.getElementById("faceOutput").innerHTML = "Face Not Detected or Invalid Photo!";
+        		console.log("Nope");
         	}
-     
         }
-
     });
 }
 
@@ -151,3 +147,35 @@ function getGrayScaleValue(r, g, b){
 		return "_"; 
 	}
 } // --end of function getGrayScaleValue
+
+function testArrays(){
+	
+	var template = new Array(10); 
+	// Create default template array
+	for (var i = 0; i < 10; i++){
+		template[i] = new Array(10);
+		for (var j = 0; j < 10; i++) {
+			if (i == 9 && (j>=3 && j<= 6)) {
+				template[i] = 1;
+			} else {
+				template[i] = 0; 
+			}
+		}
+
+		printArray(template);
+	}
+
+	// Convert to new array 
+}
+
+function printArray(arr){
+	var cleanStr = ""; 
+	for(var i = 0; i < arr.length; i++){
+		for (var j = 0; j < arr[i].length; j++) {
+			cleanStr += pixelArray[i][j];
+		}
+		cleanStr += "<br>";
+	}
+
+	document.getElementById("pixels").innerHTML = cleanStr;
+}
