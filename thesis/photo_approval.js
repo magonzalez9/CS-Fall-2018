@@ -41,6 +41,7 @@ function getImagePixels()  {
 
 
 function debug(){
+	analyzeImage(); 
 	var img = document.getElementById("picture");
 	pixelArray = getImagePixels(); 
 
@@ -110,8 +111,9 @@ function analyzeImage(){
 			    $div.css('height', faces[0].height );
 			    $("#wrapper").append($div);
 			    document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
+			    document.getElementById("faceOutput").innerHTML = ""; 
         	} else {
-        		console.log("NO FACES FOUND!"); 
+        		document.getElementById("faceOutput").innerHTML = "Face Not Detected or Invalid Photo!";
         	}
      
         }

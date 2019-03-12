@@ -22,6 +22,7 @@
 <button onclick="getNextPhoto(false)">Prev</button>
 <button onclick="getNextPhoto(true)">Next</button>
 <br />
+<p id="faceOutput" style="color: red; font-size: 30px;"></p>
 <br />
 <fieldset>
 <!--Image setings-->
