@@ -36,8 +36,8 @@ Confidence: <input type="number" id="confidence" name="confidence" min="1" max="
 <br>
 <!-- <button onclick="analyzeImage()">Analyze</button> -->
 <button onclick="debug()">Analyze</button>
-<p id="pixels"> </p>
 
+<p id="pixels"> </p>
 <p id="response"></p>
 <p id="data"></p>
 </fieldset>

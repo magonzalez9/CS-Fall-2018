@@ -41,6 +41,8 @@ function getImagePixels()  {
 
 function debug(){
 	analyzeImage(); 
+	testArrays(); 
+
 	var img = document.getElementById("picture");
 	pixelArray = getImagePixels(); 
 
@@ -48,7 +50,6 @@ function debug(){
 	for(var i = 0; i < img.height; i++){
 		for (var j = 0; j < img.width; j++) {
 			cleanStr += pixelArray[i][j];
-			console.log(j); 
 		}
 		cleanStr += "<br>";
 	}
@@ -109,6 +110,7 @@ function analyzeImage(){
 			    $div.css('width', faces[0].width );
 			    $div.css('height', faces[0].height );
 			    $("#wrapper").append($div);
+
 			    document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
         	} else {
         		console.log("Nope");
@@ -154,7 +156,7 @@ function testArrays(){
 	// Create default template array
 	for (var i = 0; i < 10; i++){
 		template[i] = new Array(10);
-		for (var j = 0; j < 10; i++) {
+		for (var j = 0; j < 10; j++) {
 			if (i == 9 && (j>=3 && j<= 6)) {
 				template[i] = 1;
 			} else {
@@ -171,11 +173,11 @@ function testArrays(){
 function printArray(arr){
 	var cleanStr = ""; 
 	for(var i = 0; i < arr.length; i++){
-		for (var j = 0; j < arr[i].length; j++) {
-			cleanStr += pixelArray[i][j];
+		for (var j = 0; j < arr.length; j++) {
+			cleanStr += arr[i][j];
 		}
 		cleanStr += "<br>";
 	}
 
-	document.getElementById("pixels").innerHTML = cleanStr;
+	document.getElementById("data").innerHTML = cleanStr;
 }
