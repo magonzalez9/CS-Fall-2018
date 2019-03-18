@@ -53,8 +53,8 @@ function debug(){
 		}
 		cleanStr += "<br>";
 	}
-
-	document.getElementById("pixels").innerHTML = cleanStr;
+	// Print face template
+	//document.getElementById("pixels").innerHTML = cleanStr;
 }
 
 function analyzeImage(){
@@ -157,23 +157,21 @@ function testArrays(){
 	for (var i = 0; i < 10; i++){
 		template[i] = new Array(10);
 		for (var j = 0; j < 10; j++) {
-			if (i == 9 && (j>=3 && j<= 6)) {
-				template[i] = 1;
+			if ((i == 9 || i == 8 )&& (j>=3 && j<= 6)) {
+				template[i][j] = 1;
 			} else {
-				template[i] = 0; 
+				template[i][j] = 0; 
 			}
 		}
-
-		printArray(template);
-	}
-
-	// Convert to new array 
+	} // --end of for loop
+	
+	printArray(template);
 }
 
 function printArray(arr){
-	var cleanStr = ""; 
+	var cleanStr = "";
 	for(var i = 0; i < arr.length; i++){
-		for (var j = 0; j < arr.length; j++) {
+		for (var j = 0; j < arr[i].length; j++) {
 			cleanStr += arr[i][j];
 		}
 		cleanStr += "<br>";
