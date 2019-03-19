@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author Marco
  */
-public class HomeworkTwoMain {
+public class HomeworkThreeMain {
 
     /**
      * @param args the command line arguments
