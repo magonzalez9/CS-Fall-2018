@@ -20,17 +20,6 @@ public class StackMain {
         String sentence = "marco likes chicken";
         Stack myStack = new Stack(sentence.length());
 
-        // Use stack to reverse sentence
-        for (int i = 0; i < sentence.length(); i++) {
-            myStack.push(sentence.charAt(i));
-        }
-
-        String reverseStr = "";
-        while (!myStack.isEmpty()) {
-            reverseStr += myStack.pop();
-        }
-        System.out.println(reverseStr);
-
         // Use stack for bracket matching
         Scanner input = new Scanner(System.in);
         System.out.println("Enter string with bracket");
@@ -67,7 +56,7 @@ public class StackMain {
         }
         if (!bMatcher.isEmpty()) {
             System.out.println("Too many left brackets");
-        } else if (errorMsg != "") {
+        } else if (errorMsg.equals("")) {
             System.out.println(errorMsg);
         } else {
             System.out.println("Success");
