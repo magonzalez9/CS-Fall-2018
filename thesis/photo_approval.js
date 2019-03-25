@@ -166,6 +166,18 @@ function testArrays(){
 	} // --end of for loop
 	
 	printArray(template);
+
+	var width = 100; 
+	var height = 100; 
+	// Now map to new array in case image dimensions are different
+	var newArray = new Array(height); 
+	
+	for(var i = 0; i < height){
+		for (var j = 0; j < width; j ++){
+
+		}
+	}
+	
 }
 
 function printArray(arr){
