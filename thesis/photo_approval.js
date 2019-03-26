@@ -26,9 +26,9 @@ function getImagePixels()  {
 		for (var j = 0; j < img.width; j++) {
 
 			if (imgData.data[p] > 160 && imgData.data[p+1] > 155 && imgData.data[p+2] > 155) {
-				pixelArray[i][j] = '_';
+				pixelArray[i][j] = '0'; // white pixel
 			} else {
-				pixelArray[i][j] = '+'; 
+				pixelArray[i][j] = '1'; // dark pixel
 			}
 			p+=4; 
 	  	}
@@ -54,7 +54,7 @@ function debug(){
 		cleanStr += "<br>";
 	}
 	// Print face template
-	//document.getElementById("pixels").innerHTML = cleanStr;
+	document.getElementById("pixels").innerHTML = cleanStr;
 }
 
 function analyzeImage(){
@@ -171,12 +171,7 @@ function testArrays(){
 	var height = 100; 
 	// Now map to new array in case image dimensions are different
 	var newArray = new Array(height); 
-	
-	for(var i = 0; i < height){
-		for (var j = 0; j < width; j ++){
 
-		}
-	}
 	
 }
 
@@ -190,4 +185,8 @@ function printArray(arr){
 	}
 
 	document.getElementById("data").innerHTML = cleanStr;
+}
+
+function processImage(){
+	
 }
