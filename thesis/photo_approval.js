@@ -1,5 +1,6 @@
 var currentImg = 1; 
-function getImagePixels()  {
+
+function filterImagePixels()  {
 	var img = document.getElementById("picture");
 	// Create canvas and get image
     var c = document.createElement("canvas");
@@ -26,16 +27,16 @@ function getImagePixels()  {
 		for (var j = 0; j < img.width; j++) {
 
 			if (imgData.data[p] > 160 && imgData.data[p+1] > 155 && imgData.data[p+2] > 155) {
-				pixelArray[i][j] = '0'; // white pixel
+				pixelArray[i][j] = 0; // white pixel
 			} else {
-				pixelArray[i][j] = '1'; // dark pixel
+				pixelArray[i][j] = 1; // dark pixel
 			}
 			p+=4; 
 	  	}
   	}
 
     return pixelArray; 
-} // --end of function getImagePixels
+} // --end of function filterImagePixels
 
 
 
@@ -44,14 +45,14 @@ function debug(){
 	testArrays(); 
 
 	var img = document.getElementById("picture");
-	pixelArray = getImagePixels(); 
+	pixelArray = filterImagePixels(); 
 
 	var cleanStr = ""; 
 	for(var i = 0; i < img.height; i++){
 		for (var j = 0; j < img.width; j++) {
 			cleanStr += pixelArray[i][j];
 		}
-		cleanStr += "<br>";
+		// cleanStr += "<br>";
 	}
 	// Print face template
 	document.getElementById("pixels").innerHTML = cleanStr;
