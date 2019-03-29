@@ -1,7 +1,8 @@
 <?php 
 class Feedback{
 	# Class Properties
-	protected $this->settingsFilePath = '../settings/settings.txt'; 
+	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -19,8 +20,8 @@ class Feedback{
 	// Feedback msgs based on given attributes
 	protected $feedback_msgs; 
 
-	protected $targetWidth; 
-	protected $targetHeight; 
+	protected $templateWidth; 
+	protected $templateHeight; 
 
 
 	function __construct($data_array){
@@ -31,10 +32,32 @@ class Feedback{
 		$this->faceYPos = $data_array['faceYPos'];
 		$this->imgWidth = $data_array['imgWidth']; 
 		$this->imgPixelArray = $data_array['imgPixelArray']; 
+
+		// Set the image settings
+		$this->setImageSettings(); 
+		
 	}
 
 	public function getTemplateArray(){
+		$fp = fopen($this->templatePath, 'r');
+		if (!$fp) {
+		    echo 'Could not open file';
+		}
 
+		$row = 0; 
+		$column = 0; 
+		while (false !== ($pixel = fgetc($fp))) {
+		    $this->templateArray[$column][$row] = $pixel;
+
+		    if ($row == $this->templateWidth-1) {
+		    	$row = 0; 
+		    	$column++; 
+		    } else {
+		    	$row++; 
+		    }
+		}// --end of while
+
+		return $this->templateArray; 
 	}
 
 	public function setImageSettings(){
@@ -44,9 +67,20 @@ class Feedback{
 			$jsonObj = json_decode($json_str); 
 
 			// Set the target dimension properties 
-			$this->targetWidth = $jsonObj->targetWidth; 
-			$this->targetHeight = $jsonObj->targetHeight; 
+			$this->templateWidth = $jsonObj->templateWidth; 
+			$this->templateHeight = $jsonObj->templateHeight; 
 		}
 	}
+
+	public function printTemplateArray(){
+		if (!empty($this->templateArray)) {
+			foreach ($this->templateArray as $column => $row) {
+				foreach ($row as $value) {
+					echo $value;
+				}
+				echo "<br>"; 
+			}
+		}
+	} // --end of function printTemplateArray
 }
 ?>

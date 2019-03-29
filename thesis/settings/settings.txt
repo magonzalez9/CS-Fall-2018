@@ -1,1 +1,1 @@
-{ "targetWidth": 250, "targetHeight":250, "color":null, "strictness": null, "other": null }
+{ "templateWidth": 250, "templateHeight":250, "color":null, "strictness": null, "other": null }
