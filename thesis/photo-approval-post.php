@@ -5,14 +5,7 @@ if(isset($_POST)){
 	$_POST['filteredPixelArray'] = json_decode($_POST['filteredPixelArray'],true); 
 	$feedbackObj = new Feedback($_POST);
 	$feedbackObj->getTemplateArray(); 
-	$feedbackObj->printTemplateArray();
-
-	echo "<br />"; 
-
+	// $feedbackObj->printTemplateArray(); 
 	$feedbackObj->printPixelArray(); 
-
-
-
-	
 }
 ?>

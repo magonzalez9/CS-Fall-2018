@@ -6,8 +6,8 @@ function filterImagePixels()  {
 	var ctx = c.getContext("2d");
 
     // Set canvas dimensions proportional to image dimensions
-    c.width = img.width; 
-    c.height = img.height; 
+    c.width = img.clientWidth; 
+    c.height = img.clientHeight; 
 
     // Draw image onto the canvas and get image data
     ctx.drawImage(img, 0, 0);
@@ -15,15 +15,15 @@ function filterImagePixels()  {
 
 
     // Loop through every pixel in order to determine its color
-    var pixelArray = new Array(img.height); 
+    var pixelArray = new Array(img.clientHeight); 
     var p = 0; 
 
   	// Multi dimensional array (x by x)
-	for (var i = 0; i < img.height; i++) {
+	for (var i = 0; i < img.clientHeight; i++) {
 		// Multi dimensional array (x by x)
-		pixelArray[i] = new Array(img.width);
+		pixelArray[i] = new Array(img.clientWidth);
 
-		for (var j = 0; j < img.width; j++) {
+		for (var j = 0; j < img.clientWidth; j++) {
 
 			if (imgData.data[p] > 160 && imgData.data[p+1] > 155 && imgData.data[p+2] > 155) {
 				pixelArray[i][j] = 0; // white pixel
@@ -81,7 +81,7 @@ function analyzeImage(){
         	
         	if (faces.length > 0 ) {
         		// Output data for TESTING -------------------------------------------------------
-        		imageData +=  "Image data (width: " + img.width + " | height:" + img.height + ")<br>";
+        		imageData +=  "Image data (width: " + img.clientWidth + " | height:" + img.clientHeight + ")<br>";
         		imageData += "(x:" + faces[0].positionX + "y:" +  faces[0].positionY +")" + "<br>"+ "width: "+ faces[0].width + "height: "+ faces[0].height;
         		document.getElementById("data").innerHTML = imageData;
         		// Output data for TESTING -------------------------------------------------------
@@ -103,8 +103,8 @@ function analyzeImage(){
 				    		faceHeight: faces[0].height, 
 				    		faceXPos: faces[0].positionX, 
 				    		faceYPos: faces[0].positionY, 
-				    		imgWidth: img.width,
-				    		imgHeight: img.height, 
+				    		imgWidth: img.clientWidth,
+				    		imgHeight: img.clientHeight, 
 				    		filteredPixelArray: JSON.stringify(filteredPixelArray)
 				    },
 				    success: function(response) {
@@ -132,10 +132,10 @@ function debug(){
 
 	var img = document.getElementById("picture");
 	pixelArray = filterImagePixels(); 
-
+	alert(img.clientWidth + ", " + img.clientHeight );
 	var cleanStr = ""; 
-	for(var i = 0; i < img.height; i++){
-		for (var j = 0; j < img.width; j++) {
+	for(var i = 0; i < img.clientHeight; i++){
+		for (var j = 0; j < img.clientWidth; j++) {
 			cleanStr += pixelArray[i][j];
 		}
 		// cleanStr += "<br>";
