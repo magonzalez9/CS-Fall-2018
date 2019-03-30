@@ -2,8 +2,17 @@
 require_once('class_files/feedback_class.php');
 
 if(isset($_POST)){	
-	$feedbackObj = new Feedback();
-
+	$_POST['filteredPixelArray'] = json_decode($_POST['filteredPixelArray'],true); 
+	$feedbackObj = new Feedback($_POST);
 	$feedbackObj->getTemplateArray(); 
+	$feedbackObj->printTemplateArray();
+
+	echo "<br />"; 
+
+	$feedbackObj->printPixelArray(); 
+
+
+
+	
 }
 ?>

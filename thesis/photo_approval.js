@@ -1,4 +1,3 @@
-var currentImg = 1; 
 
 function filterImagePixels()  {
 	var img = document.getElementById("picture");
@@ -38,34 +37,17 @@ function filterImagePixels()  {
     return pixelArray; 
 } // --end of function filterImagePixels
 
-
-
-function debug(){
-	analyzeImage(); 
-	testArrays(); 
-
-	var img = document.getElementById("picture");
-	pixelArray = filterImagePixels(); 
-
-	var cleanStr = ""; 
-	for(var i = 0; i < img.height; i++){
-		for (var j = 0; j < img.width; j++) {
-			cleanStr += pixelArray[i][j];
-		}
-		// cleanStr += "<br>";
-	}
-	// Print face template
-	document.getElementById("pixels").innerHTML = cleanStr;
-}
-
 function analyzeImage(){
-	var img = document.getElementById("picture");
-	// Get settings 
+	// Get settings ---------
 	var interval = parseInt(document.getElementById('interval').value, 10); 
 	var minNeighbors = parseInt(document.getElementById('minNeighbors').value, 10);
 	var confidence = parseInt(document.getElementById('confidence').value, 10); 
 	var grayscale = document.querySelector('input[name="grayscale"]:checked').value;
 	var imageData = ""; 
+	// Settings -------------
+
+	var img = document.getElementById("picture");
+	var filteredPixelArray = filterImagePixels(); 
 
 	if (grayscale == "false") {
 		grayscale = false; 
@@ -113,11 +95,53 @@ function analyzeImage(){
 			    $("#wrapper").append($div);
 
 			    document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
+			    // Call the photo approval php 
+			    $.ajax({  
+				    type: 'post' ,  
+				    url: 'photo-approval-post.php', 
+				    data: { faceWidth: faces[0].width,
+				    		faceHeight: faces[0].height, 
+				    		faceXPos: faces[0].positionX, 
+				    		faceYPos: faces[0].positionY, 
+				    		imgWidth: img.width,
+				    		imgHeight: img.height, 
+				    		filteredPixelArray: JSON.stringify(filteredPixelArray)
+				    },
+				    success: function(response) {
+				        document.getElementById("pixels").innerHTML = response;
+				    },
+				    error : function(xhr, status, error)
+				    {
+				        alert("There was an error!" + error); 
+				    }
+				});
         	} else {
-        		console.log("Nope");
+        		console.log("No face found");
         	}
         }
     });
+}
+
+
+
+// TESTING FUNCTIONS ----------------------------------------------------------------------------------------
+var currentImg = 1; 
+function debug(){
+	analyzeImage(); 
+	testArrays(); 
+
+	var img = document.getElementById("picture");
+	pixelArray = filterImagePixels(); 
+
+	var cleanStr = ""; 
+	for(var i = 0; i < img.height; i++){
+		for (var j = 0; j < img.width; j++) {
+			cleanStr += pixelArray[i][j];
+		}
+		// cleanStr += "<br>";
+	}
+	// Print face template
+	document.getElementById("pixels").innerHTML = cleanStr;
 }
 
 function getNextPhoto(next){
@@ -128,7 +152,7 @@ function getNextPhoto(next){
 		currentImg--; 
 	}
 	document.getElementById("wrapper").innerHTML = "";
-	document.getElementById("picture").setAttribute("src", "original_photos/color/" + currentImg + ".jpg");
+	document.getElementById("picture").setAttribute("src", "original_photos/color/wu/" + currentImg + ".jpg");
 }
 
 function getGrayScaleValue(r, g, b){
@@ -188,6 +212,3 @@ function printArray(arr){
 	document.getElementById("data").innerHTML = cleanStr;
 }
 
-function processImage(){
-	
-}

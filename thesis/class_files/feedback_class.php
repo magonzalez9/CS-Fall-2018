@@ -1,8 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -13,13 +15,13 @@ class Feedback{
 	// Image attributes
 	protected $imgWidth; 
 	protected $imgHeight;
-
-	protected $templateArray; 
-	protected $imgPixelArray; 
+	protected $filteredPixelArray; 
 
 	// Feedback msgs based on given attributes
 	protected $feedback_msgs; 
 
+	// Template properties
+	protected $templateArray; 
 	protected $templateWidth; 
 	protected $templateHeight; 
 
@@ -31,10 +33,11 @@ class Feedback{
 		$this->faceXPos = $data_array['faceXPos']; 
 		$this->faceYPos = $data_array['faceYPos'];
 		$this->imgWidth = $data_array['imgWidth']; 
-		$this->imgPixelArray = $data_array['imgPixelArray']; 
+		$this->imgHeight = $data_array['imgHeight']; 
+		$this->filteredPixelArray = $data_array['filteredPixelArray']; 
 
-		// Set the image settings
-		$this->setImageSettings(); 
+		// Set the image template settings
+		$this->setTemplateSettings(); 
 		
 	}
 
@@ -60,7 +63,7 @@ class Feedback{
 		return $this->templateArray; 
 	}
 
-	public function setImageSettings(){
+	public function setTemplateSettings(){
 		$json_str = file_get_contents($this->settingsFilePath);
 
 		if ($json_str !== false) {
@@ -75,6 +78,17 @@ class Feedback{
 	public function printTemplateArray(){
 		if (!empty($this->templateArray)) {
 			foreach ($this->templateArray as $column => $row) {
+				foreach ($row as $value) {
+					echo $value;
+				}
+				echo "<br>"; 
+			}
+		}
+	} // --end of function printTemplateArray
+
+	public function printPixelArray(){
+		if (!empty($this->filteredPixelArray)) {
+			foreach ($this->filteredPixelArray as $column => $row) {
 				foreach ($row as $value) {
 					echo $value;
 				}

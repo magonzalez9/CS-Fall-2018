@@ -21,7 +21,7 @@ header("Expires: 0"); // Proxies.
 <body>
 <h1>Photo Approval Application</h1>
 <div id="wrapper"></div>
-<img id="picture" src="original_photos/color/1.jpg">
+<img id="picture" src="original_photos/color/wu/1.jpg">
 <br />
 <button onclick="getNextPhoto(false)">Prev</button>
 <button onclick="getNextPhoto(true)">Next</button>
@@ -38,8 +38,8 @@ Confidence: <input type="number" id="confidence" name="confidence" min="1" max="
 <input type="radio" name="grayscale" id="grayscale" value="true"> True<br>
 <input type="radio" name="grayscale" id="grayscale" value="false" checked="checked"> False<br>
 <br>
-<!-- <button onclick="analyzeImage()">Analyze</button> -->
-<button onclick="debug()">Analyze</button>
+<button onclick="analyzeImage()">Analyze</button>
+<!-- <button onclick="debug()">Analyze</button> -->
 
 <p id="pixels"> </p>
 <p id="response"></p>
