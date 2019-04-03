@@ -82,16 +82,17 @@ function analyzeImage(){
         	if (faces.length > 0 ) {
         		// Output data for TESTING -------------------------------------------------------
         		imageData +=  "Image data (width: " + img.clientWidth + " | height:" + img.clientHeight + ")<br>";
-        		imageData += "(x:" + faces[0].positionX + "y:" +  faces[0].positionY +")" + "<br>"+ "width: "+ faces[0].width + "height: "+ faces[0].height;
+        		imageData += "(x: " + faces[0].positionX + "y: " + faces[0].positionY +")" + "<br>"+ "width: "+ faces[0].width + "height: "+ faces[0].height;
+        		imageData += "<br> (" + (faces[0].positionX+((faces[0].width)/2)) + ", " + (faces[0].positionY+((faces[0].height)/2))+ ")"; 
         		document.getElementById("data").innerHTML = imageData;
         		// Output data for TESTING -------------------------------------------------------
 
         		// Draw the BOX
 			    $div = $("<div>", {"class": "face-box"});
 			    $div.css('top', faces[0].positionY);
-			    $div.css('left', faces[0].positionX );
-			    $div.css('width', faces[0].width );
-			    $div.css('height', faces[0].height );
+			    $div.css('left', faces[0].positionX);
+			    $div.css('width', faces[0].width);
+			    $div.css('height', faces[0].height);
 			    $("#wrapper").append($div);
 
 			    document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
@@ -101,8 +102,8 @@ function analyzeImage(){
 				    url: 'photo-approval-post.php', 
 				    data: { faceWidth: faces[0].width,
 				    		faceHeight: faces[0].height, 
-				    		faceXPos: faces[0].positionX, 
-				    		faceYPos: faces[0].positionY, 
+				    		faceXPos: faces[0].positionX+((faces[0].width)/2), 
+				    		faceYPos: faces[0].positionY+((faces[0].height)/2), 
 				    		imgWidth: img.clientWidth,
 				    		imgHeight: img.clientHeight, 
 				    		filteredPixelArray: JSON.stringify(filteredPixelArray)
