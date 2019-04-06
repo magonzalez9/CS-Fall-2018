@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -61,6 +61,7 @@ class Feedback{
 		$column = 0; 
 		while (false !== ($pixel = fgetc($fp))) {
 		    $this->templateArray[$column][$row] = $pixel;
+		    
 
 		    if ($row == $this->templateWidth-1) {
 		    	$row = 0; 
@@ -136,18 +137,14 @@ class Feedback{
 
 		 	// Check Y position
 		 	if ($this->faceYPos > $this->maxYPos) {
-		 		$yDir = "up"; 
+		 		$yDir = "higher"; 
 		 	} else if($this->faceYPos < $this->minYPos){
-		 		$yDir = "down"; 
+		 		$yDir = "lower"; 
 		 	}
 
-		 	$this->feedback_msgs[] = "Move your face " . $xDir . " and " . $yDir;
+		 	$this->feedback_msgs[] = "Position your body " . $yDir . " to the " . $xDir . " and make sure your shoulders fit the frame.";
 		 }
-		 $this->validateFaceSize(); 
-
-		 #Testing printing feedback msg array
-		 $this->printFeedbackMsgs();
-
+		  
 	}// --end of function validateFacePosition
 
 	public function validateFaceSize(){
@@ -204,8 +201,8 @@ class Feedback{
 	}
 
 	public function printFeedbackMsgs(){
-		foreach ($this->feedback_msgs as $key => $value) {
-			echo $value . "<br />"; 
+		foreach ($this->feedback_msgs as $key => $msg) {
+			echo $msg . "<br />"; 
 		}
 	}
 

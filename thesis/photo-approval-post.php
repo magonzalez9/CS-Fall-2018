@@ -7,6 +7,8 @@ if(isset($_POST)){
 	// $feedbackObj->getTemplateArray(); 
 	// $feedbackObj->printTemplateArray(); 
 	// $feedbackObj->printPixelArray(); 
+	$feedbackObj->validateFaceSize();
 	$feedbackObj->validateFacePosition(); 
+	$feedbackObj->printFeedbackMsgs();
 }
 ?>

@@ -82,8 +82,8 @@ function analyzeImage(){
         	if (faces.length > 0 ) {
         		// Output data for TESTING -------------------------------------------------------
         		imageData +=  "Image data (width: " + img.clientWidth + " | height:" + img.clientHeight + ")<br>";
-        		imageData += "(x: " + faces[0].positionX + "y: " + faces[0].positionY +")" + "<br>"+ "width: "+ faces[0].width + "height: "+ faces[0].height;
-        		imageData += "<br> (" + (faces[0].positionX+((faces[0].width)/2)) + ", " + (faces[0].positionY+((faces[0].height)/2))+ ")"; 
+        		imageData += "(x: " + faces[0].positionX + " | y: " + faces[0].positionY +")" + "<br>"+ "Face width: "+ faces[0].width + " | Face height: "+ faces[0].height;
+        		imageData += "<br> Face Center: (" + (faces[0].positionX+((faces[0].width)/2)) + ", " + (faces[0].positionY+((faces[0].height)/2))+ ")"; 
         		document.getElementById("data").innerHTML = imageData;
         		// Output data for TESTING -------------------------------------------------------
 
@@ -95,7 +95,7 @@ function analyzeImage(){
 			    $div.css('height', faces[0].height);
 			    $("#wrapper").append($div);
 
-			    document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
+			    // document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
 			    // Call the photo approval php 
 			    $.ajax({  
 				    type: 'post' ,  
