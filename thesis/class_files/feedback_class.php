@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -143,6 +143,7 @@ class Feedback{
 
 		 	$this->feedback_msgs[] = "Move your face " . $xDir . " and " . $yDir;
 		 }
+		 $this->validateFaceSize(); 
 
 		 #Testing printing feedback msg array
 		 $this->printFeedbackMsgs();
@@ -150,7 +151,23 @@ class Feedback{
 	}// --end of function validateFacePosition
 
 	public function validateFaceSize(){
-		//
+		// Get face area
+		$faceArea = $this->faceHeight * $this->faceWidth;
+
+		// Get templateArea
+		$minFaceArea = $this->minFaceHeight * $this->minFaceWidth; 
+		$maxFaceArea = $this->maxFaceHeight * $this->maxFaceWidth;
+
+		if ($faceArea >= $minFaceArea && $faceArea <= $maxFaceArea) {
+		 	$this->feedback_msgs[] = "Face is approriate size"; 
+		} else {
+			if ($faceArea < $minFaceArea) {
+				$this->feedback_msgs[] = "Appears you are a bit far away from the camera"; 
+			} else  if($faceArea > $maxFaceArea){
+				$this->feedback_msgs[] = "Appears you are too close to the camera"; 
+			}
+		}
+
 	}
 
 	public function validateBackground(){
