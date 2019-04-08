@@ -6,8 +6,8 @@ function filterImagePixels()  {
 	var ctx = c.getContext("2d");
 
     // Set canvas dimensions proportional to image dimensions
-    c.width = img.clientWidth; 
-    c.height = img.clientHeight; 
+    c.width = img.naturalWidth; 
+    c.height = img.naturalHeight; 
 
     // Draw image onto the canvas and get image data
     ctx.drawImage(img, 0, 0);
@@ -15,15 +15,15 @@ function filterImagePixels()  {
 
 
     // Loop through every pixel in order to determine its color
-    var pixelArray = new Array(img.clientHeight); 
+    var pixelArray = new Array(img.naturalHeight); 
     var p = 0; 
 
   	// Multi dimensional array (x by x)
-	for (var i = 0; i < img.clientHeight; i++) {
+	for (var i = 0; i < img.naturalHeight; i++) {
 		// Multi dimensional array (x by x)
-		pixelArray[i] = new Array(img.clientWidth);
+		pixelArray[i] = new Array(img.naturalWidth);
 
-		for (var j = 0; j < img.clientWidth; j++) {
+		for (var j = 0; j < img.naturalWidth; j++) {
 
 			if (imgData.data[p] > 160 && imgData.data[p+1] > 155 && imgData.data[p+2] > 155) {
 				pixelArray[i][j] = 0; // white pixel
@@ -77,20 +77,20 @@ function analyzeImage(){
     	grayscale: grayscale,
         complete: function (faces) {
         	// Get the count
-        	console.log(faces.length); 
-        	
         	if (faces.length > 0 ) {
         		// Output data for TESTING -------------------------------------------------------
-        		imageData +=  "Image data (width: " + img.clientWidth + " | height:" + img.clientHeight + ")<br>";
+        		imageData +=  "Image data (width: " + img.naturalWidth + " | height:" + img.naturalHeight + ")<br>";
         		imageData += "(x: " + faces[0].positionX + " | y: " + faces[0].positionY +")" + "<br>"+ "Face width: "+ faces[0].width + " | Face height: "+ faces[0].height;
-        		imageData += "<br> Face Center: (" + (faces[0].positionX+((faces[0].width)/2)) + ", " + (faces[0].positionY+((faces[0].height)/2))+ ")"; 
+        		imageData += "<br> Face Center: (x: " + ((faces[0].positionX+((faces[0].width)/2)) - img.offsetLeft) + ", y: " + ((faces[0].positionY+((faces[0].height)/2)) - img.offsetTop)+ ")"; 
         		document.getElementById("data").innerHTML = imageData;
         		// Output data for TESTING -------------------------------------------------------
 
         		// Draw the BOX
 			    $div = $("<div>", {"class": "face-box"});
-			    $div.css('top', faces[0].positionY);
-			    $div.css('left', faces[0].positionX);
+			    // $div.css('top', (faces[0].positionY+((faces[0].height)/2)) - img.offsetTop); //y
+			    // $div.css('left', (faces[0].positionX+((faces[0].width)/2)) - img.offsetLeft); //x
+			    $div.css('top', faces[0].positionY); //y
+			    $div.css('left', faces[0].positionX); //x
 			    $div.css('width', faces[0].width);
 			    $div.css('height', faces[0].height);
 			    $("#wrapper").append($div);
@@ -102,10 +102,10 @@ function analyzeImage(){
 				    url: 'photo-approval-post.php', 
 				    data: { faceWidth: faces[0].width,
 				    		faceHeight: faces[0].height, 
-				    		faceXPos: faces[0].positionX+((faces[0].width)/2), 
-				    		faceYPos: faces[0].positionY+((faces[0].height)/2), 
-				    		imgWidth: img.clientWidth,
-				    		imgHeight: img.clientHeight, 
+				    		faceXPos: (faces[0].positionX+((faces[0].width)/2)) - img.offsetLeft, 
+				    		faceYPos: (faces[0].positionY+((faces[0].height)/2)) - img.offsetTop, 
+				    		imgWidth: img.naturalWidth,
+				    		imgHeight: img.naturalHeight, 
 				    		filteredPixelArray: JSON.stringify(filteredPixelArray)
 				    },
 				    success: function(response) {
@@ -133,10 +133,10 @@ function debug(){
 
 	var img = document.getElementById("picture");
 	pixelArray = filterImagePixels(); 
-	alert(img.clientWidth + ", " + img.clientHeight );
+	alert(img.naturalWidth + ", " + img.naturalHeight );
 	var cleanStr = ""; 
-	for(var i = 0; i < img.clientHeight; i++){
-		for (var j = 0; j < img.clientWidth; j++) {
+	for(var i = 0; i < img.naturalHeight; i++){
+		for (var j = 0; j < img.naturalWidth; j++) {
 			cleanStr += pixelArray[i][j];
 		}
 		// cleanStr += "<br>";

@@ -19,6 +19,7 @@ header("Expires: 0"); // Proxies.
 	</style>
 </head>
 <body>
+	<center>
 <h1>Photo Approval Application</h1>
 <div id="wrapper"></div>
 <img id="picture" src="original_photos/color/wu/1.jpg">
@@ -27,6 +28,7 @@ header("Expires: 0"); // Proxies.
 <button onclick="getNextPhoto(true)">Next</button>
 <br />
 <br />
+</center>
 <fieldset>
 <!--Image setings-->
 Interval: <input type="number" id="interval" name="interval" min="1" max="100" value="4"> <br/> <br/>

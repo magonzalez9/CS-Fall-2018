@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -29,10 +29,12 @@ class Feedback{
 	protected $maxFaceWidth;
 	protected $minFaceHeight; 
 	protected $maxFaceHeight; 
-	protected $minXPos; 
-	protected $maxXPos; 
-	protected $minYPos; 
-	protected $maxYPos;  
+	protected $minFaceXPos; 
+	protected $maxFaceXPos; 
+	protected $minFaceYPos; 
+	protected $maxFaceYPos;  
+	protected $bodyPercentage;
+	protected $bgPercentage; 
 
 
 	function __construct($data_array){
@@ -48,6 +50,7 @@ class Feedback{
 
 		// Set the image template settings
 		$this->setTemplateSettings(); 
+		$this->getTemplateArray(); 
 		
 	}
 
@@ -87,10 +90,12 @@ class Feedback{
 			$this->maxFaceWidth = $jsonObj->maxFaceWidth; 
 			$this->minFaceHeight = $jsonObj->minFaceHeight; 
 			$this->maxFaceHeight = $jsonObj->maxFaceHeight; 
-			$this->minXPos = $jsonObj->minXPos; 
-			$this->maxXPos = $jsonObj->maxXPos; 
-			$this->minYPos = $jsonObj->minYPos; 
-			$this->maxYPos = $jsonObj->maxYPos; 
+			$this->minFaceXPos = $jsonObj->minFaceXPos; 
+			$this->maxFaceXPos = $jsonObj->maxFaceXPos; 
+			$this->minFaceYPos = $jsonObj->minFaceYPos; 
+			$this->maxFaceYPos = $jsonObj->maxFaceYPos; 
+			$this->bodyPercentage = $jsonObj->bodyPercentage; 
+			$this->bgPercentage = $jsonObj->bgPercentage; 
 		}
 	}
 
@@ -117,8 +122,8 @@ class Feedback{
 	} // --end of function printTemplateArray
 
 	public function validateFacePosition(){
-		$correctFaceXPos = $this->faceXPos <= $this->maxXPos && $this->faceXPos >= $this->minXPos;
-		$correctFaceYPos = $this->faceYPos <= $this->maxYPos && $this->faceYPos >= $this->minYPos;
+		$correctFaceXPos = $this->faceXPos <= $this->maxFaceXPos && $this->faceXPos >= $this->minFaceXPos;
+		$correctFaceYPos = $this->faceYPos <= $this->maxFaceYPos && $this->faceYPos >= $this->minFaceYPos;
 		$xDir = ""; 
 		$yDir = ""; 
 
@@ -126,24 +131,27 @@ class Feedback{
 		if ($correctFaceXPos && $correctFaceYPos) {
 		 	// Face is in correct 
 		 	$this->feedback_msgs[] = "Face is centered"; 
+		 	return true; 
 		 } else {
 		 	# Face is not centered
 		 	// Check X position 
-		 	if ($this->faceXPos > $this->maxXPos) {
+		 	if ($this->faceXPos > $this->maxFaceXPos) {
 		 		$xDir = "left"; 
-		 	} else if ($this->faceXPos < $this->minXPos) {
+		 	} else if ($this->faceXPos < $this->minFaceXPos) {
 		 		$xDir = "right"; 
 		 	}
 
 		 	// Check Y position
-		 	if ($this->faceYPos > $this->maxYPos) {
+		 	if ($this->faceYPos > $this->maxFaceYPos) {
 		 		$yDir = "higher"; 
-		 	} else if($this->faceYPos < $this->minYPos){
+		 	} else if($this->faceYPos < $this->minFaceYPos){
 		 		$yDir = "lower"; 
 		 	}
 
 		 	$this->feedback_msgs[] = "Position your body " . $yDir . " to the " . $xDir . " and make sure your shoulders fit the frame.";
 		 }
+
+		 return false; 
 		  
 	}// --end of function validateFacePosition
 
@@ -156,7 +164,8 @@ class Feedback{
 		$maxFaceArea = $this->maxFaceHeight * $this->maxFaceWidth;
 
 		if ($faceArea >= $minFaceArea && $faceArea <= $maxFaceArea) {
-		 	$this->feedback_msgs[] = "Face is approriate size"; 
+		 	$this->feedback_msgs[] = "Face is approriate size";
+		 	return true;  
 		} else {
 			if ($faceArea < $minFaceArea) {
 				$this->feedback_msgs[] = "Appears you are a bit far away from the camera"; 
@@ -164,10 +173,19 @@ class Feedback{
 				$this->feedback_msgs[] = "Appears you are too close to the camera"; 
 			}
 		}
+		return false; 
 
 	}
 
 	public function validateBackground(){
+		$facePosResult = $this->validateFacePosition(); 
+		$faceSizeResult = $this->validateFaceSize(); 
+
+		if ($facePosResult == false || $faceSizeResult == false) {
+			// Face position or face size are not appropriate, so check if white background exists
+
+		}
+
 		$output = array();
 		$backgroundAccuracy = 0; 
 		$bodyPosAccuracy = 0; 
@@ -177,6 +195,12 @@ class Feedback{
 				if ($this->filteredPixelArray[$i][$j] == 0 && $this->templateArray[$i][$j] == 0) {
 					$output[$i][$j] = '-'; 
 					$backgroundAccuracy++; 
+				} else if ($this->filteredPixelArray[$i][$j] == 0 && $this->templateArray[$i][$j] == 1){
+					// not correct body pos
+					$output[$i][$j] = '^';
+				} else if($this->filteredPixelArray[$i][$j] == 1 && $this->templateArray[$i][$j] == 0){
+					// Not correct background color
+					$output[$i][$j] = 'o'; 
 				} else if ( $this->filteredPixelArray[$i][$j] == 1 && $this->templateArray[$i][$j] == 1){
 					$output[$i][$j] = '*'; 
 					$bodyPosAccuracy++; 
@@ -187,14 +211,25 @@ class Feedback{
 			}
 		}
 
+		$imageArea = $this->imgHeight * $this->imgWidth; 
+		$imageBGPercent = (($backgroundAccuracy/$imageArea)*100);
+		// create range 
+		$maxBGP = $this->bgPercentage + 20; 
+		$minBGP = $this->bgPercentage - 25; 
+		if ($imageBGPercent >= $minBGP && $imageBGPercent <= $maxBGP) {
+			$this->feedback_msgs[] = 'background is white'; 
+		} else {
+			$this->feedback_msgs[] = 'background is NOT white'; 
+		}
+
 		// Calculate percentage of image correctness 
 
 		// TESTING printing output array!
 		foreach ($output as $column => $row) {
 			foreach ($row as $value) {
-				echo $value;
+				// echo $value;
 			}
-			echo "<br>"; 
+			// echo "<br>"; 
 		}
 
 
