@@ -6,7 +6,7 @@ if(isset($_POST)){
 	$feedbackObj = new Feedback($_POST);
 
 	// $feedbackObj->printTemplateArray(); 
-	// $feedbackObj->printPixelArray(); 
+	$feedbackObj->printPixelArray(); 
 	$feedbackObj->validateBackground(); 
 	$feedbackObj->printFeedbackMsgs();
 }
