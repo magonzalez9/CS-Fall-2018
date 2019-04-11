@@ -1,3 +1,4 @@
+var currentImg = 1; 
 
 function filterImagePixels()  {
 	var img = document.getElementById("picture");
@@ -38,6 +39,7 @@ function filterImagePixels()  {
 } // --end of function filterImagePixels
 
 function analyzeImage(){
+	 
 	// Get settings ---------
 	var interval = parseInt(document.getElementById('interval').value, 10); 
 	var minNeighbors = parseInt(document.getElementById('minNeighbors').value, 10);
@@ -95,6 +97,8 @@ function analyzeImage(){
 			    $div.css('height', faces[0].height);
 			    $("#wrapper").append($div);
 
+			    getImageOutline();
+
 			    // document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
 			    // Call the photo approval php 
 			    $.ajax({  
@@ -123,10 +127,31 @@ function analyzeImage(){
     });
 }
 
+function getImageOutline(){
+	var canvas = document.getElementById("outlineCanvas");
+	canvas.width = 275; 
+	canvas.height = 275; 
+
+	image = new MarvinImage();
+	image.load("original_photos/color/wu/"+currentImg+".jpg", imageLoaded);
+
+	function imageLoaded(){
+		  var imageOut = new MarvinImage(image.getWidth(), image.getHeight());
+		  // canvas.width = image.getWidth; 
+		  // canvas.height = image.getHeight; 
+		  // Edge Detection (Prewitt approach)
+		  Marvin.prewitt(image, imageOut);
+		  // Invert color
+		  Marvin.invertColors(imageOut, imageOut);
+		  // Threshold
+		  Marvin.thresholding(imageOut, imageOut, 200);
+		  imageOut.draw(canvas); 
+	}
+}
 
 
 // TESTING FUNCTIONS ----------------------------------------------------------------------------------------
-var currentImg = 1; 
+
 function debug(){
 	analyzeImage(); 
 	testArrays(); 
