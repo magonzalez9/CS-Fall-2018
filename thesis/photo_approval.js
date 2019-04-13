@@ -144,7 +144,7 @@ function getImageOutline(){
 		  // Invert color
 		  Marvin.invertColors(imageOut, imageOut);
 		  // Threshold
-		  Marvin.thresholding(imageOut, imageOut, 200);
+		  Marvin.thresholding(imageOut, imageOut, 190);
 		  imageOut.draw(canvas); 
 	}
 }
