@@ -135,10 +135,15 @@ function getImageOutline(){
 	image = new MarvinImage();
 	image.load("original_photos/color/wu/"+currentImg+".jpg", imageLoaded);
 
+	var ctx = canvas.getContext("2d"); 
+
+    var imgData = ctx.getImageData(0, 0, c.width, c.height);
+    alert(imgData); 
+
 	function imageLoaded(){
 		  var imageOut = new MarvinImage(image.getWidth(), image.getHeight());
-		  // canvas.width = image.getWidth; 
-		  // canvas.height = image.getHeight; 
+		  canvas.width = image.getWidth; 
+		  canvas.height = image.getHeight; 
 		  // Edge Detection (Prewitt approach)
 		  Marvin.prewitt(image, imageOut);
 		  // Invert color
@@ -146,6 +151,10 @@ function getImageOutline(){
 		  // Threshold
 		  Marvin.thresholding(imageOut, imageOut, 190);
 		  imageOut.draw(canvas); 
+
+		  var imgData = ctx.getImageData(0, 0, 275, 275);
+		  alert(imgData); 
+
 	}
 }
 

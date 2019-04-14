@@ -17,6 +17,7 @@ class Feedback{
 	protected $imgHeight;
 	protected $imgPixelCount; 
 	protected $filteredPixelArray; 
+	protected $edgesArray; 
 
 	// Feedback msgs based on given attributes
 	protected $feedback_msgs; 
@@ -46,6 +47,7 @@ class Feedback{
 		$this->imgWidth = $data_array['imgWidth']; 
 		$this->imgHeight = $data_array['imgHeight']; 
 		$this->filteredPixelArray = $data_array['filteredPixelArray']; 
+		$this->edgesArray = $data_array['edgesArray'];
 		$this->imgPixelCount = $this->imgWidth * $this->imgHeight; 	
 
 		// Set the image template settings
