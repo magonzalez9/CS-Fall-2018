@@ -1,4 +1,5 @@
-var currentImg = 1; 
+var currentImg = 2;
+var outlineArray;  
 
 function filterImagePixels()  {
 	var img = document.getElementById("picture");
@@ -14,29 +15,40 @@ function filterImagePixels()  {
     ctx.drawImage(img, 0, 0);
     var imgData = ctx.getImageData(0, 0, c.width, c.height);
 
-
-    // Loop through every pixel in order to determine its color
-    var pixelArray = new Array(img.naturalHeight); 
-    var p = 0; 
-
-  	// Multi dimensional array (x by x)
-	for (var i = 0; i < img.naturalHeight; i++) {
-		// Multi dimensional array (x by x)
-		pixelArray[i] = new Array(img.naturalWidth);
-
-		for (var j = 0; j < img.naturalWidth; j++) {
-
-			if (imgData.data[p] > 160 && imgData.data[p+1] > 155 && imgData.data[p+2] > 155) {
-				pixelArray[i][j] = 0; // white pixel
-			} else {
-				pixelArray[i][j] = 1; // dark pixel
-			}
-			p+=4; 
-	  	}
-  	}
+    var pixelArray = validatePixelColors(imgData, img.naturalHeight, img.naturalWidth);
 
     return pixelArray; 
 } // --end of function filterImagePixels
+
+function getImageOutline(){
+	var outlineC = document.getElementById("outlineCanvas");
+	outlineC.width = 275; 
+	outlineC.height = 275; 
+
+	image = new MarvinImage();
+	image.load("original_photos/color/outline/"+currentImg+".jpg", imageLoaded); 
+	 
+	function imageLoaded(){
+		  var imageOut = new MarvinImage(image.getWidth(), image.getHeight());
+ 
+		  // Edge Detection (Prewitt approach)
+		  Marvin.prewitt(image, imageOut);
+		  // Invert color
+		  Marvin.invertColors(imageOut, imageOut);
+		  // Threshold
+		  Marvin.thresholding(imageOut, imageOut, 190);
+		  imageOut.draw(outlineC); 
+
+		  var outlineCTX = outlineC.getContext("2d"); 
+		  var imgData = outlineCTX.getImageData(0,0,275,275);
+
+		  // convert pixel array
+		  outlineArray = validatePixelColors(imgData, outlineC.height, outlineC.width);
+		  // console.log(outlineArray);   
+
+	}
+
+}
 
 function analyzeImage(){
 	 
@@ -46,16 +58,14 @@ function analyzeImage(){
 	var confidence = parseInt(document.getElementById('confidence').value, 10); 
 	var grayscale = document.querySelector('input[name="grayscale"]:checked').value;
 	var imageData = ""; 
-	// Settings -------------
-
-	var img = document.getElementById("picture");
-	var filteredPixelArray = filterImagePixels(); 
-
 	if (grayscale == "false") {
 		grayscale = false; 
 	} else {
 		grayscale = true; 
 	}
+	// Settings -------------
+
+	var filteredPixelArray = filterImagePixels(); 
 
 	/* RETURN VALUES */
 	// x — X coord of the face in the picture
@@ -78,6 +88,8 @@ function analyzeImage(){
     	async: false, 
     	grayscale: grayscale,
         complete: function (faces) {
+        	var img = document.getElementById("picture");
+
         	// Get the count
         	if (faces.length > 0 ) {
         		// Output data for TESTING -------------------------------------------------------
@@ -96,10 +108,8 @@ function analyzeImage(){
 			    $div.css('width', faces[0].width);
 			    $div.css('height', faces[0].height);
 			    $("#wrapper").append($div);
+			    
 
-			    getImageOutline();
-
-			    // document.getElementById("response").innerHTML = "Confidence: " + faces[0].confidence;
 			    // Call the photo approval php 
 			    $.ajax({  
 				    type: 'post' ,  
@@ -110,7 +120,8 @@ function analyzeImage(){
 				    		faceYPos: (faces[0].positionY+((faces[0].height)/2)) - img.offsetTop, 
 				    		imgWidth: img.naturalWidth,
 				    		imgHeight: img.naturalHeight, 
-				    		filteredPixelArray: JSON.stringify(filteredPixelArray)
+				    		filteredPixelArray: JSON.stringify(filteredPixelArray),
+				    		outlineArray: JSON.stringify(outlineArray)
 				    },
 				    success: function(response) {
 				        document.getElementById("pixels").innerHTML = response;
@@ -127,35 +138,32 @@ function analyzeImage(){
     });
 }
 
-function getImageOutline(){
-	var canvas = document.getElementById("outlineCanvas");
-	canvas.width = 275; 
-	canvas.height = 275; 
 
-	image = new MarvinImage();
-	image.load("original_photos/color/wu/"+currentImg+".jpg", imageLoaded);
 
-	var ctx = canvas.getContext("2d"); 
+function validatePixelColors(imagePixelArray, imgHeight, imgWidth){
+	// Loop through every pixel in order to determine its color
+    var returnArray = new Array(imgHeight); 
+    var p = 0; 
 
-    var imgData = ctx.getImageData(0, 0, c.width, c.height);
-    alert(imgData); 
+    // alert (imagePixelArray.data[3] + ", " + imagePixelArray.data[4] + ", " + imagePixelArray.data[5]); 
 
-	function imageLoaded(){
-		  var imageOut = new MarvinImage(image.getWidth(), image.getHeight());
-		  canvas.width = image.getWidth; 
-		  canvas.height = image.getHeight; 
-		  // Edge Detection (Prewitt approach)
-		  Marvin.prewitt(image, imageOut);
-		  // Invert color
-		  Marvin.invertColors(imageOut, imageOut);
-		  // Threshold
-		  Marvin.thresholding(imageOut, imageOut, 190);
-		  imageOut.draw(canvas); 
+  	// Multi dimensional array (x by x)
+	for (var i = 0; i < imgHeight; i++) {
+		// Multi dimensional array (x by x)
+		returnArray[i] = new Array(imgWidth);
 
-		  var imgData = ctx.getImageData(0, 0, 275, 275);
-		  alert(imgData); 
+		for (var j = 0; j < imgWidth; j++) {
 
-	}
+			if (imagePixelArray.data[p] > 160 && imagePixelArray.data[p+1] > 155 && imagePixelArray.data[p+2] > 155) {
+				returnArray[i][j] = 0; // white pixel
+			} else {
+				returnArray[i][j] = 1; // dark pixel
+			}
+			p+=4; 
+	  	}
+  	}
+
+  	return returnArray; 
 }
 
 

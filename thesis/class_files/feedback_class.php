@@ -17,7 +17,7 @@ class Feedback{
 	protected $imgHeight;
 	protected $imgPixelCount; 
 	protected $filteredPixelArray; 
-	protected $edgesArray; 
+	protected $outlineArray; 
 
 	// Feedback msgs based on given attributes
 	protected $feedback_msgs; 
@@ -47,7 +47,7 @@ class Feedback{
 		$this->imgWidth = $data_array['imgWidth']; 
 		$this->imgHeight = $data_array['imgHeight']; 
 		$this->filteredPixelArray = $data_array['filteredPixelArray']; 
-		$this->edgesArray = $data_array['edgesArray'];
+		$this->outlineArray = $data_array['outlineArray'];
 		$this->imgPixelCount = $this->imgWidth * $this->imgHeight; 	
 
 		// Set the image template settings
@@ -123,6 +123,17 @@ class Feedback{
 		}
 	} // --end of function printTemplateArray
 
+	public function printOutlineArray(){ 
+		if (!empty($this->outlineArray)) {
+			foreach ($this->outlineArray as $column => $row) {
+				foreach ($row as $value) {
+					echo $value;
+				}
+				echo "<br>"; 
+			}
+		}
+	}
+
 	public function validateFacePosition(){
 		$correctFaceXPos = $this->faceXPos <= $this->maxFaceXPos && $this->faceXPos >= $this->minFaceXPos;
 		$correctFaceYPos = $this->faceYPos <= $this->maxFaceYPos && $this->faceYPos >= $this->minFaceYPos;
@@ -179,6 +190,41 @@ class Feedback{
 
 	}
 
+	public function traceOutline(){
+		
+		// This algorithm will attempt to trace the ouline of the face/body that was found
+		
+		$leftMax = round($this->faceXPos - ($this->faceWidth/2));
+		$rightMax = round(($this->faceWidth/2) + $this->faceXPos);
+
+		// Testing ------------------------
+		$this->outlineArray[round($this->faceYPos)][round($this->faceXPos)] = "7";
+		$this->outlineArray[round($this->faceYPos)][$leftMax] = "7";
+		$this->outlineArray[round($this->faceYPos)][$rightMax] = "7";
+		$this->printOutlineArray();
+		echo "MEOW" . $leftMax . ", " . $rightMax; 
+		// Testing ------------------------
+
+		
+		$clusters = array();
+		$newArray = array(); // all zeros 
+
+
+		foreach ($this->outlineArray as $row => $column) {
+			foreach ($column as $value) {
+				 if ($value == 1) {
+				 	
+				 }
+			}
+			
+		}
+
+		# Trace outline
+
+
+		# Color in the outline
+	}
+
 	public function validateBackground(){
 		$facePosResult = $this->validateFacePosition(); 
 		$faceSizeResult = $this->validateFaceSize(); 
@@ -233,8 +279,6 @@ class Feedback{
 			}
 			// echo "<br>"; 
 		}
-
-
 	}
 
 	public function printFeedbackMsgs(){

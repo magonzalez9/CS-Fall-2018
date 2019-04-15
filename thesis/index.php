@@ -9,8 +9,8 @@ header("Expires: 0"); // Proxies.
 	<title>Face Detection Application</title>
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/> -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="face_detection/dist/jquery.facedetection.min.js"> </script>
 	<script src="https://www.marvinj.org/releases/marvinj-0.7.js"></script>
+	<script src="face_detection/dist/jquery.facedetection.min.js"> </script>
 	<script src="photo_approval.js"></script>
 	<style>
 		.face-box {
@@ -19,12 +19,12 @@ header("Expires: 0"); // Proxies.
 		}
 	</style>
 </head>
-<body>
+<body onload="getImageOutline();">
 
 <h1>Photo Approval Application</h1>
 <div id="wrapper"></div>
 
-<img id="picture" src="original_photos/color/wu/1.jpg">
+<img id="picture" src="original_photos/color/wu/2.jpg">
 <canvas id="outlineCanvas"></canvas>
 <br />
 <button onclick="getNextPhoto(false)">Prev</button>
@@ -43,7 +43,7 @@ Confidence: <input type="number" id="confidence" name="confidence" min="1" max="
 <input type="radio" name="grayscale" id="grayscale" value="true"> True<br>
 <input type="radio" name="grayscale" id="grayscale" value="false" checked="checked"> False<br>
 <br>
-<button onclick="analyzeImage()">Analyze</button>
+<button onclick="analyzeImage();">Analyze</button>
 <!-- <button onclick="debug()">Analyze</button> -->
 
 <p id="pixels"> </p>
