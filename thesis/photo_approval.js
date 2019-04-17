@@ -36,7 +36,7 @@ function getImageOutline(){
 		  // Invert color
 		  Marvin.invertColors(imageOut, imageOut);
 		  // Threshold
-		  Marvin.thresholding(imageOut, imageOut, 190);
+		  Marvin.thresholding(imageOut, imageOut, 200);
 		  imageOut.draw(outlineC); 
 
 		  var outlineCTX = outlineC.getContext("2d"); 

@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -193,7 +193,6 @@ class Feedback{
 	public function traceOutline(){
 		
 		// This algorithm will attempt to trace the ouline of the face/body that was found
-		
 		$leftMax = round($this->faceXPos - ($this->faceWidth/2));
 		$rightMax = round(($this->faceWidth/2) + $this->faceXPos);
 
@@ -206,8 +205,14 @@ class Feedback{
 		// Testing ------------------------
 
 		
-		$clusters = array();
 		$newArray = array(); // all zeros 
+
+		// Fill new array with zeros
+		for ($i=0; $i < $this->imgHeight; $i++) { 
+			for ($j=0; $j < $this->imgWidth; $j++) { 
+				# code...
+			}
+		}
 
 
 		foreach ($this->outlineArray as $row => $column) {
