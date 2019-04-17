@@ -204,23 +204,18 @@ class Feedback{
 		echo "MEOW" . $leftMax . ", " . $rightMax; 
 		// Testing ------------------------
 
-		
-		$newArray = array(); // all zeros 
-
+		// Define new array
+		$newArray = array(); 
 		// Fill new array with zeros
 		for ($i=0; $i < $this->imgHeight; $i++) { 
+			$newArray[$i] = array(); 
 			for ($j=0; $j < $this->imgWidth; $j++) { 
-				# code...
+				$newArray[$i][$j] = 1; 
 			}
-		}
+		} 
 
-
-		foreach ($this->outlineArray as $row => $column) {
-			foreach ($column as $value) {
-				 if ($value == 1) {
-				 	
-				 }
-			}
+		$column = 0; 
+		for ($i=0; $i < size($this->newArray); $i++) { 
 			
 		}
 

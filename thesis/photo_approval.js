@@ -1,4 +1,4 @@
-var currentImg = 2;
+var currentImg =4;
 var outlineArray;  
 
 function filterImagePixels()  {
