@@ -1,4 +1,4 @@
-var currentImg =4;
+var currentImg = 1;
 var outlineArray;  
 
 function filterImagePixels()  {
@@ -36,7 +36,7 @@ function getImageOutline(){
 		  // Invert color
 		  Marvin.invertColors(imageOut, imageOut);
 		  // Threshold
-		  Marvin.thresholding(imageOut, imageOut, 200);
+		  Marvin.thresholding(imageOut, imageOut, 185);
 		  imageOut.draw(outlineC); 
 
 		  var outlineCTX = outlineC.getContext("2d"); 

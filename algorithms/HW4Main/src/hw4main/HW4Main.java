@@ -18,7 +18,7 @@ public class HW4Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        testLCS(10000);
+        testLCS(100);
 
     }
 
@@ -28,7 +28,7 @@ public class HW4Main {
 
         final long startQ = System.nanoTime(); // Start timer
         // Perform quicksort
-        LCSlength(A, B);
+        char [][] penis = LCSlength(A, B);
         final long endQ = System.nanoTime(); // End timer
 
         System.out.println("Dynamic LCS  Took: " + ((endQ - startQ) / Math.pow(10, 9)) + " seconds for size: " + nSize + " (" + (endQ - startQ) + " nano secs)");

@@ -18,6 +18,7 @@ class Feedback{
 	protected $imgPixelCount; 
 	protected $filteredPixelArray; 
 	protected $outlineArray; 
+	protected $outlineTraceArray;
 
 	// Feedback msgs based on given attributes
 	protected $feedback_msgs; 
@@ -36,6 +37,7 @@ class Feedback{
 	protected $maxFaceYPos;  
 	protected $bodyPercentage;
 	protected $bgPercentage; 
+
 
 
 	function __construct($data_array){
@@ -191,8 +193,7 @@ class Feedback{
 	}
 
 	public function traceOutline(){
-		
-		// This algorithm will attempt to trace the ouline of the face/body that was found
+		// This algorithm will attempt to trace the ouline of the face/body that was found CHECK FOR NEGATIVES!
 		$leftMax = round($this->faceXPos - ($this->faceWidth/2));
 		$rightMax = round(($this->faceWidth/2) + $this->faceXPos);
 
@@ -201,29 +202,83 @@ class Feedback{
 		$this->outlineArray[round($this->faceYPos)][$leftMax] = "7";
 		$this->outlineArray[round($this->faceYPos)][$rightMax] = "7";
 		$this->printOutlineArray();
-		echo "MEOW" . $leftMax . ", " . $rightMax; 
+		echo "MEOW" . $leftMax . ", " . $rightMax . "<br>"; 
 		// Testing ------------------------
 
 		// Define new array
-		$newArray = array(); 
+		$this->outlineTraceArray = array(); 
 		// Fill new array with zeros
 		for ($i=0; $i < $this->imgHeight; $i++) { 
-			$newArray[$i] = array(); 
+			$this->outlineTraceArray[$i] = array(); 
 			for ($j=0; $j < $this->imgWidth; $j++) { 
-				$newArray[$i][$j] = 1; 
+				$this->outlineTraceArray[$i][$j] = 1; 
 			}
 		} 
 
+		// Trace the outline 
 		$column = 0; 
-		for ($i=0; $i < size($this->newArray); $i++) { 
-			
+		for ($i=0; $i < 3; $i++) { 
+			for ($j=0; $j < sizeof($this->outlineArray[$i]); $j++) { 
+				if ($this->outlineArray[$i][$j] == 0) {
+					$this->outlineTraceArray[$i][$j] = '*'; 
+				} else if ($this->outlineArray[$i][$j] == 1) {
+					// go up, try to surround
+					$newCol = $this->surroundAndDelete($i, $j); 
+
+					//  Edge detected, so go to next row
+					if ($newCol == false) {
+						break 1; 
+					} else {
+						$j = $newCol;
+					}
+				}
+			}
 		}
 
 		# Trace outline
 
+		// Print newArray
+		if (!empty($this->outlineTraceArray)) {
+			foreach ($this->outlineTraceArray as $column => $row) {
+				foreach ($row as $value) {
+					echo $value;
+				}
+				echo "<br>"; 
+			}
+		}
+
+
 
 		# Color in the outline
 	}
+
+	public function surroundAndDelete($row, $col){
+		// Starting default
+		$startRow = $row; 
+		$startCol = $col;
+
+		$topRow = $row - 1; 
+		$topCol = $col;
+		$col; 
+
+		$update_values = array(); 
+
+		while (true) {
+			if (($this->outlineArray[$topRow][$topCol] == 0) && ($this->outlineArray[$row][$col] == 0)) {
+				foreach ($update_values as $key => $colToUpdate) {
+					$this->outlineTraceArray[$startRow][$colToUpdate] = '*'; 
+					$startCol++; 
+				}
+				return $startCol; 
+			} else if ($this->outlineArray[$topRow][$topCol] == 1) {
+				return false; 
+			}else if(($this->outlineArray[$topRow][$topCol] == 0) && ($this->outlineArray[$row][$col] == 1)) {
+				$update_values[] = $col; 
+				$topCol++;  
+				$col++; 
+			} 
+		}
+	} // --end of function surroundAndDelete
 
 	public function validateBackground(){
 		$facePosResult = $this->validateFacePosition(); 

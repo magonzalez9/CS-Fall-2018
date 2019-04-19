@@ -24,7 +24,7 @@ header("Expires: 0"); // Proxies.
 <h1>Photo Approval Application</h1>
 <div id="wrapper"></div>
 
-<img id="picture" src="original_photos/color/wu/2.jpg">
+<img id="picture" src="original_photos/color/wu/1.jpg">
 <canvas id="outlineCanvas"></canvas>
 <br />
 <button onclick="getNextPhoto(false)">Prev</button>
