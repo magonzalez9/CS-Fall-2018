@@ -26,6 +26,7 @@ header("Expires: 0"); // Proxies.
 
 <img id="picture" src="original_photos/color/wu/1.jpg">
 <canvas id="outlineCanvas"></canvas>
+<canvas id="grayscaleCanvas"></canvas>
 <br />
 <button onclick="getNextPhoto(false)">Prev</button>
 <button onclick="getNextPhoto(true)">Next</button>
@@ -49,6 +50,7 @@ Confidence: <input type="number" id="confidence" name="confidence" min="1" max="
 <p id="pixels"> </p>
 <p id="response"></p>
 <p id="data"></p>
+<p id="gs"></p>
 </fieldset>
 
 </body>

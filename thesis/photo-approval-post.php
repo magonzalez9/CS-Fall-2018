@@ -2,16 +2,20 @@
 require_once('class_files/feedback_class.php');
 
 if(isset($_POST)){	
-	$_POST['filteredPixelArray'] = json_decode($_POST['filteredPixelArray'], true); 
-	$_POST['outlineArray'] = json_decode($_POST['outlineArray'], true); 
+	$_POST['pixelArray'] = json_decode($_POST['pixelArray'], true); 
+	$_POST['outlineArray'] = json_decode($_POST['outlineArray'], true);
+	$_POST['grayscaleArray'] = json_decode($_POST['grayscaleArray'], true);  
 
 	$feedbackObj = new Feedback($_POST);
 
-	// $feedbackObj->printTemplateArray(); 
-	// $feedbackObj->printPixelArray(); 
-	$feedbackObj->traceOutline();  
-	$feedbackObj->validateBackground(); 
-	$feedbackObj->printFeedbackMsgs();
+
+	// $feedbackObj->printOutlineArray();
+	// $feedbackObj->printGrayscaleArray(); 
+	// $feedbackObj->traceOutline(); 
+	$feedbackObj->sampleImagePixels();
+	
+	// $feedbackObj->validateBackground(); 
+	// $feedbackObj->printFeedbackMsgs();
 
 }
 ?>

@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -16,8 +16,9 @@ class Feedback{
 	protected $imgWidth; 
 	protected $imgHeight;
 	protected $imgPixelCount; 
-	protected $filteredPixelArray; 
+	protected $pixelArray; 
 	protected $outlineArray; 
+	protected $grayscaleArray; 
 	protected $outlineTraceArray;
 
 	// Feedback msgs based on given attributes
@@ -48,8 +49,9 @@ class Feedback{
 		$this->faceYPos = $data_array['faceYPos'];
 		$this->imgWidth = $data_array['imgWidth']; 
 		$this->imgHeight = $data_array['imgHeight']; 
-		$this->filteredPixelArray = $data_array['filteredPixelArray']; 
+		$this->pixelArray = $data_array['pixelArray']; 
 		$this->outlineArray = $data_array['outlineArray'];
+		$this->grayscaleArray = $data_array['grayscaleArray']; 
 		$this->imgPixelCount = $this->imgWidth * $this->imgHeight; 	
 
 		// Set the image template settings
@@ -103,20 +105,11 @@ class Feedback{
 		}
 	}
 
+
+	// DEBUG ************************************************************
 	public function printTemplateArray(){
 		if (!empty($this->templateArray)) {
 			foreach ($this->templateArray as $column => $row) {
-				foreach ($row as $value) {
-					echo $value;
-				}
-				echo "<br>"; 
-			}
-		}
-	} // --end of function printTemplateArray
-
-	public function printPixelArray(){
-		if (!empty($this->filteredPixelArray)) {
-			foreach ($this->filteredPixelArray as $column => $row) {
 				foreach ($row as $value) {
 					echo $value;
 				}
@@ -135,6 +128,18 @@ class Feedback{
 			}
 		}
 	}
+
+	public function printGrayscaleArray(){
+		if (!empty($this->grayscaleArray)) {
+			foreach ($this->grayscaleArray as $column => $row) {
+				foreach ($row as $value) {
+					echo $value;
+				}
+				echo "<br>"; 
+			}
+		}
+	}
+	// DEBUG ************************************************************
 
 	public function validateFacePosition(){
 		$correctFaceXPos = $this->faceXPos <= $this->maxFaceXPos && $this->faceXPos >= $this->minFaceXPos;
@@ -201,84 +206,51 @@ class Feedback{
 		$this->outlineArray[round($this->faceYPos)][round($this->faceXPos)] = "7";
 		$this->outlineArray[round($this->faceYPos)][$leftMax] = "7";
 		$this->outlineArray[round($this->faceYPos)][$rightMax] = "7";
-		$this->printOutlineArray();
+		// $this->printOutlineArray();
 		echo "MEOW" . $leftMax . ", " . $rightMax . "<br>"; 
 		// Testing ------------------------
 
-		// Define new array
-		$this->outlineTraceArray = array(); 
-		// Fill new array with zeros
-		for ($i=0; $i < $this->imgHeight; $i++) { 
-			$this->outlineTraceArray[$i] = array(); 
-			for ($j=0; $j < $this->imgWidth; $j++) { 
-				$this->outlineTraceArray[$i][$j] = 1; 
+	
+		// Combine outline and grayscale array 
+		foreach ($this->grayscaleArray as $row => $columnArray) {
+			foreach ($columnArray as $column => $pixelValue) {
+				if (($this->outlineArray[$row][$column] == 0 && $pixelValue == 1)) {
+					$this->outlineArray[$row][$column] = 1; 
+				}	
 			}
-		} 
-
-		// Trace the outline 
-		$column = 0; 
-		for ($i=0; $i < 3; $i++) { 
-			for ($j=0; $j < sizeof($this->outlineArray[$i]); $j++) { 
-				if ($this->outlineArray[$i][$j] == 0) {
-					$this->outlineTraceArray[$i][$j] = '*'; 
-				} else if ($this->outlineArray[$i][$j] == 1) {
-					// go up, try to surround
-					$newCol = $this->surroundAndDelete($i, $j); 
-
-					//  Edge detected, so go to next row
-					if ($newCol == false) {
-						break 1; 
-					} else {
-						$j = $newCol;
-					}
-				}
-			}
+			
 		}
-
-		# Trace outline
+	
 
 		// Print newArray
-		if (!empty($this->outlineTraceArray)) {
-			foreach ($this->outlineTraceArray as $column => $row) {
+		if (!empty($this->outlineArray)) {
+			foreach ($this->outlineArray as $column => $row) {
 				foreach ($row as $value) {
 					echo $value;
 				}
 				echo "<br>"; 
 			}
 		}
-
-
-
-		# Color in the outline
 	}
 
-	public function surroundAndDelete($row, $col){
-		// Starting default
-		$startRow = $row; 
-		$startCol = $col;
+	public function sampleImagePixels(){
+		$rgbPixelArray = array(); 
+		// $this->traceOutline(); 
+		$p = 0; 
+		for ($i = 0; $i < $this->imgHeight; $i++) {
+			$rgbPixelArray[$i] = array();
+			for ($j = 0; $j < $this->imgWidth; $j++) {
+				$rgbPixelArray[$i][$j] = array('r' => $this->pixelArray[$p], 'g' => $this->pixelArray[$p+1], 'b' => $this->pixelArray[$p+2]) ;
+				$p += 4; 
+		  	}
+	  	}
 
-		$topRow = $row - 1; 
-		$topCol = $col;
-		$col; 
+	  	// Now lets sample some pixels 
 
-		$update_values = array(); 
+	  	print_r($rgbPixelArray); 
+	  	return $rgbPixelArray; 
 
-		while (true) {
-			if (($this->outlineArray[$topRow][$topCol] == 0) && ($this->outlineArray[$row][$col] == 0)) {
-				foreach ($update_values as $key => $colToUpdate) {
-					$this->outlineTraceArray[$startRow][$colToUpdate] = '*'; 
-					$startCol++; 
-				}
-				return $startCol; 
-			} else if ($this->outlineArray[$topRow][$topCol] == 1) {
-				return false; 
-			}else if(($this->outlineArray[$topRow][$topCol] == 0) && ($this->outlineArray[$row][$col] == 1)) {
-				$update_values[] = $col; 
-				$topCol++;  
-				$col++; 
-			} 
-		}
-	} // --end of function surroundAndDelete
+	} // --end of function sampleImagePixels
 
 	public function validateBackground(){
 		$facePosResult = $this->validateFacePosition(); 
@@ -293,18 +265,18 @@ class Feedback{
 		$backgroundAccuracy = 0; 
 		$bodyPosAccuracy = 0; 
 		$inaccuracy = 0; 
-		for ($i=0; $i < sizeof($this->filteredPixelArray); $i++) { 
-			for ($j=0; $j < sizeof($this->filteredPixelArray[$i]); $j++) { 
-				if ($this->filteredPixelArray[$i][$j] == 0 && $this->templateArray[$i][$j] == 0) {
+		for ($i=0; $i < sizeof($this->pixelArray); $i++) { 
+			for ($j=0; $j < sizeof($this->pixelArray[$i]); $j++) { 
+				if ($this->pixelArray[$i][$j] == 0 && $this->templateArray[$i][$j] == 0) {
 					$output[$i][$j] = '-'; 
 					$backgroundAccuracy++; 
-				} else if ($this->filteredPixelArray[$i][$j] == 0 && $this->templateArray[$i][$j] == 1){
+				} else if ($this->pixelArray[$i][$j] == 0 && $this->templateArray[$i][$j] == 1){
 					// not correct body pos
 					$output[$i][$j] = '^';
-				} else if($this->filteredPixelArray[$i][$j] == 1 && $this->templateArray[$i][$j] == 0){
+				} else if($this->pixelArray[$i][$j] == 1 && $this->templateArray[$i][$j] == 0){
 					// Not correct background color
 					$output[$i][$j] = 'o'; 
-				} else if ( $this->filteredPixelArray[$i][$j] == 1 && $this->templateArray[$i][$j] == 1){
+				} else if ( $this->pixelArray[$i][$j] == 1 && $this->templateArray[$i][$j] == 1){
 					$output[$i][$j] = '*'; 
 					$bodyPosAccuracy++; 
 				} else {

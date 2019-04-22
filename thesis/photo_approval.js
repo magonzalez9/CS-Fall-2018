@@ -1,7 +1,7 @@
 var currentImg = 1;
 var outlineArray;  
 
-function filterImagePixels()  {
+function getImagePixels()  {
 	var img = document.getElementById("picture");
 	// Create canvas and get image
     var c = document.createElement("canvas");
@@ -13,12 +13,51 @@ function filterImagePixels()  {
 
     // Draw image onto the canvas and get image data
     ctx.drawImage(img, 0, 0);
-    var imgData = ctx.getImageData(0, 0, c.width, c.height);
-
-    var pixelArray = validatePixelColors(imgData, img.naturalHeight, img.naturalWidth);
+    var pixelArray = ctx.getImageData(0, 0, c.width, c.height).data;
 
     return pixelArray; 
 } // --end of function filterImagePixels
+
+function convertGrayscale(){
+  var img = document.getElementById("picture");
+  var myCanvas=document.getElementById("grayscaleCanvas");
+  var ctx=myCanvas.getContext("2d");
+  myCanvas.width = img.naturalWidth; 
+  myCanvas.height = img.naturalHeight; 
+  w = img.naturalWidth; 
+  h = img.naturalHeight;
+
+   ctx.drawImage(img, 0, 0, w, h);
+
+      var imgPixels = ctx.getImageData(0, 0, w, h);
+      for(var y = 0; y < imgPixels.height; y++){
+       for(var x = 0; x < imgPixels.width; x++){
+            var i = (y * 4) * imgPixels.width + x * 4;
+            var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+            imgPixels.data[i] = avg;
+            imgPixels.data[i + 1] = avg;
+            imgPixels.data[i + 2] = avg;
+       }
+  }
+	ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+
+	// Get grayscale the image pixels 
+	var grayscaleImgData = ctx.getImageData(0,0,myCanvas.width, myCanvas.height).data; 
+
+	var grayScaleArray = []; 
+	var p = 0; 
+
+	for (var i = 0; i < img.naturalHeight; i++) {
+		// Multi dimensional array (x by x)
+		grayScaleArray[i] = new Array(img.naturalWidth);
+
+		for (var j = 0; j < img.naturalWidth; j++) {
+			grayScaleArray[i][j] = getGrayScaleValue(grayscaleImgData[p], grayscaleImgData[p+1], grayscaleImgData[p+2], .5);
+			p+=4; 
+	  	}
+  	}
+  	return grayScaleArray; 
+}
 
 function getImageOutline(){
 	var outlineC = document.getElementById("outlineCanvas");
@@ -36,7 +75,7 @@ function getImageOutline(){
 		  // Invert color
 		  Marvin.invertColors(imageOut, imageOut);
 		  // Threshold
-		  Marvin.thresholding(imageOut, imageOut, 185);
+		  Marvin.thresholding(imageOut, imageOut, 210);
 		  imageOut.draw(outlineC); 
 
 		  var outlineCTX = outlineC.getContext("2d"); 
@@ -51,7 +90,7 @@ function getImageOutline(){
 }
 
 function analyzeImage(){
-	 
+	var img = document.getElementById("picture");
 	// Get settings ---------
 	var interval = parseInt(document.getElementById('interval').value, 10); 
 	var minNeighbors = parseInt(document.getElementById('minNeighbors').value, 10);
@@ -63,9 +102,10 @@ function analyzeImage(){
 	} else {
 		grayscale = true; 
 	}
-	// Settings -------------
 
-	var filteredPixelArray = filterImagePixels(); 
+	// Settings -------------
+	var pixelArray = getImagePixels(); 
+	var grayScaleArray = convertGrayscale();
 
 	/* RETURN VALUES */
 	// x — X coord of the face in the picture
@@ -88,7 +128,7 @@ function analyzeImage(){
     	async: false, 
     	grayscale: grayscale,
         complete: function (faces) {
-        	var img = document.getElementById("picture");
+        	
 
         	// Get the count
         	if (faces.length > 0 ) {
@@ -108,7 +148,6 @@ function analyzeImage(){
 			    $div.css('width', faces[0].width);
 			    $div.css('height', faces[0].height);
 			    $("#wrapper").append($div);
-			    
 
 			    // Call the photo approval php 
 			    $.ajax({  
@@ -120,8 +159,9 @@ function analyzeImage(){
 				    		faceYPos: (faces[0].positionY+((faces[0].height)/2)) - img.offsetTop, 
 				    		imgWidth: img.naturalWidth,
 				    		imgHeight: img.naturalHeight, 
-				    		filteredPixelArray: JSON.stringify(filteredPixelArray),
-				    		outlineArray: JSON.stringify(outlineArray)
+				    		pixelArray: JSON.stringify(pixelArray),
+				    		outlineArray: JSON.stringify(outlineArray),
+				    		grayscaleArray: JSON.stringify(grayScaleArray)
 				    },
 				    success: function(response) {
 				        document.getElementById("pixels").innerHTML = response;
@@ -163,9 +203,26 @@ function validatePixelColors(imagePixelArray, imgHeight, imgWidth){
 	  	}
   	}
 
-  	return returnArray; 
+  	return returnArray;
 }
 
+function getGrayScaleValue(r, g, b, bwSensitivity){
+	// Apply affine transfomation to rgb values in order to color-categorize the pixels from 0-1
+	// E.g. 0 (lighter pixel) - 1 (darker pixel) 
+	// f(t)=(d−c)(b−a) / (t−a) + c
+	var rValue = parseFloat(((r - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
+	var gValue = parseFloat(((g - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
+	var bValue = parseFloat(((b - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
+
+	var sumAvg = ((rValue + gValue + bValue) / 3).toFixed(2);
+
+	// The lower the bwSensitivity value the greater the darkness definition 
+	if (sumAvg >= bwSensitivity) {
+		return 1;
+	} else if (sumAvg < bwSensitivity){ 
+		return 0; 
+	}
+} // --end of function getGrayScaleValue
 
 // TESTING FUNCTIONS ----------------------------------------------------------------------------------------
 
@@ -198,25 +255,7 @@ function getNextPhoto(next){
 	document.getElementById("picture").setAttribute("src", "original_photos/color/wu/" + currentImg + ".jpg");
 }
 
-function getGrayScaleValue(r, g, b){
-	// Apply affine transfomation to rgb values in order to color-categorize the pixels from 0-1
-	// E.g. 0 (lighter pixel) - 1 (darker pixel) 
-	// f(t)=(d−c)(b−a) / (t−a) + c
-	var rValue = parseFloat(((r - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
-	var gValue = parseFloat(((g - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
-	var bValue = parseFloat(((b - 255) * (1 - 0) / (0 - 255) + 0).toFixed(2));
 
-	var sumAvg = ((rValue + gValue + bValue) / 3).toFixed(2);
-
-	// The lower the number the greater the darkness definition 
-	var bwSensitivity = .5; 
-
-	if (sumAvg >= bwSensitivity) {
-		return "*";
-	} else if (sumAvg < bwSensitivity){ 
-		return "_"; 
-	}
-} // --end of function getGrayScaleValue
 
 function testArrays(){
 	
@@ -252,6 +291,6 @@ function printArray(arr){
 		cleanStr += "<br>";
 	}
 
-	document.getElementById("data").innerHTML = cleanStr;
+	document.getElementById("gs").innerHTML = cleanStr;
 }
 
