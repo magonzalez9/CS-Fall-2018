@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -315,11 +315,26 @@ class Feedback{
 		$backgroundAccuracy = 0; 
 		$bodyPosAccuracy = 0; 
 
-		foreach ($this->outlineArray as $row => $columnArray) {
-				foreach ($columnArray as $key => $pixelValue) {
-					// Check if inside face area
+		// This algorithm will attempt to trace the ouline of the face/body that was found
+		$leftMax = round($this->faceXPos - ($this->faceWidth/2));
+		$rightMax = round(($this->faceWidth/2) + $this->faceXPos);
+		$topMax = round($this->faceYPos - ($this->faceHeight/2)); 
+		$bottomMax = round(($this->faceHeight/2) + $this->faceYPos);
+		// Testing ------------------------
+		$this->outlineArray[round($this->faceYPos)][round($this->faceXPos)] = "Q";
+		$this->outlineArray[round($this->faceYPos)][$leftMax] = "Q";
+		$this->outlineArray[round($this->faceYPos)][$rightMax] = "Q";
+		$this->outlineArray[$topMax][round($this->faceXPos)] = "Q";
+		$this->outlineArray[$bottomMax][round($this->faceXPos)] = "Q";
 
-					if ($pixelValue == 0) {
+		foreach ($this->outlineArray as $row => $columnArray) {
+				foreach ($columnArray as $column => $pixelValue) {
+					// Check if inside face area
+					// if ( ($column < $rightMax) && ($column > $leftMax) && ($row < $bottomMax) && ($row > $topMax) ) {
+					if ( ($column < $rightMax) && ($column > $leftMax) && ($row > $topMax) ) {
+						$this->outlineArray[$row][$column] = 1; 
+						$bodyPosAccuracy++; 
+					} else if($pixelValue == 0) {
 						$backgroundAccuracy++; 
 					} else {
 						$bodyPosAccuracy++; 
