@@ -197,24 +197,13 @@ class Feedback{
 
 	}
 
-	public function traceOutline(){
-		// This algorithm will attempt to trace the ouline of the face/body that was found CHECK FOR NEGATIVES!
-		$leftMax = round($this->faceXPos - ($this->faceWidth/2));
-		$rightMax = round(($this->faceWidth/2) + $this->faceXPos);
-
-		// Testing ------------------------
-		$this->outlineArray[round($this->faceYPos)][round($this->faceXPos)] = "7";
-		$this->outlineArray[round($this->faceYPos)][$leftMax] = "7";
-		$this->outlineArray[round($this->faceYPos)][$rightMax] = "7";
-		// $this->printOutlineArray();
-		echo "MEOW" . $leftMax . ", " . $rightMax . "<br>"; 
-		// Testing ------------------------
-
+	public function fillOutlineArray(){
+		$filteredPixelArray = $this->sampleImagePixels();
 	
 		// Combine outline and grayscale array 
 		foreach ($this->grayscaleArray as $row => $columnArray) {
 			foreach ($columnArray as $column => $pixelValue) {
-				if (($this->outlineArray[$row][$column] == 0 && $pixelValue == 1)) {
+				if (($this->outlineArray[$row][$column] == 0 && $pixelValue == 1) || ($filteredPixelArray[$row][$column] == 1)) {
 					$this->outlineArray[$row][$column] = 1; 
 				}	
 			}
@@ -223,89 +212,144 @@ class Feedback{
 	
 
 		// Print newArray
-		if (!empty($this->outlineArray)) {
-			foreach ($this->outlineArray as $column => $row) {
-				foreach ($row as $value) {
-					echo $value;
-				}
-				echo "<br>"; 
-			}
-		}
+		// if (!empty($this->outlineArray)) {
+		// 	foreach ($this->outlineArray as $column => $row) {
+		// 		foreach ($row as $value) {
+		// 			echo $value;
+		// 		}
+		// 		echo "<br>"; 
+		// 	}
+		// }
 	}
 
 	public function sampleImagePixels(){
 		$rgbPixelArray = array(); 
-		// $this->traceOutline(); 
+
 		$p = 0; 
 		for ($i = 0; $i < $this->imgHeight; $i++) {
 			$rgbPixelArray[$i] = array();
 			for ($j = 0; $j < $this->imgWidth; $j++) {
-				$rgbPixelArray[$i][$j] = array('r' => $this->pixelArray[$p], 'g' => $this->pixelArray[$p+1], 'b' => $this->pixelArray[$p+2]) ;
+				if ($this->rgbValidator($this->pixelArray[$p], $this->pixelArray[$p+1], $this->pixelArray[$p+2])) {
+					// White pixel
+					$rgbPixelArray[$i][$j] = 0; 
+				} else {
+					// Dark pixel 
+					$rgbPixelArray[$i][$j] = 1; 
+				}
 				$p += 4; 
 		  	}
 	  	}
 
-	  	// Now lets sample some pixels 
+	    //  if (!empty($rgbPixelArray)) {
+		// 	foreach ($rgbPixelArray as $column => $row) {
+		// 		foreach ($row as $value) {
+		// 			echo $value;
+		// 		}
+		// 		echo "<br>"; 
+		// 	}
+		// }
 
-	  	print_r($rgbPixelArray); 
 	  	return $rgbPixelArray; 
 
 	} // --end of function sampleImagePixels
 
-	public function validateBackground(){
-		$facePosResult = $this->validateFacePosition(); 
-		$faceSizeResult = $this->validateFaceSize(); 
+	public function rgbValidator($r, $g, $b){
+		$rMagnitude = 20; 
+		$gMagnitude = 20; 
+		$bMagnitude = 20; 
 
-		if ($facePosResult == false || $faceSizeResult == false) {
-			// Face position or face size are not appropriate, so check if white background exists
+		if (($r > $g) && ($r > $b)) {
+			// Red is dominant, so check magnitude
+			if (($r > 235) && (($r - $g) > 20) && (($r - $b) > 20)) {
+				return false; 
+			}
 
-		}
+			if (($r < 235) && ((($r - $g) > 30 ) && (($r - $b) > 30))) {
+				return false; 
+			}
 
-		$output = array();
-		$backgroundAccuracy = 0; 
-		$bodyPosAccuracy = 0; 
-		$inaccuracy = 0; 
-		for ($i=0; $i < sizeof($this->pixelArray); $i++) { 
-			for ($j=0; $j < sizeof($this->pixelArray[$i]); $j++) { 
-				if ($this->pixelArray[$i][$j] == 0 && $this->templateArray[$i][$j] == 0) {
-					$output[$i][$j] = '-'; 
-					$backgroundAccuracy++; 
-				} else if ($this->pixelArray[$i][$j] == 0 && $this->templateArray[$i][$j] == 1){
-					// not correct body pos
-					$output[$i][$j] = '^';
-				} else if($this->pixelArray[$i][$j] == 1 && $this->templateArray[$i][$j] == 0){
-					// Not correct background color
-					$output[$i][$j] = 'o'; 
-				} else if ( $this->pixelArray[$i][$j] == 1 && $this->templateArray[$i][$j] == 1){
-					$output[$i][$j] = '*'; 
-					$bodyPosAccuracy++; 
-				} else {
-					$output[$i][$j] = "x";
-					$inaccuracy++;  
+			if (($r > $g) && ($b > $g)) {
+				if ( (($r - $b) > 20) && (($g-$b) > 20) ) {
+					return false;
 				}
 			}
+		} else if(($g > $r) && ($g > $b)){
+			// Green is dominant color
+			if ( (($g-$r) > 15) && (($g - $b) > 15) ) {
+				return false; 
+			}
+		} else if (($b > $r) && ($b > $g)){
+			// Blue is dominant color
+			if ( (($b-$r) > 15) && (($b - $g) > 15)) {
+				return false; 
+			}
+
+			if ((($b-$g) < 15) && (($b - $g) > 15)) {
+				return false;
+			}
+		} else if (($r > $b) && ($g > $b)) {
+			// Red and green are dominant colors 
+			if ( ($r > 225) && ($g > 225) ) {
+				if ($b < 200) {
+					return false; 				}
+			}
+
+		} else if(($g == $r) && ($b == $r)){
+			// RGB are equal
+			if ($r < 195) {
+			 	return false; 
+			 } 
+		}
+
+		// Check for darkness
+		if (($r < 165) && ($g < 155) && ($b < 155 )) {
+			return false; 
+		}
+
+		return true; 
+	}
+
+	public function validateBackground(){
+		// First fill outline array w/ filtered pixels + grayscale 
+		$this->fillOutlineArray(); 
+		$backgroundAccuracy = 0; 
+		$bodyPosAccuracy = 0; 
+
+		foreach ($this->outlineArray as $row => $columnArray) {
+				foreach ($columnArray as $key => $pixelValue) {
+					// Check if inside face area
+
+					if ($pixelValue == 0) {
+						$backgroundAccuracy++; 
+					} else {
+						$bodyPosAccuracy++; 
+					}
+				}
 		}
 
 		$imageArea = $this->imgHeight * $this->imgWidth; 
 		$imageBGPercent = (($backgroundAccuracy/$imageArea)*100);
-		// create range 
-		$maxBGP = $this->bgPercentage + 20; 
-		$minBGP = $this->bgPercentage - 25; 
-		if ($imageBGPercent >= $minBGP && $imageBGPercent <= $maxBGP) {
+
+		// These could be adjusted by "Strictness"
+		$maxBGP = $this->bgPercentage + 10; 
+		$minBGP = $this->bgPercentage - 20; 
+
+		$this->feedback_msgs[] = "bgPercentage: " . $this->bgPercentage . " vs " . $imageBGPercent ; 
+
+		if ($imageBGPercent >= $minBGP) {
 			$this->feedback_msgs[] = 'background is white'; 
 		} else {
 			$this->feedback_msgs[] = 'background is NOT white'; 
 		}
 
-		// Calculate percentage of image correctness 
+	}
 
-		// TESTING printing output array!
-		foreach ($output as $column => $row) {
-			foreach ($row as $value) {
-				// echo $value;
-			}
-			// echo "<br>"; 
-		}
+	function analyzePhoto(){
+		$this->validateFacePosition(); 
+		$this->validateFaceSize(); 
+		$this->validateBackground(); 
+
+		$this->printFeedbackMsgs(); 
 	}
 
 	public function printFeedbackMsgs(){
@@ -314,9 +358,6 @@ class Feedback{
 		}
 	}
 
-	public function validateBodyPosition(){
-
-	}
 
 	public function reAdjustSettings(){
 		// Useful function if image dimensions do not match those in settings

@@ -11,11 +11,14 @@ if(isset($_POST)){
 
 	// $feedbackObj->printOutlineArray();
 	// $feedbackObj->printGrayscaleArray(); 
-	// $feedbackObj->traceOutline(); 
-	$feedbackObj->sampleImagePixels();
+	// $feedbackObj->fillOutlineArray(); 
+	// $feedbackObj->sampleImagePixels();
 	
 	// $feedbackObj->validateBackground(); 
 	// $feedbackObj->printFeedbackMsgs();
+
+	$feedbackObj->analyzePhoto(); 
+	$feedbackObj->printOutlineArray(); 
 
 }
 ?>
