@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -141,17 +141,48 @@ class Feedback{
 	}
 	// DEBUG ************************************************************
 
+	public function validateFaceSize(){
+		// Get face area
+		$faceArea = $this->faceHeight * $this->faceWidth;
+
+		// Get templateArea
+		$minFaceArea = $this->minFaceHeight * $this->minFaceWidth; 
+		$maxFaceArea = $this->maxFaceHeight * $this->maxFaceWidth;
+		// $this->feedback_msgs[] = 'face area' . $faceArea; 
+		// $this->feedback_msgs[] = 'min: ' . $minFaceArea . ' max: ' . $maxFaceArea;
+
+
+
+		if ($faceArea >= $minFaceArea && $faceArea <= $maxFaceArea) {
+		 	$this->feedback_msgs[] = "Face is approriate size";
+		 	return true;  
+		} else {
+			if ($faceArea < $minFaceArea) {
+				if ( (abs($minFaceArea)/$faceArea) > 3) {
+					$this->maxFaceXPos -= 20; 
+					$this->minFaceXPos += 20; 
+				}
+				$this->feedback_msgs[] = "Appears you are a bit far away from the camera"; 
+			} else  if($faceArea > $maxFaceArea){
+				$this->feedback_msgs[] = "Appears you are too close to the camera"; 
+			}
+		}
+		return false; 
+
+	}
+
 	public function validateFacePosition(){
 		$correctFaceXPos = $this->faceXPos <= $this->maxFaceXPos && $this->faceXPos >= $this->minFaceXPos;
 		$correctFaceYPos = $this->faceYPos <= $this->maxFaceYPos && $this->faceYPos >= $this->minFaceYPos;
 		$xDir = ""; 
 		$yDir = ""; 
+		$facePosition = ""; 
 
 		// Determine if the face is centered
 		if ($correctFaceXPos && $correctFaceYPos) {
 		 	// Face is in correct 
+		 	$facePosition = "centered"; 
 		 	$this->feedback_msgs[] = "Face is centered"; 
-		 	return true; 
 		 } else {
 		 	# Face is not centered
 		 	// Check X position 
@@ -160,6 +191,7 @@ class Feedback{
 		 	} else if ($this->faceXPos < $this->minFaceXPos) {
 		 		$xDir = "right"; 
 		 	}
+		 	$facePosition = $xDir; 
 
 		 	// Check Y position
 		 	if ($this->faceYPos > $this->maxFaceYPos) {
@@ -171,30 +203,70 @@ class Feedback{
 		 	$this->feedback_msgs[] = "Position your body " . $yDir . " to the " . $xDir . " and make sure your shoulders fit the frame.";
 		 }
 
-		 return false; 
+		 return $facePosition; 
 		  
 	}// --end of function validateFacePosition
 
-	public function validateFaceSize(){
-		// Get face area
-		$faceArea = $this->faceHeight * $this->faceWidth;
 
-		// Get templateArea
-		$minFaceArea = $this->minFaceHeight * $this->minFaceWidth; 
-		$maxFaceArea = $this->maxFaceHeight * $this->maxFaceWidth;
+	public function validateBackground(){
+		// First fill outline array w/ filtered pixels + grayscale 
+		$this->fillOutlineArray(); 
+		$facePosition = $this->validateFacePosition(); 
 
-		if ($faceArea >= $minFaceArea && $faceArea <= $maxFaceArea) {
-		 	$this->feedback_msgs[] = "Face is approriate size";
-		 	return true;  
-		} else {
-			if ($faceArea < $minFaceArea) {
-				$this->feedback_msgs[] = "Appears you are a bit far away from the camera"; 
-			} else  if($faceArea > $maxFaceArea){
-				$this->feedback_msgs[] = "Appears you are too close to the camera"; 
-			}
+		$backgroundAccuracy = 0; 
+		$bodyPosAccuracy = 0; 
+
+		// Determine bounds of face location
+		$leftMax = round($this->faceXPos - ($this->faceWidth/2));
+		$rightMax = round(($this->faceWidth/2) + $this->faceXPos);
+		$topMax = round($this->faceYPos - ($this->faceHeight/2)); 
+		$bottomMax = round(($this->faceHeight/2) + $this->faceYPos);
+
+		// Determine what portion of the background we want examine based on face location 
+		$bgSampleResult = $this->sampleBackground($leftMax, $rightMax, $facePosition); 
+
+		foreach ($this->outlineArray as $row => $columnArray) {
+				foreach ($columnArray as $column => $pixelValue) {
+					// Check if inside face area
+					if ( ($column < $rightMax) && ($column > $leftMax) && ($row > $topMax) ) {
+						$this->outlineArray[$row][$column] = 1; 
+						$bodyPosAccuracy++; 
+					} else if($pixelValue == 0) {
+						$backgroundAccuracy++; 
+					} else {
+						$bodyPosAccuracy++; 
+					}
+				}
 		}
-		return false; 
 
+		// Calculate the appropriate background color percentage
+		$imageArea = $this->imgHeight * $this->imgWidth; 
+		$imageBGPercent = (($backgroundAccuracy/$imageArea)*100);
+
+		// These could be adjusted by "Strictness"
+		$maxBGP = $this->bgPercentage + 10; 
+		$minBGP = $this->bgPercentage - 25; 
+
+		 $this->feedback_msgs[] = "bgPercentage: " . $this->bgPercentage . " vs " . $imageBGPercent ; 
+		 if (($imageBGPercent >= $minBGP) && ($imageBGPercent > 40)) {
+		 	if (($bgSampleResult == false)) {
+		 		$this->feedback_msgs[] = 'Background appears to be white but make sure there are no shadows or outlines'; 
+		 	} else {
+		 		$this->feedback_msgs[] = 'background is white';
+		 	}
+		 } else if (($imageBGPercent >= $minBGP) && ($bgSampleResult == true)) {
+			$this->feedback_msgs[] = 'background is white'; 
+		 } else {
+			$this->feedback_msgs[] = 'background is NOT white'; 
+		 }
+
+	}
+
+	function analyzePhoto(){
+		$this->validateFaceSize();
+		$this->validateBackground(); 
+
+		$this->printFeedbackMsgs(); 
 	}
 
 	public function fillOutlineArray(){
@@ -209,17 +281,6 @@ class Feedback{
 			}
 			
 		}
-	
-
-		// Print newArray
-		// if (!empty($this->outlineArray)) {
-		// 	foreach ($this->outlineArray as $column => $row) {
-		// 		foreach ($row as $value) {
-		// 			echo $value;
-		// 		}
-		// 		echo "<br>"; 
-		// 	}
-		// }
 	}
 
 	public function sampleImagePixels(){
@@ -240,18 +301,94 @@ class Feedback{
 		  	}
 	  	}
 
-	    //  if (!empty($rgbPixelArray)) {
-		// 	foreach ($rgbPixelArray as $column => $row) {
-		// 		foreach ($row as $value) {
-		// 			echo $value;
-		// 		}
-		// 		echo "<br>"; 
-		// 	}
-		// }
-
 	  	return $rgbPixelArray; 
 
 	} // --end of function sampleImagePixels
+
+
+	public function sampleBackground($leftMax, $rightMax, $facePosition){
+		if ($facePosition == "left") {
+			return $this->sampleLeftPortionOfBG($rightMax); 
+		} else if ($facePosition == "right") {
+			return $this->sampleRightPortionOfBG($leftMax); 
+		} 
+
+		return ($this->sampleLeftPortionOfBG($leftMax) == true && $this->sampleRightPortionOfBG($rightMax) == true);
+	}
+
+	// This function is only called if face is centered 
+	public function sampleLeftPortionOfBG($leftMax){
+		// Sample outline array background to make sure there are no shadows or dark
+		$sampleCount = 0; 
+		$invalidPixelCount = 0; 
+		$rowMax = sizeof($this->outlineArray)/2;
+		$columnMax = sizeof($this->outlineArray)/2;
+
+		for ($row=0; $row < $rowMax; $row++) { 
+			for ($col=0; $col < $columnMax; $col++) { 
+				$outOfFaceArea = ($col < ($leftMax-25));
+
+				if ($outOfFaceArea) {
+					if($this->outlineArray[$row][$col] == 1){
+						$this->outlineArray[$row][$col] = 'P';
+						$invalidPixelCount++; 
+					}
+				} else {
+					break 1; 
+				}
+				$sampleCount++;
+			}
+			$columnMax-=1; 
+		}// --end of foreach
+
+	
+		// Calculate results
+		$invalidPixelPercent = (($invalidPixelCount/$sampleCount)*100); 
+		$this->feedback_msgs[] = $sampleCount .' Invalid Pixel Percentage: ' . $invalidPixelPercent; 
+
+		if ($sampleCount > 1000 && $invalidPixelPercent > 15) {
+			return false;
+		} else {
+			return true; 
+		}
+		
+	}
+
+	public function sampleRightPortionOfBG($rightMax){
+		// Sample outline array background to make sure there are no shadows or dark
+		$sampleCount = 0; 
+		$invalidPixelCount = 0; 
+		$rowMax = sizeof($this->outlineArray)/2;
+		$columnMax = sizeof($this->outlineArray)/2;
+
+		for ($row=0; $row < $rowMax; $row++) { 
+			for ($col=sizeof($this->outlineArray[$row])-1; $col > $columnMax; $col--) { 
+				$outOfFaceArea = ($col > ($rightMax+25));
+
+				if ($outOfFaceArea) {
+					if($this->outlineArray[$row][$col] == 1){
+						$this->outlineArray[$row][$col] = 'P';
+						$invalidPixelCount++; 
+					}
+				} else {
+					break 1; 
+				}
+				$sampleCount++;
+
+			}
+			$columnMax+=1; 
+		}// --end of foreach
+
+		// Calculate results
+		$invalidPixelPercent = (($invalidPixelCount/$sampleCount)*100); 
+		$this->feedback_msgs[] = $sampleCount .' Invalid Pixel Percentage: ' . $invalidPixelPercent;
+
+		if ($sampleCount > 1000 && $invalidPixelPercent > 15) {
+			return false;
+		} else {
+			return true; 
+		}
+	}
 
 	public function rgbValidator($r, $g, $b){
 		$rMagnitude = 20; 
@@ -259,12 +396,16 @@ class Feedback{
 		$bMagnitude = 20; 
 
 		if (($r > $g) && ($r > $b)) {
-			// Red is dominant, so check magnitude
-			if (($r > 235) && (($r - $g) > 20) && (($r - $b) > 20)) {
+			// Red is dominant color
+			if ((abs(($r - $g)) > 20) && (abs(($r - $b)) > 20)) {
 				return false; 
 			}
 
-			if (($r < 235) && ((($r - $g) > 30 ) && (($r - $b) > 30))) {
+			if ( (($r < 215) && ($g < 215)) && (abs(($r - $g)) < 15) && abs($r - $b) > 25) {
+				return false;
+			}
+
+			if ((($r < 200) && ($b < 200)) && (abs(($r - $g)) > 15)) {
 				return false; 
 			}
 
@@ -273,13 +414,30 @@ class Feedback{
 					return false;
 				}
 			}
-		} else if(($g > $r) && ($g > $b)){
+		}
+
+		if(($g > $r) && ($g > $b)){
 			// Green is dominant color
-			if ( (($g-$r) > 15) && (($g - $b) > 15) ) {
+			if ((abs(($g-$r)) > 15) && (abs(($g - $b)) > 15) ) {
 				return false; 
 			}
-		} else if (($b > $r) && ($b > $g)){
-			// Blue is dominant color
+
+			if ((($g < 200) && ($r < 200)) && (($g-$r) <15) ) {
+				if (($g-$b) > 25) {
+					return false; 
+				}
+			}
+		}
+
+		// Green and Blue are dominant colors 
+		if ((abs($g - $b) < 10) && ($g > $r) && ($b > $r)) {
+				if ( (abs($g-$r) > 15) || (abs($b-$r) > 15) ) {
+						return false; 
+				}
+		}
+
+		// Blue is dominant color
+		if (($b > $r) && ($b > $g)){
 			if ( (($b-$r) > 15) && (($b - $g) > 15)) {
 				return false; 
 			}
@@ -287,14 +445,25 @@ class Feedback{
 			if ((($b-$g) < 15) && (($b - $g) > 15)) {
 				return false;
 			}
-		} else if (($r > $b) && ($g > $b)) {
+		}
+
+		if (($b > $g) && ($r > $g) && ($b > $r)) {
+			// Blue and Red are dominant colors (Blue is main)
+			if ((abs($b - $r) < 10) && ($b - $g) > 10 ) {
+				return false; 
+			}
+
+		}
+
+		if (($r > $b) && ($g > $b)) {
 			// Red and green are dominant colors 
 			if ( ($r > 225) && ($g > 225) ) {
 				if ($b < 200) {
 					return false; 				}
 			}
+		}
 
-		} else if(($g == $r) && ($b == $r)){
+		if(($g == $r) && ($b == $r)){
 			// RGB are equal
 			if ($r < 195) {
 			 	return false; 
@@ -307,64 +476,6 @@ class Feedback{
 		}
 
 		return true; 
-	}
-
-	public function validateBackground(){
-		// First fill outline array w/ filtered pixels + grayscale 
-		$this->fillOutlineArray(); 
-		$backgroundAccuracy = 0; 
-		$bodyPosAccuracy = 0; 
-
-		// This algorithm will attempt to trace the ouline of the face/body that was found
-		$leftMax = round($this->faceXPos - ($this->faceWidth/2));
-		$rightMax = round(($this->faceWidth/2) + $this->faceXPos);
-		$topMax = round($this->faceYPos - ($this->faceHeight/2)); 
-		$bottomMax = round(($this->faceHeight/2) + $this->faceYPos);
-		// Testing ------------------------
-		$this->outlineArray[round($this->faceYPos)][round($this->faceXPos)] = "Q";
-		$this->outlineArray[round($this->faceYPos)][$leftMax] = "Q";
-		$this->outlineArray[round($this->faceYPos)][$rightMax] = "Q";
-		$this->outlineArray[$topMax][round($this->faceXPos)] = "Q";
-		$this->outlineArray[$bottomMax][round($this->faceXPos)] = "Q";
-
-		foreach ($this->outlineArray as $row => $columnArray) {
-				foreach ($columnArray as $column => $pixelValue) {
-					// Check if inside face area
-					// if ( ($column < $rightMax) && ($column > $leftMax) && ($row < $bottomMax) && ($row > $topMax) ) {
-					if ( ($column < $rightMax) && ($column > $leftMax) && ($row > $topMax) ) {
-						$this->outlineArray[$row][$column] = 1; 
-						$bodyPosAccuracy++; 
-					} else if($pixelValue == 0) {
-						$backgroundAccuracy++; 
-					} else {
-						$bodyPosAccuracy++; 
-					}
-				}
-		}
-
-		$imageArea = $this->imgHeight * $this->imgWidth; 
-		$imageBGPercent = (($backgroundAccuracy/$imageArea)*100);
-
-		// These could be adjusted by "Strictness"
-		$maxBGP = $this->bgPercentage + 10; 
-		$minBGP = $this->bgPercentage - 20; 
-
-		$this->feedback_msgs[] = "bgPercentage: " . $this->bgPercentage . " vs " . $imageBGPercent ; 
-
-		if ($imageBGPercent >= $minBGP) {
-			$this->feedback_msgs[] = 'background is white'; 
-		} else {
-			$this->feedback_msgs[] = 'background is NOT white'; 
-		}
-
-	}
-
-	function analyzePhoto(){
-		$this->validateFacePosition(); 
-		$this->validateFaceSize(); 
-		$this->validateBackground(); 
-
-		$this->printFeedbackMsgs(); 
 	}
 
 	public function printFeedbackMsgs(){

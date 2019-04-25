@@ -52,7 +52,7 @@ function convertGrayscale(){
 		grayScaleArray[i] = new Array(img.naturalWidth);
 
 		for (var j = 0; j < img.naturalWidth; j++) {
-			grayScaleArray[i][j] = getGrayScaleValue(grayscaleImgData[p], grayscaleImgData[p+1], grayscaleImgData[p+2], .5);
+			grayScaleArray[i][j] = getGrayScaleValue(grayscaleImgData[p], grayscaleImgData[p+1], grayscaleImgData[p+2], .6);
 			p+=4; 
 	  	}
   	}
@@ -75,7 +75,7 @@ function getImageOutline(){
 		  // Invert color
 		  Marvin.invertColors(imageOut, imageOut);
 		  // Threshold
-		  Marvin.thresholding(imageOut, imageOut, 210);
+		  Marvin.thresholding(imageOut, imageOut, 200);
 		  imageOut.draw(outlineC); 
 
 		  var outlineCTX = outlineC.getContext("2d"); 
