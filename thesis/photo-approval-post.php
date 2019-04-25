@@ -18,7 +18,7 @@ if(isset($_POST)){
 	// $feedbackObj->printFeedbackMsgs();
 
 	$feedbackObj->analyzePhoto(); 
-	$feedbackObj->printOutlineArray(); 
+	// $feedbackObj->printOutlineArray();    
 
 }
 ?>

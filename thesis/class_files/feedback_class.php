@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -22,6 +22,7 @@ class Feedback{
 	protected $outlineTraceArray;
 
 	// Feedback msgs based on given attributes
+	// Contaings sub arrays of errors, suggestions and positive feedback
 	protected $feedback_msgs; 
 
 	// Template properties
@@ -148,13 +149,9 @@ class Feedback{
 		// Get templateArea
 		$minFaceArea = $this->minFaceHeight * $this->minFaceWidth; 
 		$maxFaceArea = $this->maxFaceHeight * $this->maxFaceWidth;
-		// $this->feedback_msgs[] = 'face area' . $faceArea; 
-		// $this->feedback_msgs[] = 'min: ' . $minFaceArea . ' max: ' . $maxFaceArea;
-
-
 
 		if ($faceArea >= $minFaceArea && $faceArea <= $maxFaceArea) {
-		 	$this->feedback_msgs[] = "Face is approriate size";
+		 	$this->feedback_msgs['positive'] = "Face is approriate size";
 		 	return true;  
 		} else {
 			if ($faceArea < $minFaceArea) {
@@ -162,10 +159,15 @@ class Feedback{
 					$this->maxFaceXPos -= 20; 
 					$this->minFaceXPos += 20; 
 				}
-				$this->feedback_msgs[] = "Appears you are a bit far away from the camera"; 
+				$this->feedback_msgs['error'][] = "Appears you are a bit far away from the camera"; 
 			} else  if($faceArea > $maxFaceArea){
-				$this->feedback_msgs[] = "Appears you are too close to the camera"; 
+				$this->feedback_msgs['error'][] = "Appears you are too close to the camera"; 
 			}
+		}
+
+		if (array_key_exists('error', $this->feedback_msgs)) {
+			$this->feedback_msgs['suggestions'][] = "Use the image crop tool slider to adjust the magnification";
+			$this->feedback_msgs['suggestions'][] = "If crop tool does not allow you to modify the photo any further, submit another photo.";
 		}
 		return false; 
 
@@ -247,17 +249,16 @@ class Feedback{
 		$maxBGP = $this->bgPercentage + 10; 
 		$minBGP = $this->bgPercentage - 25; 
 
-		 $this->feedback_msgs[] = "bgPercentage: " . $this->bgPercentage . " vs " . $imageBGPercent ; 
 		 if (($imageBGPercent >= $minBGP) && ($imageBGPercent > 40)) {
 		 	if (($bgSampleResult == false)) {
 		 		$this->feedback_msgs[] = 'Background appears to be white but make sure there are no shadows or outlines'; 
 		 	} else {
-		 		$this->feedback_msgs[] = 'background is white';
+		 		$this->feedback_msgs[] = 'Background is white';
 		 	}
 		 } else if (($imageBGPercent >= $minBGP) && ($bgSampleResult == true)) {
-			$this->feedback_msgs[] = 'background is white'; 
+			$this->feedback_msgs[] = 'Background is white'; 
 		 } else {
-			$this->feedback_msgs[] = 'background is NOT white'; 
+			$this->feedback_msgs[] = 'Invalid background color detected!'; 
 		 }
 
 	}
@@ -344,7 +345,7 @@ class Feedback{
 	
 		// Calculate results
 		$invalidPixelPercent = (($invalidPixelCount/$sampleCount)*100); 
-		$this->feedback_msgs[] = $sampleCount .' Invalid Pixel Percentage: ' . $invalidPixelPercent; 
+		// $this->feedback_msgs[] = $sampleCount .' Invalid Pixel Percentage: ' . $invalidPixelPercent; 
 
 		if ($sampleCount > 1000 && $invalidPixelPercent > 15) {
 			return false;
@@ -381,7 +382,7 @@ class Feedback{
 
 		// Calculate results
 		$invalidPixelPercent = (($invalidPixelCount/$sampleCount)*100); 
-		$this->feedback_msgs[] = $sampleCount .' Invalid Pixel Percentage: ' . $invalidPixelPercent;
+		// $this->feedback_msgs[] = $sampleCount .' Invalid Pixel Percentage: ' . $invalidPixelPercent;
 
 		if ($sampleCount > 1000 && $invalidPixelPercent > 15) {
 			return false;
@@ -479,9 +480,11 @@ class Feedback{
 	}
 
 	public function printFeedbackMsgs(){
+		echo "<ul>";
 		foreach ($this->feedback_msgs as $key => $msg) {
-			echo $msg . "<br />"; 
+			echo "<li>" . $msg . "</li>"; 
 		}
+		echo "</ul>";
 	}
 
 
