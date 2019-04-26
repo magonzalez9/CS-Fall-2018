@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -22,7 +22,7 @@ class Feedback{
 	protected $outlineTraceArray;
 
 	// Feedback msgs based on given attributes
-	// Contaings sub arrays of errors, suggestions and positive feedback
+	// Contains sub arrays of errors, suggestions and positive feedback
 	protected $feedback_msgs; 
 
 	// Template properties
@@ -151,23 +151,26 @@ class Feedback{
 		$maxFaceArea = $this->maxFaceHeight * $this->maxFaceWidth;
 
 		if ($faceArea >= $minFaceArea && $faceArea <= $maxFaceArea) {
-		 	$this->feedback_msgs['positive'] = "Face is approriate size";
+		 	$this->feedback_msgs['positive'][] = "Face is approriate size";
 		 	return true;  
 		} else {
 			if ($faceArea < $minFaceArea) {
 				if ( (abs($minFaceArea)/$faceArea) > 3) {
 					$this->maxFaceXPos -= 20; 
 					$this->minFaceXPos += 20; 
+					$this->feedback_msgs['error'][] = "It appears you are a too far away from the camera"; 
+				} else {
+					$this->feedback_msgs['error'][] = "It appears you are slightly too far away from the camera";
 				}
-				$this->feedback_msgs['error'][] = "Appears you are a bit far away from the camera"; 
+				
 			} else  if($faceArea > $maxFaceArea){
-				$this->feedback_msgs['error'][] = "Appears you are too close to the camera"; 
+				$this->feedback_msgs['error'][] = "It appears you are too close to the camera"; 
 			}
 		}
 
 		if (array_key_exists('error', $this->feedback_msgs)) {
 			$this->feedback_msgs['suggestions'][] = "Use the image crop tool slider to adjust the magnification";
-			$this->feedback_msgs['suggestions'][] = "If crop tool does not allow you to modify the photo any further, submit another photo.";
+			// $this->feedback_msgs['suggestions'][] = "If crop tool does not allow you to modify the photo any further, please use a different photo.";
 		}
 		return false; 
 
@@ -184,7 +187,7 @@ class Feedback{
 		if ($correctFaceXPos && $correctFaceYPos) {
 		 	// Face is in correct 
 		 	$facePosition = "centered"; 
-		 	$this->feedback_msgs[] = "Face is centered"; 
+		 	$this->feedback_msgs['positive'][] = "Face is centered"; 
 		 } else {
 		 	# Face is not centered
 		 	// Check X position 
@@ -202,7 +205,21 @@ class Feedback{
 		 		$yDir = "lower"; 
 		 	}
 
-		 	$this->feedback_msgs[] = "Position your body " . $yDir . " to the " . $xDir . " and make sure your shoulders fit the frame.";
+		 	$this->feedback_msgs['error'][] = "Your body position is off-center";
+
+		 	if ($xDir != "" && $yDir != "") {
+		 		$this->feedback_msgs['suggestions'][] = "Position your body " . $yDir . " to the " . $xDir . " and ensure your shoulders fit the frame.";
+		 	} else if ($xDir != "") {
+		 		$this->feedback_msgs['suggestions'][] = "Position your body slightly to the " . $xDir;  
+		 	} else{
+		 		if ($yDir == "higher") {
+		 			$this->feedback_msgs['suggestions'][] = "Raise the position of your body"; 
+		 		} else {
+		 			$this->feedback_msgs['suggestions'][] = $yDir . " the position of your body";
+		 		}
+		 		 
+		 	}
+		 	
 		 }
 
 		 return $facePosition; 
@@ -251,14 +268,14 @@ class Feedback{
 
 		 if (($imageBGPercent >= $minBGP) && ($imageBGPercent > 40)) {
 		 	if (($bgSampleResult == false)) {
-		 		$this->feedback_msgs[] = 'Background appears to be white but make sure there are no shadows or outlines'; 
+		 		$this->feedback_msgs['error'][] = 'Background appears to be white but make sure there are no shadows, objects or scenery'; 
 		 	} else {
-		 		$this->feedback_msgs[] = 'Background is white';
+		 		$this->feedback_msgs['positive'][] = 'Background is white';
 		 	}
 		 } else if (($imageBGPercent >= $minBGP) && ($bgSampleResult == true)) {
-			$this->feedback_msgs[] = 'Background is white'; 
+			$this->feedback_msgs['positive'][] = 'Background is white'; 
 		 } else {
-			$this->feedback_msgs[] = 'Invalid background color detected!'; 
+			$this->feedback_msgs['error'][] = 'Invalid background color detected'; 
 		 }
 
 	}
@@ -480,11 +497,16 @@ class Feedback{
 	}
 
 	public function printFeedbackMsgs(){
-		echo "<ul>";
-		foreach ($this->feedback_msgs as $key => $msg) {
-			echo "<li>" . $msg . "</li>"; 
+		
+		foreach ($this->feedback_msgs as $msg_type => $msg_array) {
+			echo "<h2>" . $msg_type . "</h2>"; 
+			echo "<ul>";
+			foreach ($msg_array as $key => $msg) {
+				echo "<li>" . $msg . "</li>"; 
+			}
+			echo "</ul>";
 		}
-		echo "</ul>";
+		
 	}
 
 

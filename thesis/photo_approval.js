@@ -136,7 +136,7 @@ function analyzeImage(){
         		imageData +=  "Image data (width: " + img.naturalWidth + " | height:" + img.naturalHeight + ")<br>";
         		imageData += "(x: " + faces[0].positionX + " | y: " + faces[0].positionY +")" + "<br>"+ "Face width: "+ faces[0].width + " | Face height: "+ faces[0].height;
         		imageData += "<br> Face Center: (x: " + ((faces[0].positionX+((faces[0].width)/2)) - img.offsetLeft) + ", y: " + ((faces[0].positionY+((faces[0].height)/2)) - img.offsetTop)+ ")"; 
-        		document.getElementById("data").innerHTML = imageData;
+        		// document.getElementById("data").innerHTML = imageData;
         		// Output data for TESTING -------------------------------------------------------
 
         		// Draw the BOX
