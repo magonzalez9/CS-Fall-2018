@@ -31,6 +31,10 @@ header("Expires: 0"); // Proxies.
 <button onclick="getNextPhoto(false)">Prev</button>
 <button onclick="getNextPhoto(true)">Next</button>
 <br />
+<p id="data"></p>
+<p id="pixels"> </p>
+<p id="response"></p>
+<p id="gs"></p>
 <br />
 
 <fieldset>
@@ -48,10 +52,6 @@ Confidence: <input type="number" id="confidence" name="confidence" min="1" max="
 <button onclick="getImageOutline();">Outline</button>
 <!-- <button onclick="debug()">Analyze</button> -->
 
-<p id="pixels"> </p>
-<p id="response"></p>
-<p id="data"></p>
-<p id="gs"></p>
 </fieldset>
 
 </body>

@@ -161,7 +161,8 @@ function analyzeImage(){
 				    		imgHeight: img.naturalHeight, 
 				    		pixelArray: JSON.stringify(pixelArray),
 				    		outlineArray: JSON.stringify(outlineArray),
-				    		grayscaleArray: JSON.stringify(grayScaleArray)
+				    		grayscaleArray: JSON.stringify(grayScaleArray),
+				    		faceCount: faces.length
 				    },
 				    success: function(response) {
 				        document.getElementById("pixels").innerHTML = response;
