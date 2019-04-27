@@ -1,10 +1,10 @@
 <?php 
 class Feedback{
 	# Class Properties
-	// protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
-	protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
-	// protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
-	protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
+	protected $settingsFilePath = "C:\\xampp\htdocs\\thesis\\settings\\settings.txt"; 
+	// protected $settingsFilePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/settings.txt'; 
+	protected $templatePath = "C:\\xampp\htdocs\\thesis\\settings\\template.txt"; 
+	// protected $templatePath = '/Applications/XAMPP/xamppfiles/htdocs/thesis/settings/template.txt'; 
 
 	// Facial features
 	protected $faceWidth; 
@@ -108,42 +108,6 @@ class Feedback{
 		}
 	}
 
-
-	// DEBUG ************************************************************
-	public function printTemplateArray(){
-		if (!empty($this->templateArray)) {
-			foreach ($this->templateArray as $column => $row) {
-				foreach ($row as $value) {
-					echo $value;
-				}
-				echo "<br>"; 
-			}
-		}
-	} // --end of function printTemplateArray
-
-	public function printOutlineArray(){ 
-		if (!empty($this->outlineArray)) {
-			foreach ($this->outlineArray as $column => $row) {
-				foreach ($row as $value) {
-					echo $value;
-				}
-				echo "<br>"; 
-			}
-		}
-	}
-
-	public function printGrayscaleArray(){
-		if (!empty($this->grayscaleArray)) {
-			foreach ($this->grayscaleArray as $column => $row) {
-				foreach ($row as $value) {
-					echo $value;
-				}
-				echo "<br>"; 
-			}
-		}
-	}
-	// DEBUG ************************************************************
-
 	public function validateFaceSize(){
 		// Get face area
 		$faceArea = $this->faceHeight * $this->faceWidth;
@@ -153,11 +117,11 @@ class Feedback{
 		$maxFaceArea = $this->maxFaceHeight * $this->maxFaceWidth;
 
 		if ($faceArea >= $minFaceArea && $faceArea <= $maxFaceArea) {
-		 	$this->feedback_msgs['positive'][] = "Face is centered";
+		 	$this->feedback_msgs['positive'][] = "You are appropriate distance from the camera";
 		 	return true;  
 		} else {
 			if ($faceArea < $minFaceArea) {
-				if ( (abs($minFaceArea)/$faceArea) > 3) {
+				if ( (abs($minFaceArea)/$faceArea) > 4) {
 					$this->maxFaceXPos -= 20; 
 					$this->minFaceXPos += 20; 
 					$this->feedback_msgs['error'][] = "You are too far away from the camera"; 
@@ -172,7 +136,6 @@ class Feedback{
 
 		if (array_key_exists('error', $this->feedback_msgs)) {
 			$this->feedback_msgs['suggestions'][] = "Use the cropping tool slider to adjust the magnification";
-			// $this->feedback_msgs['suggestions'][] = "If crop tool does not allow you to modify the photo any further, please use a different photo.";
 		}
 		return false; 
 
@@ -187,9 +150,9 @@ class Feedback{
 
 		// Determine if the face is centered
 		if ($correctFaceXPos && $correctFaceYPos) {
-		 	// Face is in correct 
+		 	// Face centered
 		 	$facePosition = "centered"; 
-		 	$this->feedback_msgs['positive'][] = "Body is centered"; 
+		 	$this->feedback_msgs['positive'][] = "Shoulders fit the frame"; 
 		 } else {
 		 	# Face is not centered
 		 	// Check X position 
@@ -207,23 +170,25 @@ class Feedback{
 		 		$yDir = "lower"; 
 		 	}
 
-		 	$this->feedback_msgs['error'][] = "Your body position is off-center";
-
+		 	//Check X and Y position displacement
 		 	if ($xDir != "" && $yDir != "") {
-		 		$this->feedback_msgs['suggestions'][] = "Position your body " . $yDir . " to the " . $xDir . " and ensure your shoulders fit the frame";
+		 		// Both X and Y positions are incorrect so add error/suggestion message to feedback array
+		 		$this->feedback_msgs['error'][] = "Your body position is off-center";
+		 		$this->feedback_msgs['suggestions'][] = "Use the cropping tool to position yourself " . $yDir . " to the " . $xDir . " and ensure your shoulders fit the frame";
 		 	} else if ($xDir != "") {
-		 		if ((($this->minFaceXPos - $this->faceXPos) < 5) || (($this->faceXPos - $this->maxFaceXPos) > 5)) {
-		 			$this->feedback_msgs['suggestions'][] = "Use the cropping tool to reposition your body slightly to the " . $xDir;  
-		 		} else {
-		 			$this->feedback_msgs['suggestions'][] = "Use the cropping tool to reposition your body more to the " . $xDir; 
-		 		}
-		 		 
+		 		// Only X is incorrect meaning individual's body position is either too far right or too far left
+		 		$this->feedback_msgs['error'][] = "Your body position is off-center";
+		 		$this->feedback_msgs['suggestions'][] = "Use the cropping tool to reposition yourself slightly to the " . $xDir . " and ensure your shoulders fit the frame";  
 		 	} else{
+		 		// Only Y is incorrect meaning individual's body position is either to high or too low
 		 		if ($yDir == "higher") {
-		 			$this->feedback_msgs['suggestions'][] = "Raise the position of your body and ensure your shoulders fit the frame"; 
+		 			$this->feedback_msgs['suggestions'][] = "Use the cropping tool to raise your body position and ensure your shoulders fit the frame"; 
 		 		} else {
-		 			$this->feedback_msgs['suggestions'][] = $yDir . " the position of your body and ensure your shoulders fit the frame";
+		 			$this->feedback_msgs['suggestions'][] = "Use the croppin tool to lower your body position and ensure your shoulders fit the frame";
 		 		}
+
+		 		// Since X position is correct, it means face is centered
+		 		$this->feedback_msgs['positive'][] = "Your face position is centered";
 		 		 
 		 	}
 		 	
@@ -283,7 +248,7 @@ class Feedback{
 			$this->feedback_msgs['positive'][] = "Background is white"; 
 		 } else {
 			$this->feedback_msgs['error'][] = "Invalid background color detected"; 
-			$this->feedback_msgs['suggestions'][] = "Submit a different photo with a white background";
+			$this->feedback_msgs['suggestions'][] = "Try submitting a different photo with a whiter background";
 		 }
 
 	}
