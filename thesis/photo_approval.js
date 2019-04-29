@@ -86,22 +86,12 @@ function getImageOutline(){
 		  // console.log(outlineArray);   
 
 	}
-
 }
 
-function analyzeImage(){
+function analyzeImage(interval){
 	var img = document.getElementById("picture");
-	// Get settings ---------
-	var interval = parseInt(document.getElementById('interval').value, 10); 
-	var minNeighbors = parseInt(document.getElementById('minNeighbors').value, 10);
-	var confidence = parseInt(document.getElementById('confidence').value, 10); 
-	var grayscale = document.querySelector('input[name="grayscale"]:checked').value;
 	var imageData = ""; 
-	if (grayscale == "false") {
-		grayscale = false; 
-	} else {
-		grayscale = true; 
-	}
+
 
 	// Settings -------------
 	var pixelArray = getImagePixels(); 
@@ -123,10 +113,10 @@ function analyzeImage(){
 	// Get the face location
     $('#picture').faceDetection({
     	interval: interval,
-    	minNeighbors: minNeighbors, 
+    	minNeighbors: 1, 
     	confidence: null, 
     	async: false, 
-    	grayscale: grayscale,
+    	grayscale: false,
         complete: function (faces) {
         	
 
@@ -173,13 +163,19 @@ function analyzeImage(){
 				    }
 				});
         	} else {
-        		console.log("No face found");
+        		// Increase interval
+        		interval++; 
+        		if (interval >=14) {
+        			//output normal feedback
+        			return; 
+        		} else {
+        			analyzeImage(interval); 	
+        		}
+        		 
         	}
         }
     });
 }
-
-
 
 function validatePixelColors(imagePixelArray, imgHeight, imgWidth){
 	// Loop through every pixel in order to determine its color

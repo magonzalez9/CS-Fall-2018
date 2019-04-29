@@ -8,17 +8,7 @@ if(isset($_POST)){
 
 	$feedbackObj = new Feedback($_POST);
 
-
-	// $feedbackObj->printOutlineArray();
-	// $feedbackObj->printGrayscaleArray(); 
-	// $feedbackObj->fillOutlineArray(); 
-	// $feedbackObj->sampleImagePixels();
-	
-	// $feedbackObj->validateBackground(); 
-	// $feedbackObj->printFeedbackMsgs();
-
-	$feedbackObj->analyzePhoto(); 
-	// $feedbackObj->printOutlineArray();    
+	$feedbackObj->analyzePhoto();    
 
 }
 ?>

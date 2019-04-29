@@ -41,8 +41,6 @@ class Feedback{
 	protected $bodyPercentage;
 	protected $bgPercentage; 
 
-
-
 	function __construct($data_array){
 		// Set class properties
 		$this->faceWidth = $data_array['faceWidth']; 
@@ -63,29 +61,10 @@ class Feedback{
 		
 	}
 
-	public function getTemplateArray(){
-		$fp = fopen($this->templatePath, 'r');
-		if (!$fp) {
-		    echo 'Could not open file';
-		}
-
-		$row = 0; 
-		$column = 0; 
-		while (false !== ($pixel = fgetc($fp))) {
-		    $this->templateArray[$column][$row] = $pixel;
-		    
-
-		    if ($row == $this->templateWidth-1) {
-		    	$row = 0; 
-		    	$column++; 
-		    } else {
-		    	$row++; 
-		    }
-		}// --end of while
-
-		return $this->templateArray; 
-	}
-
+	// Function: setTempleateSettings
+	// Description: Sets all of the template settings based on JSON file
+	// Parameters: None
+	// Returns: None
 	public function setTemplateSettings(){
 		$json_str = file_get_contents($this->settingsFilePath);
 
@@ -106,8 +85,40 @@ class Feedback{
 			$this->bodyPercentage = $jsonObj->bodyPercentage; 
 			$this->bgPercentage = $jsonObj->bgPercentage; 
 		}
-	}
+	}// --end of function setTemplateSettings
 
+	// Function: getTemplateArray
+	// Description: Sets the template array property by getting values from template array file
+	// Parameters: None
+	// Returns: templateArray 
+	public function getTemplateArray(){
+		$fp = fopen($this->templatePath, 'r');
+		if (!$fp) {
+		    echo 'Could not open file';
+		}
+
+		$row = 0; 
+		$column = 0; 
+		while (false !== ($pixel = fgetc($fp))) {
+		    $this->templateArray[$column][$row] = $pixel;
+		    
+
+		    if ($row == $this->templateWidth-1) {
+		    	$row = 0; 
+		    	$column++; 
+		    } else {
+		    	$row++; 
+		    } 
+		}// --end of while
+
+		return $this->templateArray; 
+	}// --end of function getTemplateArray
+
+	// Function: validateFaceSize
+	// Description: Determines whether face is appropriate size
+	//              e.g. Individual is too close or too far
+	// Parameters: None
+	// Returns: None
 	public function validateFaceSize(){
 		// Get face area
 		$faceArea = $this->faceHeight * $this->faceWidth;
@@ -117,7 +128,7 @@ class Feedback{
 		$maxFaceArea = $this->maxFaceHeight * $this->maxFaceWidth;
 
 		if ($faceArea >= $minFaceArea && $faceArea <= $maxFaceArea) {
-		 	$this->feedback_msgs['positive'][] = "You are appropriate distance from the camera";
+		 	$this->feedback_msgs['positive'][] = "You are at an appropriate distance from the camera";
 		 	return true;  
 		} else {
 			if ($faceArea < $minFaceArea) {
@@ -141,6 +152,10 @@ class Feedback{
 
 	}
 
+	// Function: validateFacePosition
+	// Description: Determines wheter face's position is appropriate
+	// Parameters: None
+	// Returns: None
 	public function validateFacePosition(){
 		$correctFaceXPos = $this->faceXPos <= $this->maxFaceXPos && $this->faceXPos >= $this->minFaceXPos;
 		$correctFaceYPos = $this->faceYPos <= $this->maxFaceYPos && $this->faceYPos >= $this->minFaceYPos;
@@ -152,7 +167,17 @@ class Feedback{
 		if ($correctFaceXPos && $correctFaceYPos) {
 		 	// Face centered
 		 	$facePosition = "centered"; 
-		 	$this->feedback_msgs['positive'][] = "Shoulders fit the frame"; 
+		 	if (array_key_exists('error', $this->feedback_msgs)) {
+		 		if (in_array("You are too close to the camera", $this->feedback_msgs['error']) || in_array("You are too far away from the camera", $this->feedback['error'])) {
+		 			$this->feedback_msgs['positive'][] = "Face appears to be centered";
+			 	} else {
+					$this->feedback_msgs['positive'][] = "Shoulders fit the frame"; 
+			 	}
+		 	} else {
+		 		$this->feedback_msgs['positive'][] = "Shoulders fit the frame"; 
+		 	}
+		 	
+		 	
 		 } else {
 		 	# Face is not centered
 		 	// Check X position 
@@ -198,7 +223,10 @@ class Feedback{
 		  
 	}// --end of function validateFacePosition
 
-
+	// Function: validateBackground
+	// Description: Validates the photo's bg color by making sure background is appropriate color
+	// Parameters: None
+	// Returns: None
 	public function validateBackground(){
 		// First fill outline array w/ filtered pixels + grayscale 
 		$this->fillOutlineArray(); 
@@ -240,31 +268,38 @@ class Feedback{
 
 		 if (($imageBGPercent >= $minBGP) && ($imageBGPercent > 40)) {
 		 	if (($bgSampleResult == false)) {
-		 		$this->feedback_msgs['error'][] = "Background is predominantly white but non-white portions detected"; 
+		 		$this->feedback_msgs['error'][] = "Background color is predominantly white but non-white portions detected"; 
 		 	} else {
-		 		$this->feedback_msgs['positive'][] = "Background is white";
+		 		$this->feedback_msgs['positive'][] = "Background color is white";
 		 	}
 		 } else if (($imageBGPercent >= $minBGP) && ($bgSampleResult == true)) {
-			$this->feedback_msgs['positive'][] = "Background is white"; 
+			$this->feedback_msgs['positive'][] = "Background color is white"; 
 		 } else {
 			$this->feedback_msgs['error'][] = "Invalid background color detected"; 
-			$this->feedback_msgs['suggestions'][] = "Try submitting a different photo with a whiter background";
+			$this->feedback_msgs['suggestions'][] = "Try uploading a photo with a whiter background color";
 		 }
 
-	}
+	}// --end of function validateBackground
 
-	function analyzePhoto(){
+	// Function: analyzePhoto
+	// Description: Compiles all of the validation methods into one method
+	// Parameters: None
+	// Returns: None
+	public function analyzePhoto(){
 		if ($this->faceCount > 1) {
-			$this->feedback_msgs['error'][] = "It appears there are multiple people in your picture";
+			$this->feedback_msgs['error'][] = "It appears there are multiple people in your photo";
 		} else {
 			$this->validateFaceSize();
 			$this->validateBackground(); 
 		}
 		
-
 		$this->printFeedbackMsgs(); 
 	}
 
+	// Function: fillOutlineArray
+	// Description: Fills the outline array
+	// Parameters: None
+	// Returns: None
 	public function fillOutlineArray(){
 		$filteredPixelArray = $this->sampleImagePixels();
 	
@@ -277,8 +312,12 @@ class Feedback{
 			}
 			
 		}
-	}
+	}// --end of function fillOutlineArray
 
+	// Function: sampleImagePixels
+	// Description: Samples ALL image pixels and categorizes them based on RGB color
+	// Parameters: None
+	// Returns: filtered pixel array containing validated pixels
 	public function sampleImagePixels(){
 		$rgbPixelArray = array(); 
 
@@ -301,7 +340,12 @@ class Feedback{
 
 	} // --end of function sampleImagePixels
 
-
+	// Function: sampleBackground
+	// Description: determines which background portions to sample
+	// Parameters: $leftMax - X location of left side of face
+    //             $rightMax - X location of right side of face
+    //             $facePosition - Str value of face location 
+	// Returns: Boolean false if large portion of invalide colors exist, true otherwise
 	public function sampleBackground($leftMax, $rightMax, $facePosition){
 		if ($facePosition == "left") {
 			return $this->sampleLeftPortionOfBG($rightMax); 
@@ -310,9 +354,14 @@ class Feedback{
 		} 
 
 		return ($this->sampleLeftPortionOfBG($leftMax) == true && $this->sampleRightPortionOfBG($rightMax) == true);
-	}
+	}// --end of function sampleBackground
 
-	// This function is only called if face is centered 
+	// Function: sampleLeftPortionOfBG
+	// Description: Takes a small sample the left side of the image background and determines if 
+	//              invalid colors exist
+	// Parameters: 
+	//           - $leftMax - X location of left side of face
+	// Returns: Boolean false if large portion of invalide colors exist, true otherwise
 	public function sampleLeftPortionOfBG($leftMax){
 		// Sample outline array background to make sure there are no shadows or dark
 		$sampleCount = 0; 
@@ -340,16 +389,20 @@ class Feedback{
 	
 		// Calculate results
 		$invalidPixelPercent = (($invalidPixelCount/$sampleCount)*100); 
-		// $this->feedback_msgs[] = $sampleCount .' Invalid Pixel Percentage: ' . $invalidPixelPercent; 
 
 		if ($sampleCount > 1000 && $invalidPixelPercent > 15) {
 			return false;
 		} else {
 			return true; 
-		}
-		
-	}
+		}	
+	} // --end of sampleLeftPortionOfBG
 
+	// Function: sampleRightPortionOfBG
+	// Description: Takes a small sample the right side of the image background and determines if 
+	//              invalid colors exist
+	// Parameters: 
+	//           - $rightMax - X location of right side of face
+	// Returns: Boolean false if large portion of invalide colors exist, true otherwise
 	public function sampleRightPortionOfBG($rightMax){
 		// Sample outline array background to make sure there are no shadows or dark
 		$sampleCount = 0; 
@@ -377,15 +430,19 @@ class Feedback{
 
 		// Calculate results
 		$invalidPixelPercent = (($invalidPixelCount/$sampleCount)*100); 
-		// $this->feedback_msgs[] = $sampleCount .' Invalid Pixel Percentage: ' . $invalidPixelPercent;
 
 		if ($sampleCount > 1000 && $invalidPixelPercent > 15) {
 			return false;
 		} else {
 			return true; 
 		}
-	}
+	} // --end of sampleRightPortionOfBG
 
+	// Function: rgbValidator	
+	// Description: Validates rgb values of pixel
+	// Parameters: RGB color pixel value
+	//			   $r - red, $g - green, $b - blue
+	// Returns: Boolean true if pixel is appropriate color, false otherwise
 	public function rgbValidator($r, $g, $b){
 		$rMagnitude = 20; 
 		$gMagnitude = 20; 
@@ -474,6 +531,10 @@ class Feedback{
 		return true; 
 	}
 
+	// Function: 
+	// Description:
+	// Parameters
+	// Returns
 	public function printFeedbackMsgs(){
 
 		echo "<h2>Feedback</h2>";
@@ -490,7 +551,6 @@ class Feedback{
 			}
 		}
 		echo "</ul>";
-
 		
 		if (array_key_exists('suggestions', $this->feedback_msgs)) {
 			echo "<h2>Suggestions</h2>";
@@ -509,8 +569,5 @@ class Feedback{
 
 	}
 
-	public function reAdjustSettings(){
-		// Useful function if image dimensions do not match those in settings
-	}
-}
+} // --END of class Feedback
 ?>
