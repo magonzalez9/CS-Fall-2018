@@ -60,7 +60,10 @@ class Feedback{
 		$this->getTemplateArray(); 
 		
 	}
-
+	// Function: getTemplateArray
+	// Description: Sets the template array property by getting values from template array file
+	// Parameters: None
+	// Returns: templateArray 
 	public function getTemplateArray(){
 		$fp = fopen($this->templatePath, 'r');
 		if (!$fp) {
@@ -84,6 +87,10 @@ class Feedback{
 		return $this->templateArray; 
 	}
 
+	// Function: setTempleateSettings
+	// Description: Sets all of the template settings based on JSON file
+	// Parameters: None
+	// Returns: None
 	public function setTemplateSettings(){
 		$json_str = file_get_contents($this->settingsFilePath);
 
@@ -105,42 +112,6 @@ class Feedback{
 			$this->bgPercentage = $jsonObj->bgPercentage; 
 		}
 	}
-
-
-	// DEBUG ************************************************************
-	public function printTemplateArray(){
-		if (!empty($this->templateArray)) {
-			foreach ($this->templateArray as $column => $row) {
-				foreach ($row as $value) {
-					echo $value;
-				}
-				echo "<br>"; 
-			}
-		}
-	} // --end of function printTemplateArray
-
-	public function printOutlineArray(){ 
-		if (!empty($this->outlineArray)) {
-			foreach ($this->outlineArray as $column => $row) {
-				foreach ($row as $value) {
-					echo $value;
-				}
-				echo "<br>"; 
-			}
-		}
-	}
-
-	public function printGrayscaleArray(){
-		if (!empty($this->grayscaleArray)) {
-			foreach ($this->grayscaleArray as $column => $row) {
-				foreach ($row as $value) {
-					echo $value;
-				}
-				echo "<br>"; 
-			}
-		}
-	}
-	// DEBUG ************************************************************
 
 	// Function: validateFaceSize
 	// Description: Determines whether face is appropriate size
@@ -314,6 +285,10 @@ class Feedback{
 
 	}// --end of function validateBackground
 
+	// Function: analyzePhoto
+	// Description: Compiles all of the validation methods into one method
+	// Parameters: None
+	// Returns: None
 	function analyzePhoto(){
 		if ($this->faceCount > 1) {
 			$this->feedback_msgs['error'][] = "It appears there are multiple people in your picture";
@@ -326,6 +301,10 @@ class Feedback{
 		$this->printFeedbackMsgs(); 
 	}
 
+	// Function: fillOutlineArray
+	// Description: Fills the outline array
+	// Parameters: None
+	// Returns: None
 	public function fillOutlineArray(){
 		$filteredPixelArray = $this->sampleImagePixels();
 	
@@ -340,6 +319,10 @@ class Feedback{
 		}
 	}
 
+	// Function: sampleImagePixels
+	// Description: Samples ALL image pixels and categorizes them based on RGB color
+	// Parameters: None
+	// Returns: filtered pixel array containing validated pixels
 	public function sampleImagePixels(){
 		$rgbPixelArray = array(); 
 
@@ -363,6 +346,12 @@ class Feedback{
 	} // --end of function sampleImagePixels
 
 
+	// Function: sampleBackground
+	// Description: determines which background portions to sample
+	// Parameters: $leftMax - X location of left side of face
+    //             $rightMax - X location of right side of face
+    //             $facePosition - Str value of face location 
+	// Returns: Boolean false if large portion of invalide colors exist, true otherwise
 	public function sampleBackground($leftMax, $rightMax, $facePosition){
 		if ($facePosition == "left") {
 			return $this->sampleLeftPortionOfBG($rightMax); 
@@ -373,7 +362,13 @@ class Feedback{
 		return ($this->sampleLeftPortionOfBG($leftMax) == true && $this->sampleRightPortionOfBG($rightMax) == true);
 	}
 
-	// This function is only called if face is centered 
+
+	// Function: sampleLeftPortionOfBG
+	// Description: Takes a small sample the left side of the image background and determines if 
+	//              invalid colors exist
+	// Parameters: 
+	//           - $leftMax - X location of left side of face
+	// Returns: Boolean false if large portion of invalide colors exist, true otherwise
 	public function sampleLeftPortionOfBG($leftMax){
 		// Sample outline array background to make sure there are no shadows or dark
 		$sampleCount = 0; 
@@ -411,6 +406,12 @@ class Feedback{
 		
 	}
 
+	// Function: sampleRightPortionOfBG
+	// Description: Takes a small sample the right side of the image background and determines if 
+	//              invalid colors exist
+	// Parameters: 
+	//           - $rightMax - X location of right side of face
+	// Returns: Boolean false if large portion of invalide colors exist, true otherwise
 	public function sampleRightPortionOfBG($rightMax){
 		// Sample outline array background to make sure there are no shadows or dark
 		$sampleCount = 0; 
@@ -446,7 +447,12 @@ class Feedback{
 			return true; 
 		}
 	}
-
+	
+	// Function: rgbValidator	
+	// Description: Validates rgb values of pixel
+	// Parameters: RGB color pixel value
+	//			   $r - red, $g - green, $b - blue
+	// Returns: Boolean true if pixel is appropriate color, false otherwise
 	public function rgbValidator($r, $g, $b){
 		$rMagnitude = 20; 
 		$gMagnitude = 20; 
@@ -570,8 +576,5 @@ class Feedback{
 
 	}
 
-	public function reAdjustSettings(){
-		// Useful function if image dimensions do not match those in settings
-	}
 }
 ?>
