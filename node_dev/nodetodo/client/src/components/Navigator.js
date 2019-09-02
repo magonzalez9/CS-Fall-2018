@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown'; 
 import {Router, Link} from '@reach/router'; 
 import styled from 'styled-components';
-import Overview from './pages/Overview'; 
+import Dashboard from './pages/Overview'; 
 import About from './pages/About'; 
 import AddTodoForm from './pages/AddTodoForm'; 
 import ModifyTodo from './pages/ModifyTodo'; 
@@ -17,6 +17,9 @@ export class Navigator extends Component {
     constructor(props){
         super(props); 
 
+        this.state = {
+
+        }
     }
 
     render() {
@@ -46,7 +49,7 @@ export class Navigator extends Component {
                 </Navbar>
 
                 <Router>
-                    <Overview path="/"/>
+                    <Dashboard path="/"/>
                     <About path="/about/"/>
                     <AddTodoForm path="/add/"/>
                     <ModifyTodo path="/modify/"/>
