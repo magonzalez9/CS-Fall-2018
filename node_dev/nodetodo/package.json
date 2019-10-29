@@ -18,7 +18,7 @@
     "bootstrap": "^4.3.1",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.19.1",
-    "knex": "^0.18.2",
+    "knex": "^0.19.5",
     "lodash": "^4.17.14",
     "pg": "^7.11.0",
     "react-bootstrap": "^1.0.0-beta.9",
